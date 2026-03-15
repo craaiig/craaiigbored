@@ -1,0 +1,17 @@
+{
+  "name": "CRAAIIGBORED",
+  "short_name": "CRAAIIGBORED",
+  "description": "CRAAIIGBORED is a Web Audio API digital guitar rig.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#05070b",
+  "theme_color": "#ff8c42",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Cpath d='M18 34c0-10 7-16 18-16 8 0 13 2 18 7l-7 7c-3-3-6-4-11-4-6 0-10 2-10 7 0 4 3 6 8 7l5 1c10 2 15 7 15 15 0 10-8 16-21 16-10 0-17-3-22-9l7-7c4 4 8 6 15 6 7 0 11-3 11-7 0-4-3-6-8-7l-5-1c-9-2-13-7-13-15Z' fill='%23ff8c42'/%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

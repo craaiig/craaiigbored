@@ -1,0 +1,3176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRAAIIGBORED</title>
+    <meta name="application-name" content="CRAAIIGBORED" />
+    <meta name="apple-mobile-web-app-title" content="CRAAIIGBORED" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Cpath d='M18 34c0-10 7-16 18-16 8 0 13 2 18 7l-7 7c-3-3-6-4-11-4-6 0-10 2-10 7 0 4 3 6 8 7l5 1c10 2 15 7 15 15 0 10-8 16-21 16-10 0-17-3-22-9l7-7c4 4 8 6 15 6 7 0 11-3 11-7 0-4-3-6-8-7l-5-1c-9-2-13-7-13-15Z' fill='%23ff8c42'/%3E%3C/svg%3E"
+    />
+    <link rel="manifest" href="./manifest.json" />
+    <style>
+      :root {
+        --bg-1: #05070b;
+        --bg-2: #0c1017;
+        --panel: rgba(17, 24, 35, 0.88);
+        --panel-border: rgba(255, 255, 255, 0.1);
+        --pedal-top: #2c313d;
+        --pedal-face: #161a22;
+        --pedal-edge: #0c0f15;
+        --accent: #ff8c42;
+        --accent-soft: rgba(255, 140, 66, 0.25);
+        --text-main: #edf2ff;
+        --text-dim: #97a1b3;
+        --danger: #f35b5b;
+        --success: #55d58d;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        color: var(--text-main);
+        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(255, 140, 66, 0.12), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(67, 98, 255, 0.08), transparent 24%),
+          linear-gradient(160deg, var(--bg-1), var(--bg-2));
+      }
+
+      .app {
+        width: min(100%, 1400px);
+        padding: 28px;
+        border: 1px solid var(--panel-border);
+        border-radius: 28px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 36%),
+          var(--panel);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+
+      .title-group h1 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .title-group p {
+        margin: 10px 0 0;
+        color: var(--text-dim);
+        max-width: 42rem;
+        line-height: 1.5;
+      }
+
+      .status {
+        min-width: 240px;
+        padding: 12px 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.22);
+      }
+
+      .status-label {
+        display: block;
+        font-size: 0.78rem;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 6px;
+      }
+
+      .status-text {
+        font-size: 0.98rem;
+        line-height: 1.4;
+      }
+
+      .scope-rack {
+        position: relative;
+        margin-bottom: 28px;
+        padding: 18px;
+        border-radius: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 24%),
+          rgba(4, 8, 12, 0.55);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          inset 0 -18px 30px rgba(0, 0, 0, 0.35),
+          0 16px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .scope-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .scope-title {
+        margin: 0;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--text-dim);
+      }
+
+      .scope-badges {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .scope-badge {
+        padding: 7px 11px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(0, 0, 0, 0.28);
+        color: var(--text-dim);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .scope-badge--live {
+        color: #d1fbe4;
+        background: rgba(85, 213, 141, 0.12);
+        border-color: rgba(85, 213, 141, 0.28);
+      }
+
+      .scope-screen {
+        position: relative;
+        overflow: hidden;
+        min-height: 210px;
+        padding: 12px;
+        border-radius: 20px;
+        border: 1px solid rgba(85, 213, 141, 0.18);
+        background:
+          linear-gradient(180deg, rgba(85, 213, 141, 0.03), transparent 26%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.75), rgba(3, 7, 4, 0.98));
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+          inset 0 0 30px rgba(85, 213, 141, 0.08),
+          0 14px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .scope-screen::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(85, 213, 141, 0.08);
+        pointer-events: none;
+      }
+
+      #scopeCanvas {
+        display: block;
+        width: 100%;
+        height: 210px;
+        border-radius: 14px;
+      }
+
+      .pedalboard {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-bottom: 28px;
+        align-items: start;
+      }
+
+      .pedal {
+        position: relative;
+        padding: 28px 26px 22px;
+        border-radius: 36px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+          linear-gradient(165deg, var(--pedal-top), var(--pedal-face));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          inset 0 -10px 20px rgba(0, 0, 0, 0.45),
+          0 20px 50px rgba(0, 0, 0, 0.55);
+      }
+
+      .pedal::before,
+      .pedal::after {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        pointer-events: none;
+      }
+
+      .pedal::after {
+        inset: auto 20px 18px;
+        height: 14px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent);
+        border: 0;
+        opacity: 0.75;
+      }
+
+      .pedal--orange {
+        border: 4px solid rgba(6, 6, 6, 0.92);
+        background:
+          linear-gradient(180deg, rgba(255, 227, 197, 0.28), transparent 18%),
+          linear-gradient(135deg, #ff8a4f, #f05d23 48%, #d94f1e 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 240, 220, 0.42),
+          inset 0 -14px 22px rgba(0, 0, 0, 0.28),
+          0 22px 50px rgba(0, 0, 0, 0.5);
+      }
+
+      .pedal--orange::before {
+        border-color: rgba(0, 0, 0, 0.16);
+      }
+
+      .pedal--orange::after {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent);
+      }
+
+      .pedal--orange .pedal-brand,
+      .pedal--orange .pedal-name,
+      .pedal--orange .pedal-subtitle,
+      .pedal--orange .stomp-caption,
+      .pedal--orange .control-header label {
+        color: #111111;
+      }
+
+      .pedal--orange .pedal-brand {
+        text-shadow: 0 1px 0 rgba(255, 241, 222, 0.4);
+      }
+
+      .pedal--orange .control-panel {
+        background:
+          linear-gradient(180deg, rgba(28, 28, 28, 0.98), rgba(10, 10, 10, 0.92));
+        border-color: rgba(255, 255, 255, 0.06);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .pedal--orange .control-panel .hint,
+      .pedal--orange .control-panel .control-header label {
+        color: rgba(255, 223, 195, 0.78);
+      }
+
+      .pedal--orange .value-pill {
+        background: rgba(0, 0, 0, 0.74);
+        color: #ffd9c1;
+      }
+
+      .pedal--orange .stomp-button {
+        border-color: rgba(0, 0, 0, 0.55);
+      }
+
+      .pedal-brand {
+        margin: 0 0 22px;
+        text-align: center;
+        font-size: 0.82rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--text-dim);
+      }
+
+      .pedal-name {
+        margin: 0;
+        text-align: center;
+        font-size: clamp(1.55rem, 2.1vw, 2.25rem);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .pedal-subtitle {
+        margin: 10px 0 24px;
+        text-align: center;
+        color: var(--accent);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+
+      .control-panel {
+        display: grid;
+        gap: 18px;
+        margin-bottom: 26px;
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .drive-row {
+        display: grid;
+        gap: 10px;
+      }
+
+      .control-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+      }
+
+      .control-header label {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.82rem;
+        color: var(--text-dim);
+      }
+
+      .value-pill {
+        min-width: 78px;
+        text-align: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-weight: 700;
+        background: var(--accent-soft);
+        color: #ffd5b8;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        appearance: none;
+        background: transparent;
+      }
+
+      input[type="range"]::-webkit-slider-runnable-track {
+        height: 12px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, rgba(255, 140, 66, 0.85), rgba(255, 179, 71, 0.95)),
+          rgba(255, 255, 255, 0.06);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
+      }
+
+      input[type="range"]::-moz-range-track {
+        height: 12px;
+        border-radius: 999px;
+        background:
+          linear-gradient(90deg, rgba(255, 140, 66, 0.85), rgba(255, 179, 71, 0.95)),
+          rgba(255, 255, 255, 0.06);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.45);
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        appearance: none;
+        width: 28px;
+        height: 28px;
+        margin-top: -8px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.75);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.12) 35%),
+          linear-gradient(180deg, #d8dde7, #6f7b91);
+        box-shadow:
+          0 8px 14px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.75);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.12) 35%),
+          linear-gradient(180deg, #d8dde7, #6f7b91);
+        box-shadow:
+          0 8px 14px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+      }
+
+      .stomp-area {
+        display: grid;
+        place-items: center;
+        gap: 16px;
+        padding-top: 6px;
+      }
+
+      .stomp-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        width: 100%;
+      }
+
+      .stomp-cluster {
+        display: grid;
+        justify-items: center;
+        gap: 12px;
+      }
+
+      .stomp-label {
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+      }
+
+      .led {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: rgba(243, 91, 91, 0.2);
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.45);
+        transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .led.active {
+        background: var(--success);
+        box-shadow:
+          0 0 12px rgba(85, 213, 141, 0.75),
+          0 0 26px rgba(85, 213, 141, 0.35);
+        transform: scale(1.08);
+      }
+
+      .led--record.active {
+        background: var(--danger);
+        box-shadow:
+          0 0 12px rgba(243, 91, 91, 0.78),
+          0 0 26px rgba(243, 91, 91, 0.38);
+      }
+
+      .stomp-button {
+        width: min(180px, 78%);
+        aspect-ratio: 1.6 / 1;
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)),
+          linear-gradient(180deg, #5a6475, #2a313d);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+          inset 0 -6px 14px rgba(0, 0, 0, 0.38),
+          0 12px 22px rgba(0, 0, 0, 0.35);
+        color: var(--text-main);
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 100ms ease, box-shadow 100ms ease, opacity 160ms ease;
+      }
+
+      .stomp-button.is-disabled {
+        opacity: 0.55;
+      }
+
+      .stomp-button.midi-eligible {
+        border-color: rgba(255, 140, 66, 0.45);
+      }
+
+      .stomp-button.midi-waiting {
+        border-color: rgba(255, 140, 66, 0.88);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+          inset 0 -6px 14px rgba(0, 0, 0, 0.38),
+          0 0 0 2px rgba(255, 140, 66, 0.26),
+          0 12px 22px rgba(0, 0, 0, 0.35);
+        animation: midiTargetPulse 1.15s ease-in-out infinite;
+      }
+
+      .stomp-button:active {
+        transform: translateY(3px);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          inset 0 -3px 10px rgba(0, 0, 0, 0.45),
+          0 8px 16px rgba(0, 0, 0, 0.28);
+      }
+
+      .stomp-button--record {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+          linear-gradient(180deg, rgba(126, 44, 44, 0.98), rgba(64, 21, 21, 0.98));
+      }
+
+      .stomp-button--wide {
+        width: min(180px, 100%);
+      }
+
+      .stomp-caption {
+        font-size: 0.84rem;
+        letter-spacing: 0.14em;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .utility-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .control-card {
+        padding: 20px;
+        border-radius: 22px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .control-card h2 {
+        margin: 0 0 10px;
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .control-card p {
+        margin: 0 0 16px;
+        line-height: 1.55;
+        color: var(--text-dim);
+      }
+
+      .safety-card {
+        border-color: rgba(255, 140, 66, 0.28);
+        background:
+          linear-gradient(180deg, rgba(255, 140, 66, 0.1), transparent 70%),
+          rgba(0, 0, 0, 0.24);
+      }
+
+      .safety-card h2 {
+        color: #ffd5b8;
+      }
+
+      .safety-note {
+        margin: 0 0 16px;
+        color: #ffd9c1;
+      }
+
+      .safety-check {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .safety-check input {
+        margin-top: 2px;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent);
+      }
+
+      .safety-check label {
+        color: var(--text-main);
+        line-height: 1.45;
+      }
+
+      .init-button {
+        width: 100%;
+        padding: 16px 18px;
+        border: 0;
+        border-radius: 18px;
+        background:
+          linear-gradient(135deg, rgba(255, 140, 66, 0.95), rgba(255, 179, 71, 0.92));
+        color: #1b1209;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 16px 26px rgba(255, 140, 66, 0.28);
+      }
+
+      .midi-card {
+        border-color: rgba(85, 213, 141, 0.18);
+        background:
+          linear-gradient(180deg, rgba(85, 213, 141, 0.06), transparent 72%),
+          rgba(0, 0, 0, 0.22);
+      }
+
+      .midi-status-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .midi-status-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.45);
+        flex: 0 0 auto;
+      }
+
+      .midi-status-dot.is-connected {
+        background: var(--success);
+        box-shadow:
+          0 0 10px rgba(85, 213, 141, 0.72),
+          0 0 22px rgba(85, 213, 141, 0.28);
+      }
+
+      .midi-status-dot.is-learning {
+        background: var(--accent);
+        box-shadow:
+          0 0 10px rgba(255, 140, 66, 0.72),
+          0 0 22px rgba(255, 140, 66, 0.28);
+      }
+
+      .midi-status-dot.is-recording {
+        background: var(--danger);
+        box-shadow:
+          0 0 10px rgba(243, 91, 91, 0.72),
+          0 0 22px rgba(243, 91, 91, 0.28);
+      }
+
+      .midi-status-text {
+        font-size: 0.94rem;
+        line-height: 1.45;
+        color: var(--text-main);
+      }
+
+      .midi-learn-button {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 140, 66, 0.3);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+          linear-gradient(180deg, rgba(70, 46, 32, 0.92), rgba(30, 21, 16, 0.98));
+        color: #ffd5b8;
+        font-size: 0.96rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
+      }
+
+      .midi-learn-button.is-learning {
+        border-color: rgba(255, 140, 66, 0.8);
+        box-shadow:
+          0 0 0 1px rgba(255, 140, 66, 0.24),
+          0 12px 22px rgba(0, 0, 0, 0.25),
+          0 0 24px rgba(255, 140, 66, 0.18);
+        animation: midiLearnPulse 1.2s ease-in-out infinite;
+      }
+
+      .preset-select {
+        width: 100%;
+        margin-bottom: 14px;
+        padding: 13px 14px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
+          rgba(0, 0, 0, 0.24);
+        color: var(--text-main);
+        font: inherit;
+      }
+
+      .preset-button-row {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .utility-action-button {
+        width: 100%;
+        padding: 14px 16px;
+        border: 0;
+        border-radius: 16px;
+        background:
+          linear-gradient(135deg, rgba(255, 140, 66, 0.95), rgba(255, 179, 71, 0.92));
+        color: #1b1209;
+        font-size: 0.95rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 14px 22px rgba(255, 140, 66, 0.22);
+      }
+
+      .utility-action-button.is-active {
+        background:
+          linear-gradient(135deg, rgba(85, 213, 141, 0.96), rgba(142, 234, 170, 0.9));
+        color: #08120d;
+        box-shadow: 0 14px 24px rgba(85, 213, 141, 0.24);
+      }
+
+      .utility-action-button.is-recording {
+        background:
+          linear-gradient(135deg, rgba(243, 91, 91, 0.96), rgba(255, 143, 143, 0.9));
+        color: #fff4f4;
+        box-shadow: 0 14px 24px rgba(243, 91, 91, 0.26);
+      }
+
+      .utility-action-button--secondary {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+          rgba(12, 16, 23, 0.94);
+        color: var(--text-main);
+        box-shadow: 0 14px 22px rgba(0, 0, 0, 0.28);
+      }
+
+      .performance-card {
+        border-color: rgba(255, 140, 66, 0.18);
+        background:
+          linear-gradient(180deg, rgba(255, 140, 66, 0.06), transparent 72%),
+          rgba(0, 0, 0, 0.22);
+      }
+
+      .recorder-card {
+        border-color: rgba(85, 213, 141, 0.16);
+        background:
+          linear-gradient(180deg, rgba(85, 213, 141, 0.05), transparent 72%),
+          rgba(0, 0, 0, 0.22);
+      }
+
+      .init-button:disabled,
+      .stomp-button:disabled,
+      .midi-learn-button:disabled,
+      .utility-action-button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .signal-chain {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .chain-node {
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.92rem;
+      }
+
+      .chain-arrow {
+        color: var(--accent);
+        font-size: 1.15rem;
+      }
+
+      .hint {
+        font-size: 0.9rem;
+        color: var(--text-dim);
+        line-height: 1.5;
+      }
+
+      .recording-actions {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      code {
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.94em;
+      }
+
+      @keyframes midiLearnPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.015);
+        }
+      }
+
+      @keyframes midiTargetPulse {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-1px);
+        }
+      }
+
+      @media (max-width: 1260px) {
+        .app {
+          padding: 22px;
+        }
+
+        .pedalboard {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 980px) {
+        .utility-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 16px;
+        }
+
+        .header {
+          margin-bottom: 22px;
+        }
+
+        .scope-rack,
+        .pedalboard {
+          margin-bottom: 22px;
+        }
+
+        .pedalboard {
+          grid-template-columns: 1fr;
+        }
+
+        .stomp-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stomp-button {
+          width: min(220px, 100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="header">
+        <div class="title-group">
+          <h1>CRAAIIGBORED</h1>
+          <p>
+            A chaotic-good browser guitar rig: initialize your interface or mic
+            input, push it through overdrive and delay, feed it into a cabinet
+            simulator, watch the waveform in real time, and capture loops or
+            finished takes from one installable page.
+          </p>
+        </div>
+        <div class="status" aria-live="polite">
+          <span class="status-label">Audio Status</span>
+          <div id="statusText" class="status-text">Waiting for initialization.</div>
+        </div>
+      </section>
+
+      <section class="scope-rack" aria-label="Oscilloscope display">
+        <div class="scope-header">
+          <h2 class="scope-title">Output Oscilloscope</h2>
+          <div class="scope-badges">
+            <span id="scopeMode" class="scope-badge">Standby</span>
+            <span class="scope-badge scope-badge--live">Time Domain</span>
+          </div>
+        </div>
+        <div class="scope-screen">
+          <canvas id="scopeCanvas" aria-label="Real-time waveform visualizer"></canvas>
+        </div>
+      </section>
+
+      <section class="pedalboard">
+        <article class="pedal" aria-label="Overdrive pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Rust Drive</h2>
+          <p class="pedal-subtitle">In Utero-Inspired Distortion</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="driveControl">Drive</label>
+                <span id="driveValue" class="value-pill">68%</span>
+              </div>
+              <input
+                id="driveControl"
+                type="range"
+                min="0"
+                max="100"
+                value="68"
+                step="1"
+                aria-label="Drive amount"
+              />
+            </div>
+
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="levelControl">Level</label>
+                <span id="levelValue" class="value-pill">30%</span>
+              </div>
+              <input
+                id="levelControl"
+                type="range"
+                min="0"
+                max="100"
+                value="30"
+                step="1"
+                aria-label="Master output level"
+              />
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="statusLed" class="led" aria-hidden="true"></div>
+            <button id="bypassButton" class="stomp-button" type="button">
+              Bypass Off
+            </button>
+            <span id="overdriveCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+
+        <article class="pedal" aria-label="Delay pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Echo Field</h2>
+          <p class="pedal-subtitle">Delay &amp; Feedback</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="delayTimeControl">Time</label>
+                <span id="delayTimeValue" class="value-pill">320 ms</span>
+              </div>
+              <input
+                id="delayTimeControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.32"
+                step="0.01"
+                aria-label="Delay time"
+              />
+            </div>
+
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="delayFeedbackControl">Feedback</label>
+                <span id="delayFeedbackValue" class="value-pill">35%</span>
+              </div>
+              <input
+                id="delayFeedbackControl"
+                type="range"
+                min="0"
+                max="0.9"
+                value="0.35"
+                step="0.01"
+                aria-label="Delay feedback"
+              />
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="delayStatusLed" class="led" aria-hidden="true"></div>
+            <button id="delayBypassButton" class="stomp-button" type="button">
+              Bypass Off
+            </button>
+            <span id="delayCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+
+        <article class="pedal" aria-label="Looper pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Loop Forge</h2>
+          <p class="pedal-subtitle">Record &amp; Playback Looper</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label>Mode</label>
+                <span id="loopModeValue" class="value-pill">Empty</span>
+              </div>
+              <p class="hint">
+                First take sets the loop length. Later Record presses capture one
+                synced overdub cycle and add a new layer.
+              </p>
+            </div>
+          </div>
+
+          <div class="stomp-grid">
+            <div class="stomp-cluster">
+              <span class="stomp-label">Record</span>
+              <div id="recordLed" class="led led--record" aria-hidden="true"></div>
+              <button
+                id="recordButton"
+                class="stomp-button stomp-button--record stomp-button--wide"
+                type="button"
+              >
+                Record
+              </button>
+            </div>
+
+            <div class="stomp-cluster">
+              <span class="stomp-label">Play / Stop</span>
+              <div id="playLed" class="led" aria-hidden="true"></div>
+              <button
+                id="playStopButton"
+                class="stomp-button stomp-button--wide"
+                type="button"
+              >
+                Play / Stop
+              </button>
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <span id="looperCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+
+        <article class="pedal pedal--orange" aria-label="Cabinet simulator pedal">
+          <p class="pedal-brand">British Stack Voice</p>
+          <h2 class="pedal-name">Cab Forge</h2>
+          <p class="pedal-subtitle">4x12 Cabinet Simulator</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="cabResonanceControl">Resonance</label>
+                <span id="cabResonanceValue" class="value-pill">58%</span>
+              </div>
+              <input
+                id="cabResonanceControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.58"
+                step="0.01"
+                aria-label="Cabinet resonance"
+              />
+            </div>
+
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="cabPresenceControl">Presence</label>
+                <span id="cabPresenceValue" class="value-pill">46%</span>
+              </div>
+              <input
+                id="cabPresenceControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.46"
+                step="0.01"
+                aria-label="Cabinet presence"
+              />
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="cabStatusLed" class="led" aria-hidden="true"></div>
+            <button id="cabBypassButton" class="stomp-button" type="button" disabled>
+              Bypass Off
+            </button>
+            <span id="cabCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="utility-grid">
+        <section class="control-card safety-card">
+          <h2>Safety Check</h2>
+          <p class="safety-note">
+            Monitoring a live mic through speakers can create an immediate
+            feedback loop. Use headphones or a dedicated audio interface before
+            enabling the audio engine.
+          </p>
+          <div class="safety-check">
+            <input id="safetyConfirm" type="checkbox" />
+            <label for="safetyConfirm">
+              I am using headphones or a proper audio interface, and I am ready
+              to monitor live input safely.
+            </label>
+          </div>
+        </section>
+
+        <section class="control-card">
+          <h2>Audio Engine</h2>
+          <p>
+            Click once to create the <code>AudioContext</code>, request live
+            input with <code>getUserMedia</code>, start the visualizer, and arm
+            the pedalboard.
+          </p>
+          <button id="initializeButton" class="init-button" type="button" disabled>
+            Initialize Audio
+          </button>
+        </section>
+
+        <section class="control-card performance-card">
+          <h2>Low Latency</h2>
+          <div class="midi-status-row">
+            <div id="performanceStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+            <div id="performanceStatusText" class="midi-status-text">
+              Full rig mode. Cab sim and scope are active.
+            </div>
+          </div>
+          <p class="hint">
+            Trims the heaviest live-processing load for tighter monitoring by
+            pausing the oscilloscope, temporarily lifting the cab sim, and
+            reducing waveshaper oversampling.
+          </p>
+          <button
+            id="lowLatencyButton"
+            class="utility-action-button utility-action-button--secondary"
+            type="button"
+          >
+            Low Latency Off
+          </button>
+        </section>
+
+        <section class="control-card midi-card">
+          <h2>MIDI Control</h2>
+          <div class="midi-status-row">
+            <div id="midiStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+            <div id="midiStatusText" class="midi-status-text">Checking Web MIDI support…</div>
+          </div>
+          <p id="midiHint" class="hint">
+            Enable MIDI Learn, then click Overdrive Bypass, Delay Bypass, Looper
+            Record, or Looper Play/Stop to arm that stomp for the next MIDI Note
+            On or high-value CC message.
+          </p>
+          <button id="midiLearnButton" class="midi-learn-button" type="button">
+            MIDI Learn Off
+          </button>
+        </section>
+
+        <section class="control-card">
+          <h2>Preset Manager</h2>
+          <p class="hint">
+            Save the current slider positions and pedal bypass states into your
+            browser, then load them back into the live graph whenever you want.
+          </p>
+          <select id="presetSelect" class="preset-select" aria-label="Preset slot">
+            <option value="A">Preset A</option>
+            <option value="B">Preset B</option>
+            <option value="C">Preset C</option>
+          </select>
+          <div class="preset-button-row">
+            <button id="savePresetButton" class="utility-action-button" type="button">
+              Save Preset
+            </button>
+            <button id="loadPresetButton" class="utility-action-button" type="button">
+              Load Preset
+            </button>
+          </div>
+        </section>
+
+        <section class="control-card recorder-card">
+          <h2>Output Recorder</h2>
+          <div class="midi-status-row">
+            <div id="recordingStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+            <div id="recordingStatusText" class="midi-status-text">
+              Waiting for audio engine.
+            </div>
+          </div>
+          <p class="hint">
+            Captures the final rig output after pedals, cab sim, loops, and
+            master level. Downloads as WAV for broad compatibility and easy
+            archiving.
+          </p>
+          <div class="recording-actions">
+            <button
+              id="recordMixButton"
+              class="utility-action-button utility-action-button--secondary"
+              type="button"
+            >
+              Start Capture
+            </button>
+            <button id="downloadMixButton" class="utility-action-button" type="button" disabled>
+              Download WAV
+            </button>
+          </div>
+        </section>
+
+        <section class="control-card">
+          <h2>Signal Chain</h2>
+          <div class="signal-chain" aria-label="Current signal chain">
+            <span class="chain-node">Input</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Overdrive</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Delay</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Loop Tap</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Cab Sim</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Level</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Scope / Recorder Tap</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Speakers</span>
+          </div>
+        </section>
+
+        <section class="control-card">
+          <h2>How It Works</h2>
+          <p class="hint">
+            Overdrive uses asymmetric clipping plus pre/post EQ to lean into a
+            raw 90s grunge voice. Delay adds repeats with a capped feedback
+            loop. The cabinet simulator builds a synthetic 4x12 impulse
+            response in JavaScript and sits after the looper tap, before master
+            level and the oscilloscope. Low Latency mode temporarily sheds the
+            cab sim and scope load for faster live monitoring, and the output
+            recorder captures the finished mix for WAV export.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./sw.js")
+            .then((registration) => {
+              console.log(
+                "ServiceWorker registration successful with scope: ",
+                registration.scope
+              );
+            })
+            .catch((err) => {
+              console.log("ServiceWorker registration failed: ", err);
+            });
+        });
+      }
+
+      const initializeButton = document.getElementById("initializeButton");
+      const safetyConfirm = document.getElementById("safetyConfirm");
+      const statusText = document.getElementById("statusText");
+      const midiLearnButton = document.getElementById("midiLearnButton");
+      const midiStatusDot = document.getElementById("midiStatusDot");
+      const midiStatusText = document.getElementById("midiStatusText");
+      const midiHint = document.getElementById("midiHint");
+      const lowLatencyButton = document.getElementById("lowLatencyButton");
+      const performanceStatusDot = document.getElementById("performanceStatusDot");
+      const performanceStatusText = document.getElementById("performanceStatusText");
+      const presetSelect = document.getElementById("presetSelect");
+      const savePresetButton = document.getElementById("savePresetButton");
+      const loadPresetButton = document.getElementById("loadPresetButton");
+      const recordMixButton = document.getElementById("recordMixButton");
+      const downloadMixButton = document.getElementById("downloadMixButton");
+      const recordingStatusDot = document.getElementById("recordingStatusDot");
+      const recordingStatusText = document.getElementById("recordingStatusText");
+      const scopeCanvas = document.getElementById("scopeCanvas");
+      const scopeMode = document.getElementById("scopeMode");
+
+      const driveControl = document.getElementById("driveControl");
+      const levelControl = document.getElementById("levelControl");
+      const delayTimeControl = document.getElementById("delayTimeControl");
+      const delayFeedbackControl = document.getElementById("delayFeedbackControl");
+      const cabResonanceControl = document.getElementById("cabResonanceControl");
+      const cabPresenceControl = document.getElementById("cabPresenceControl");
+
+      const driveValue = document.getElementById("driveValue");
+      const levelValue = document.getElementById("levelValue");
+      const delayTimeValue = document.getElementById("delayTimeValue");
+      const delayFeedbackValue = document.getElementById("delayFeedbackValue");
+      const cabResonanceValue = document.getElementById("cabResonanceValue");
+      const cabPresenceValue = document.getElementById("cabPresenceValue");
+      const loopModeValue = document.getElementById("loopModeValue");
+
+      const bypassButton = document.getElementById("bypassButton");
+      const delayBypassButton = document.getElementById("delayBypassButton");
+      const cabBypassButton = document.getElementById("cabBypassButton");
+      const recordButton = document.getElementById("recordButton");
+      const playStopButton = document.getElementById("playStopButton");
+
+      const statusLed = document.getElementById("statusLed");
+      const delayStatusLed = document.getElementById("delayStatusLed");
+      const cabStatusLed = document.getElementById("cabStatusLed");
+      const recordLed = document.getElementById("recordLed");
+      const playLed = document.getElementById("playLed");
+
+      const overdriveCaption = document.getElementById("overdriveCaption");
+      const delayCaption = document.getElementById("delayCaption");
+      const cabCaption = document.getElementById("cabCaption");
+      const looperCaption = document.getElementById("looperCaption");
+
+      const scopeContext = scopeCanvas.getContext("2d");
+
+      let audioContext;
+      let mediaStream;
+      let sourceNode;
+      let inputCenterNode;
+      let preDriveHighpassNode;
+      let preDrivePresenceNode;
+      let waveShaperNode;
+      let postDriveMidNode;
+      let postDriveLowpassNode;
+      let delayNode;
+      let delayFeedbackGain;
+      let postEffectsNode;
+      let cabMixNode;
+      let cabConvolverNode;
+      let masterGainNode;
+      let analyserNode;
+      let loopRecorderDestination;
+      let outputRecorderDestination;
+      let scopeDataArray;
+      let scopeAnimationFrameId = 0;
+
+      let mediaRecorder;
+      let recordedChunks = [];
+      let recorderSupported = typeof MediaRecorder !== "undefined";
+      let recordingState = "idle";
+      let recordingStartPhase = 0;
+      let recordingAutoStopId = 0;
+      let cabIrUpdateToken = 0;
+      let presetSaveResetId = 0;
+      let mixRecorder;
+      let mixRecordedChunks = [];
+      let mixRecordingUrl = "";
+      let mixRecordingBlob = null;
+      let mixRecordingFilename = "";
+      let mixRecordingLabel = "WAV";
+      let isMixRecording = false;
+
+      let loopLayerBuffers = [];
+      let loopLayerSources = [];
+      let baseLoopDuration = 0;
+      let isLoopPlaying = false;
+      let loopPlaybackStartTime = 0;
+
+      let isOverdriveBypassed = false;
+      let isDelayBypassed = false;
+      let isCabBypassed = false;
+      let isLowLatencyMode = false;
+
+      const midiSupported = typeof navigator.requestMIDIAccess === "function";
+      let midiAccess;
+      let midiAccessError = "";
+      let midiLearnEnabled = false;
+      let midiLearnTargetId = "";
+      const midiMappings = new Map();
+      const activeMidiMessages = new Set();
+      const midiLearnTargets = new Map([
+        ["bypassButton", { button: bypassButton, label: "Overdrive Bypass" }],
+        ["delayBypassButton", { button: delayBypassButton, label: "Delay Bypass" }],
+        ["recordButton", { button: recordButton, label: "Looper Record" }],
+        ["playStopButton", { button: playStopButton, label: "Looper Play / Stop" }]
+      ]);
+
+      function setStatus(message) {
+        statusText.textContent = message;
+      }
+
+      function getCabEffectivelyBypassed() {
+        return isCabBypassed || isLowLatencyMode;
+      }
+
+      function stopOscilloscope(message = "STANDBY // INIT AUDIO") {
+        if (scopeAnimationFrameId) {
+          window.cancelAnimationFrame(scopeAnimationFrameId);
+          scopeAnimationFrameId = 0;
+        }
+
+        drawIdleOscilloscope(message);
+      }
+
+      function getPresetStorageKey() {
+        return `webPedalboard_preset_${presetSelect.value}`;
+      }
+
+      function captureCurrentPreset() {
+        return {
+          drive: driveControl.value,
+          level: levelControl.value,
+          delayTime: delayTimeControl.value,
+          delayFeedback: delayFeedbackControl.value,
+          cabResonance: cabResonanceControl.value,
+          cabPresence: cabPresenceControl.value,
+          bypass: {
+            overdrive: isOverdriveBypassed,
+            delay: isDelayBypassed,
+            cab: isCabBypassed
+          }
+        };
+      }
+
+      function showPresetSavedFeedback() {
+        if (presetSaveResetId) {
+          window.clearTimeout(presetSaveResetId);
+        }
+
+        savePresetButton.textContent = "Saved!";
+        presetSaveResetId = window.setTimeout(() => {
+          savePresetButton.textContent = "Save Preset";
+          presetSaveResetId = 0;
+        }, 2000);
+      }
+
+      function restorePresetButtonLabel() {
+        if (presetSaveResetId) {
+          window.clearTimeout(presetSaveResetId);
+          presetSaveResetId = 0;
+        }
+
+        savePresetButton.textContent = "Save Preset";
+      }
+
+      function saveCurrentPreset() {
+        try {
+          const presetData = captureCurrentPreset();
+          localStorage.setItem(getPresetStorageKey(), JSON.stringify(presetData));
+          showPresetSavedFeedback();
+          setStatus(`Saved ${presetSelect.options[presetSelect.selectedIndex].text}.`);
+        } catch (error) {
+          console.error(error);
+          setStatus(`Unable to save preset: ${error.message}`);
+        }
+      }
+
+      async function loadSelectedPreset() {
+        let presetData;
+
+        try {
+          const storedPreset = localStorage.getItem(getPresetStorageKey());
+
+          if (!storedPreset) {
+            setStatus(
+              `No saved data found for ${presetSelect.options[presetSelect.selectedIndex].text}.`
+            );
+            return;
+          }
+
+          presetData = JSON.parse(storedPreset);
+        } catch (error) {
+          console.error(error);
+          setStatus(`Unable to load preset: ${error.message}`);
+          return;
+        }
+
+        driveControl.value = presetData.drive ?? driveControl.value;
+        levelControl.value = presetData.level ?? levelControl.value;
+        delayTimeControl.value = presetData.delayTime ?? delayTimeControl.value;
+        delayFeedbackControl.value =
+          presetData.delayFeedback ?? delayFeedbackControl.value;
+        cabResonanceControl.value =
+          presetData.cabResonance ?? cabResonanceControl.value;
+        cabPresenceControl.value = presetData.cabPresence ?? cabPresenceControl.value;
+
+        isOverdriveBypassed = Boolean(presetData.bypass?.overdrive);
+        isDelayBypassed = Boolean(presetData.bypass?.delay);
+        isCabBypassed = Boolean(presetData.bypass?.cab);
+
+        updateDriveCurve();
+        updateDelayTime();
+        updateDelayFeedback();
+        await updateCabImpulseResponse();
+        updateOutputLevel();
+        rebuildAudioGraph();
+        updatePedalUI();
+        restorePresetButtonLabel();
+        setStatus(`Loaded ${presetSelect.options[presetSelect.selectedIndex].text}.`);
+      }
+
+      function setVirtualButtonState(button, disabled) {
+        button.classList.toggle("is-disabled", disabled);
+        button.setAttribute("aria-disabled", disabled ? "true" : "false");
+      }
+
+      function getConnectedMidiInputs() {
+        if (!midiAccess) {
+          return [];
+        }
+
+        return Array.from(midiAccess.inputs.values()).filter(
+          (input) => input.state === "connected"
+        );
+      }
+
+      function describeMidiBinding(parsedMessage) {
+        return parsedMessage.type === "note"
+          ? `Note ${parsedMessage.number} (ch ${parsedMessage.channel + 1})`
+          : `CC ${parsedMessage.number} (ch ${parsedMessage.channel + 1})`;
+      }
+
+      function getMidiSignature(parsedMessage) {
+        return `${parsedMessage.type}:${parsedMessage.channel}:${parsedMessage.number}`;
+      }
+
+      function clearMidiLearnTarget() {
+        midiLearnTargetId = "";
+      }
+
+      function clearMixRecordingDownload() {
+        if (mixRecordingUrl) {
+          URL.revokeObjectURL(mixRecordingUrl);
+          mixRecordingUrl = "";
+        }
+
+        mixRecordingBlob = null;
+        mixRecordingFilename = "";
+        mixRecordingLabel = "WAV";
+      }
+
+      function updatePerformanceUI() {
+        lowLatencyButton.classList.toggle("is-active", isLowLatencyMode);
+        lowLatencyButton.textContent = isLowLatencyMode
+          ? "Low Latency On"
+          : "Low Latency Off";
+
+        performanceStatusDot.classList.remove("is-connected", "is-learning");
+
+        if (isLowLatencyMode) {
+          performanceStatusDot.classList.add("is-learning");
+          performanceStatusText.textContent = audioContext
+            ? "Fast monitoring is active. Cab sim is lifted and scope is paused."
+            : "Fast monitoring is armed and will apply when audio initializes.";
+          return;
+        }
+
+        if (audioContext) {
+          performanceStatusDot.classList.add("is-connected");
+          performanceStatusText.textContent = "Full rig mode. Cab sim and scope are active.";
+        } else {
+          performanceStatusText.textContent =
+            "Full rig mode. Cab sim and scope will start on initialization.";
+        }
+      }
+
+      function updateOutputRecorderUI() {
+        const hasAudio = Boolean(audioContext);
+        const hasTake = Boolean(mixRecordingBlob);
+
+        recordMixButton.disabled = !hasAudio || !recorderSupported;
+        recordMixButton.classList.toggle("is-recording", isMixRecording);
+        recordMixButton.textContent = isMixRecording ? "Stop Capture" : "Start Capture";
+
+        downloadMixButton.disabled = !hasTake;
+        downloadMixButton.textContent = `Download ${mixRecordingLabel}`;
+
+        recordingStatusDot.classList.remove("is-connected", "is-recording");
+
+        if (!hasAudio) {
+          recordingStatusText.textContent = "Waiting for audio engine.";
+          return;
+        }
+
+        if (!recorderSupported) {
+          recordingStatusText.textContent = "MediaRecorder is unavailable in this browser.";
+          return;
+        }
+
+        if (isMixRecording) {
+          recordingStatusDot.classList.add("is-recording");
+          recordingStatusText.textContent = "Recording the final mix now.";
+          return;
+        }
+
+        if (hasTake) {
+          recordingStatusDot.classList.add("is-connected");
+          recordingStatusText.textContent = `${mixRecordingLabel} take ready to download.`;
+          return;
+        }
+
+        recordingStatusText.textContent = "Ready to capture the live output mix.";
+      }
+
+      function applyPerformanceMode() {
+        if (waveShaperNode) {
+          waveShaperNode.oversample = isLowLatencyMode ? "none" : "4x";
+        }
+
+        if (analyserNode) {
+          analyserNode.fftSize = isLowLatencyMode ? 512 : 2048;
+          analyserNode.smoothingTimeConstant = isLowLatencyMode ? 0.66 : 0.82;
+          scopeDataArray = new Uint8Array(analyserNode.fftSize);
+        }
+
+        if (isLowLatencyMode) {
+          stopOscilloscope("LOW LATENCY // SCOPE PAUSED");
+        } else if (audioContext) {
+          startOscilloscope();
+        } else {
+          drawIdleOscilloscope();
+        }
+
+        updateScopeStatus();
+        updatePerformanceUI();
+      }
+
+      function updateMidiUI() {
+        const connectedInputs = getConnectedMidiInputs();
+        const mappingCount = midiMappings.size;
+
+        midiLearnButton.classList.toggle("is-learning", midiLearnEnabled);
+        midiLearnButton.textContent = midiLearnEnabled ? "MIDI Learn On" : "MIDI Learn Off";
+        midiLearnButton.disabled = !midiSupported;
+
+        midiStatusDot.classList.toggle("is-connected", connectedInputs.length > 0);
+        midiStatusDot.classList.toggle("is-learning", midiLearnEnabled);
+
+        if (!midiSupported) {
+          midiStatusText.textContent = "Web MIDI is not supported in this browser.";
+          midiHint.textContent =
+            "Use a Chromium-based browser over HTTPS or localhost to enable MIDI control.";
+        } else if (midiAccessError) {
+          midiStatusText.textContent = "MIDI access was denied or unavailable.";
+          midiHint.textContent = midiAccessError;
+        } else if (!midiAccess) {
+          midiStatusText.textContent = "Requesting MIDI access…";
+        } else if (connectedInputs.length) {
+          const firstInput = connectedInputs[0];
+          const name = firstInput?.name ? `: ${firstInput.name}` : "";
+          midiStatusText.textContent = `${connectedInputs.length} device${
+            connectedInputs.length === 1 ? "" : "s"
+          } connected${name}`;
+        } else {
+          midiStatusText.textContent = "No MIDI device connected.";
+        }
+
+        if (midiLearnEnabled && midiLearnTargetId) {
+          const target = midiLearnTargets.get(midiLearnTargetId);
+          midiHint.textContent = `Waiting for the next MIDI Note On or high-value CC message to map ${target.label}.`;
+        } else if (midiLearnEnabled) {
+          midiHint.textContent =
+            "MIDI Learn is active. Click a supported stomp button, then press your external footswitch or controller.";
+        } else if (mappingCount) {
+          midiHint.textContent = `${mappingCount} MIDI mapping${
+            mappingCount === 1 ? "" : "s"
+          } saved for this session.`;
+        }
+
+        midiLearnTargets.forEach(({ button }, targetId) => {
+          button.classList.toggle("midi-eligible", midiLearnEnabled && midiLearnTargetId !== targetId);
+          button.classList.toggle("midi-waiting", midiLearnTargetId === targetId);
+        });
+      }
+
+      function removeExistingMappingsForButton(buttonId) {
+        for (const [signature, mappedButtonId] of midiMappings.entries()) {
+          if (mappedButtonId === buttonId) {
+            midiMappings.delete(signature);
+          }
+        }
+      }
+
+      function parseMidiMessage(data) {
+        const [status, number = 0, value = 0] = data;
+        const type = status & 0xf0;
+        const channel = status & 0x0f;
+
+        if (type === 0x90) {
+          return {
+            type: "note",
+            channel,
+            number,
+            value,
+            isActive: value > 0
+          };
+        }
+
+        if (type === 0x80) {
+          return {
+            type: "note",
+            channel,
+            number,
+            value,
+            isActive: false
+          };
+        }
+
+        if (type === 0xb0) {
+          return {
+            type: "cc",
+            channel,
+            number,
+            value,
+            isActive: value > 64
+          };
+        }
+
+        return null;
+      }
+
+      function bindMidiInputs() {
+        if (!midiAccess) {
+          return;
+        }
+
+        midiAccess.inputs.forEach((input) => {
+          input.onmidimessage = handleMidiMessage;
+        });
+      }
+
+      function handleMidiStateChange() {
+        bindMidiInputs();
+        updateMidiUI();
+      }
+
+      async function initializeMidiSupport() {
+        if (!midiSupported) {
+          updateMidiUI();
+          return;
+        }
+
+        try {
+          midiAccess = await navigator.requestMIDIAccess();
+          midiAccessError = "";
+          midiAccess.onstatechange = handleMidiStateChange;
+          bindMidiInputs();
+        } catch (error) {
+          console.error(error);
+          midiAccessError = error.message || "Unable to access MIDI devices.";
+        }
+
+        updateMidiUI();
+      }
+
+      function queueMidiLearn(buttonId) {
+        midiLearnTargetId = buttonId;
+        updateMidiUI();
+        setStatus(`MIDI Learn armed for ${midiLearnTargets.get(buttonId).label}. Press your controller now.`);
+      }
+
+      function handleMidiLearnSelection(buttonId, event) {
+        if (!midiLearnEnabled) {
+          return false;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        queueMidiLearn(buttonId);
+        return true;
+      }
+
+      function handleMidiMessage(event) {
+        const parsedMessage = parseMidiMessage(event.data);
+
+        if (!parsedMessage) {
+          return;
+        }
+
+        const signature = getMidiSignature(parsedMessage);
+
+        if (!parsedMessage.isActive) {
+          activeMidiMessages.delete(signature);
+          return;
+        }
+
+        if (activeMidiMessages.has(signature)) {
+          return;
+        }
+
+        activeMidiMessages.add(signature);
+
+        if (midiLearnEnabled) {
+          if (!midiLearnTargetId) {
+            return;
+          }
+
+          removeExistingMappingsForButton(midiLearnTargetId);
+          midiMappings.set(signature, midiLearnTargetId);
+          setStatus(
+            `Mapped ${describeMidiBinding(parsedMessage)} to ${
+              midiLearnTargets.get(midiLearnTargetId).label
+            }.`
+          );
+          clearMidiLearnTarget();
+          updateMidiUI();
+          return;
+        }
+
+        const mappedButtonId = midiMappings.get(signature);
+
+        if (!mappedButtonId) {
+          return;
+        }
+
+        const target = midiLearnTargets.get(mappedButtonId);
+
+        if (!target) {
+          return;
+        }
+
+        target.button.click();
+      }
+
+      function safeDisconnect(node) {
+        if (!node || typeof node.disconnect !== "function") {
+          return;
+        }
+
+        try {
+          node.disconnect();
+        } catch (error) {
+          console.debug("Disconnect skipped:", error);
+        }
+      }
+
+      function formatPercent(value) {
+        return `${Math.round(value * 100)}%`;
+      }
+
+      function formatDelayTime(seconds) {
+        if (seconds <= 0) {
+          return "0 ms";
+        }
+
+        if (seconds < 1) {
+          return `${Math.round(seconds * 1000)} ms`;
+        }
+
+        return `${seconds.toFixed(2)} s`;
+      }
+
+      function getOfflineAudioContextCtor() {
+        return window.OfflineAudioContext || window.webkitOfflineAudioContext;
+      }
+
+      function getCurrentLoopPhase() {
+        if (!audioContext || !isLoopPlaying || !baseLoopDuration) {
+          return 0;
+        }
+
+        const elapsed = audioContext.currentTime - loopPlaybackStartTime;
+        return ((elapsed % baseLoopDuration) + baseLoopDuration) % baseLoopDuration;
+      }
+
+      function syncScopeCanvasSize() {
+        const rect = scopeCanvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        const width = Math.max(1, Math.floor(rect.width * dpr));
+        const height = Math.max(1, Math.floor(rect.height * dpr));
+
+        if (scopeCanvas.width !== width || scopeCanvas.height !== height) {
+          scopeCanvas.width = width;
+          scopeCanvas.height = height;
+        }
+      }
+
+      function drawScopeBase() {
+        syncScopeCanvasSize();
+
+        const width = scopeCanvas.width;
+        const height = scopeCanvas.height;
+
+        scopeContext.clearRect(0, 0, width, height);
+
+        const fillGradient = scopeContext.createLinearGradient(0, 0, 0, height);
+        fillGradient.addColorStop(0, "rgba(4, 12, 6, 0.96)");
+        fillGradient.addColorStop(1, "rgba(0, 0, 0, 1)");
+        scopeContext.fillStyle = fillGradient;
+        scopeContext.fillRect(0, 0, width, height);
+
+        scopeContext.strokeStyle = "rgba(85, 213, 141, 0.08)";
+        scopeContext.lineWidth = 1;
+
+        for (let x = 0; x <= width; x += width / 10) {
+          scopeContext.beginPath();
+          scopeContext.moveTo(x, 0);
+          scopeContext.lineTo(x, height);
+          scopeContext.stroke();
+        }
+
+        for (let y = 0; y <= height; y += height / 8) {
+          scopeContext.beginPath();
+          scopeContext.moveTo(0, y);
+          scopeContext.lineTo(width, y);
+          scopeContext.stroke();
+        }
+
+        scopeContext.strokeStyle = "rgba(85, 213, 141, 0.18)";
+        scopeContext.beginPath();
+        scopeContext.moveTo(0, height / 2);
+        scopeContext.lineTo(width, height / 2);
+        scopeContext.stroke();
+      }
+
+      function drawIdleOscilloscope(message = "STANDBY // INIT AUDIO") {
+        drawScopeBase();
+
+        scopeContext.fillStyle = "rgba(207, 255, 228, 0.78)";
+        scopeContext.font = `${Math.max(16, scopeCanvas.height * 0.06)}px SFMono-Regular, Consolas, monospace`;
+        scopeContext.textAlign = "center";
+        scopeContext.fillText(message, scopeCanvas.width / 2, scopeCanvas.height * 0.57);
+
+        scopeContext.strokeStyle = "rgba(85, 213, 141, 0.75)";
+        scopeContext.shadowColor = "rgba(85, 213, 141, 0.55)";
+        scopeContext.shadowBlur = 14;
+        scopeContext.lineWidth = 2;
+        scopeContext.beginPath();
+        scopeContext.moveTo(scopeCanvas.width * 0.1, scopeCanvas.height / 2);
+        scopeContext.lineTo(scopeCanvas.width * 0.9, scopeCanvas.height / 2);
+        scopeContext.stroke();
+        scopeContext.shadowBlur = 0;
+      }
+
+      function drawOscilloscope() {
+        scopeAnimationFrameId = window.requestAnimationFrame(drawOscilloscope);
+
+        if (isLowLatencyMode) {
+          stopOscilloscope("LOW LATENCY // SCOPE PAUSED");
+          return;
+        }
+
+        if (!analyserNode || !scopeDataArray) {
+          drawIdleOscilloscope();
+          return;
+        }
+
+        drawScopeBase();
+
+        analyserNode.getByteTimeDomainData(scopeDataArray);
+
+        const width = scopeCanvas.width;
+        const height = scopeCanvas.height;
+        const sliceWidth = width / scopeDataArray.length;
+
+        scopeContext.lineWidth = Math.max(2, width * 0.0022);
+        scopeContext.strokeStyle = "rgba(120, 255, 170, 0.98)";
+        scopeContext.shadowColor = "rgba(85, 213, 141, 0.68)";
+        scopeContext.shadowBlur = 18;
+        scopeContext.beginPath();
+
+        let x = 0;
+        for (let i = 0; i < scopeDataArray.length; i += 1) {
+          const sample = scopeDataArray[i] / 128;
+          const y = (sample * height) / 2;
+
+          if (i === 0) {
+            scopeContext.moveTo(x, y);
+          } else {
+            scopeContext.lineTo(x, y);
+          }
+
+          x += sliceWidth;
+        }
+
+        scopeContext.lineTo(width, height / 2);
+        scopeContext.stroke();
+        scopeContext.shadowBlur = 0;
+      }
+
+      function startOscilloscope() {
+        if (scopeAnimationFrameId || isLowLatencyMode) {
+          return;
+        }
+
+        drawOscilloscope();
+      }
+
+      function updateScopeStatus() {
+        if (!audioContext) {
+          scopeMode.textContent = "Standby";
+          return;
+        }
+
+        if (isLowLatencyMode) {
+          scopeMode.textContent = isLoopPlaying ? "Low Latency + Loop" : "Low Latency";
+          return;
+        }
+
+        scopeMode.textContent = isLoopPlaying ? "Live + Loop" : "Live";
+      }
+
+      function createGrungeClippingCurve(driveAmount) {
+        const samples = 44100;
+        const curve = new Float32Array(samples);
+        const inputGain = 3.5 + driveAmount * 32;
+        const blend = 0.22 + driveAmount * 0.28;
+
+        for (let i = 0; i < samples; i += 1) {
+          const x = (i * 2) / (samples - 1) - 1;
+          const biased = x + 0.18 * Math.sign(x) * x * x;
+          const softClip = Math.tanh(biased * inputGain);
+          const harderClip = Math.atan(biased * inputGain * 1.4) / (Math.PI / 2);
+          curve[i] = Math.max(
+            -1,
+            Math.min(1, softClip * (1 - blend) + harderClip * blend)
+          );
+        }
+
+        return curve;
+      }
+
+      function updateDriveCurve() {
+        const normalizedDrive = Number(driveControl.value) / 100;
+        driveValue.textContent = `${Math.round(normalizedDrive * 100)}%`;
+
+        if (
+          waveShaperNode &&
+          preDriveHighpassNode &&
+          preDrivePresenceNode &&
+          postDriveMidNode &&
+          postDriveLowpassNode &&
+          audioContext
+        ) {
+          waveShaperNode.curve = createGrungeClippingCurve(normalizedDrive);
+          preDriveHighpassNode.frequency.setTargetAtTime(
+            145 + normalizedDrive * 45,
+            audioContext.currentTime,
+            0.01
+          );
+          preDrivePresenceNode.gain.setTargetAtTime(
+            4.5 + normalizedDrive * 3.5,
+            audioContext.currentTime,
+            0.01
+          );
+          postDriveMidNode.gain.setTargetAtTime(
+            3 + normalizedDrive * 4,
+            audioContext.currentTime,
+            0.01
+          );
+          postDriveLowpassNode.frequency.setTargetAtTime(
+            4800 - normalizedDrive * 900,
+            audioContext.currentTime,
+            0.01
+          );
+        }
+
+        updatePedalUI();
+      }
+
+      function updateDelayTime() {
+        const delayTime = Number(delayTimeControl.value);
+        delayTimeValue.textContent = formatDelayTime(delayTime);
+
+        if (delayNode && audioContext) {
+          delayNode.delayTime.setTargetAtTime(delayTime, audioContext.currentTime, 0.01);
+        }
+      }
+
+      function updateDelayFeedback() {
+        const feedback = Number(delayFeedbackControl.value);
+        delayFeedbackValue.textContent = formatPercent(feedback);
+
+        if (delayFeedbackGain && audioContext) {
+          delayFeedbackGain.gain.setTargetAtTime(feedback, audioContext.currentTime, 0.01);
+        }
+      }
+
+      async function generateSyntheticCabIR(resonanceAmount, presenceAmount) {
+        const OfflineAudioContextCtor = getOfflineAudioContextCtor();
+
+        if (!OfflineAudioContextCtor || !audioContext) {
+          throw new Error("OfflineAudioContext is unavailable for cabinet IR generation.");
+        }
+
+        const sampleRate = audioContext.sampleRate;
+        const duration = 0.22;
+        const frameCount = Math.floor(sampleRate * duration);
+        const offlineContext = new OfflineAudioContextCtor(2, frameCount, sampleRate);
+        const impulseBuffer = offlineContext.createBuffer(2, frameCount, sampleRate);
+        const burstSamples = Math.max(1, Math.floor(sampleRate * 0.012));
+        const resonanceGain = 2.5 + resonanceAmount * 6.5;
+        const lowMidGain = 1.8 + resonanceAmount * 2.2;
+        const presenceGain = -0.8 + presenceAmount * 5;
+        const secondaryLowpass = 5000 + presenceAmount * 900;
+
+        for (let channel = 0; channel < impulseBuffer.numberOfChannels; channel += 1) {
+          const channelData = impulseBuffer.getChannelData(channel);
+
+          for (let i = 0; i < frameCount; i += 1) {
+            const time = i / sampleRate;
+            const envelope = Math.exp(-time * (26 - resonanceAmount * 4));
+            const burstScale = i < burstSamples ? 1 : 0.26;
+            const noise = Math.random() * 2 - 1;
+            channelData[i] = noise * envelope * burstScale;
+          }
+        }
+
+        const source = offlineContext.createBufferSource();
+        source.buffer = impulseBuffer;
+
+        const highpass = offlineContext.createBiquadFilter();
+        highpass.type = "highpass";
+        highpass.frequency.value = 80;
+        highpass.Q.value = 0.8;
+
+        const lowShelf = offlineContext.createBiquadFilter();
+        lowShelf.type = "lowshelf";
+        lowShelf.frequency.value = 118;
+        lowShelf.gain.value = resonanceGain;
+
+        const lowerMidPeak = offlineContext.createBiquadFilter();
+        lowerMidPeak.type = "peaking";
+        lowerMidPeak.frequency.value = 280;
+        lowerMidPeak.Q.value = 0.95;
+        lowerMidPeak.gain.value = lowMidGain;
+
+        const highShelf = offlineContext.createBiquadFilter();
+        highShelf.type = "highshelf";
+        highShelf.frequency.value = 2900;
+        highShelf.gain.value = presenceGain;
+
+        const lowpassOne = offlineContext.createBiquadFilter();
+        lowpassOne.type = "lowpass";
+        lowpassOne.frequency.value = 6000;
+        lowpassOne.Q.value = 0.76;
+
+        const lowpassTwo = offlineContext.createBiquadFilter();
+        lowpassTwo.type = "lowpass";
+        lowpassTwo.frequency.value = secondaryLowpass;
+        lowpassTwo.Q.value = 0.82;
+
+        source.connect(highpass);
+        highpass.connect(lowShelf);
+        lowShelf.connect(lowerMidPeak);
+        lowerMidPeak.connect(highShelf);
+        highShelf.connect(lowpassOne);
+        lowpassOne.connect(lowpassTwo);
+        lowpassTwo.connect(offlineContext.destination);
+
+        source.start();
+
+        return offlineContext.startRendering();
+      }
+
+      async function updateCabImpulseResponse() {
+        const resonance = Number(cabResonanceControl.value);
+        const presence = Number(cabPresenceControl.value);
+        cabResonanceValue.textContent = formatPercent(resonance);
+        cabPresenceValue.textContent = formatPercent(presence);
+
+        if (!cabConvolverNode || !audioContext) {
+          updatePedalUI();
+          return;
+        }
+
+        const token = ++cabIrUpdateToken;
+
+        try {
+          const impulseResponse = await generateSyntheticCabIR(resonance, presence);
+
+          if (token !== cabIrUpdateToken || !cabConvolverNode) {
+            return;
+          }
+
+          cabConvolverNode.buffer = impulseResponse;
+        } catch (error) {
+          console.error(error);
+          setStatus(`Unable to update cabinet IR: ${error.message}`);
+        }
+
+        updatePedalUI();
+      }
+
+      function updateOutputLevel() {
+        const normalizedLevel = Number(levelControl.value) / 100;
+        levelValue.textContent = `${Math.round(normalizedLevel * 100)}%`;
+
+        if (masterGainNode && audioContext) {
+          masterGainNode.gain.setTargetAtTime(
+            normalizedLevel,
+            audioContext.currentTime,
+            0.01
+          );
+        }
+
+        updatePedalUI();
+      }
+
+      function updatePedalUI() {
+        if (!audioContext) {
+          bypassButton.textContent = "Bypass Off";
+          delayBypassButton.textContent = "Bypass Off";
+          cabBypassButton.textContent = "Bypass Off";
+          setVirtualButtonState(bypassButton, true);
+          setVirtualButtonState(delayBypassButton, true);
+          overdriveCaption.textContent = "Awaiting Audio";
+          delayCaption.textContent = "Awaiting Audio";
+          cabCaption.textContent = "Awaiting Audio";
+          statusLed.classList.remove("active");
+          delayStatusLed.classList.remove("active");
+          cabStatusLed.classList.remove("active");
+          updateLooperUI();
+          updateScopeStatus();
+          updatePerformanceUI();
+          updateOutputRecorderUI();
+          return;
+        }
+
+        setVirtualButtonState(bypassButton, false);
+        setVirtualButtonState(delayBypassButton, false);
+
+        if (isOverdriveBypassed) {
+          bypassButton.textContent = "Bypass On";
+          overdriveCaption.textContent = "Clean Input";
+          statusLed.classList.remove("active");
+        } else {
+          bypassButton.textContent = "Bypass Off";
+          overdriveCaption.textContent = "Effect Engaged";
+          statusLed.classList.add("active");
+        }
+
+        if (isDelayBypassed) {
+          delayBypassButton.textContent = "Bypass On";
+          delayCaption.textContent = "Echo Offline";
+          delayStatusLed.classList.remove("active");
+        } else {
+          delayBypassButton.textContent = "Bypass Off";
+          delayCaption.textContent = "Repeats Active";
+          delayStatusLed.classList.add("active");
+        }
+
+        if (getCabEffectivelyBypassed()) {
+          cabBypassButton.textContent = isCabBypassed ? "Bypass On" : "Bypass Off";
+          cabCaption.textContent = isLowLatencyMode && !isCabBypassed
+            ? "Temporarily Lifted For Speed"
+            : "Speaker Sim Offline";
+          cabStatusLed.classList.remove("active");
+        } else {
+          cabBypassButton.textContent = "Bypass Off";
+          cabCaption.textContent = "4x12 Voice Active";
+          cabStatusLed.classList.add("active");
+        }
+
+        updateLooperUI();
+        updateScopeStatus();
+        updatePerformanceUI();
+        updateOutputRecorderUI();
+      }
+
+      function updateLooperUI() {
+        const loopCount = loopLayerBuffers.length;
+        const hasAudio = Boolean(audioContext);
+        const hasLoop = loopCount > 0;
+
+        if (!hasAudio) {
+          setVirtualButtonState(recordButton, true);
+          setVirtualButtonState(playStopButton, true);
+          recordLed.classList.remove("active");
+          playLed.classList.remove("active");
+          looperCaption.textContent = "Awaiting Audio";
+          loopModeValue.textContent = "Empty";
+          return;
+        }
+
+        if (!recorderSupported) {
+          setVirtualButtonState(recordButton, true);
+          setVirtualButtonState(playStopButton, true);
+          recordLed.classList.remove("active");
+          playLed.classList.remove("active");
+          looperCaption.textContent = "Recorder Unsupported";
+          loopModeValue.textContent = "Unavailable";
+          return;
+        }
+
+        setVirtualButtonState(recordButton, recordingState === "overdub");
+        setVirtualButtonState(playStopButton, !hasLoop || recordingState !== "idle");
+        recordLed.classList.toggle("active", recordingState !== "idle");
+        playLed.classList.toggle("active", isLoopPlaying);
+
+        if (recordingState === "base") {
+          looperCaption.textContent = "Capturing Base Loop";
+          loopModeValue.textContent = "Recording";
+          recordButton.textContent = "Stop";
+          return;
+        }
+
+        if (recordingState === "overdub") {
+          looperCaption.textContent = "Capturing One-Cycle Overdub";
+          loopModeValue.textContent = `OD ${loopCount + 1}`;
+          recordButton.textContent = "Record";
+          return;
+        }
+
+        recordButton.textContent = "Record";
+
+        if (!hasLoop) {
+          looperCaption.textContent = "No Loop Stored";
+          loopModeValue.textContent = "Empty";
+          return;
+        }
+
+        loopModeValue.textContent = `${loopCount} Layer${loopCount === 1 ? "" : "s"}`;
+        looperCaption.textContent = isLoopPlaying
+          ? `${loopCount} Layer${loopCount === 1 ? "" : "s"} Looping`
+          : `${loopCount} Layer${loopCount === 1 ? "" : "s"} Ready`;
+      }
+
+      function rebuildAudioGraph() {
+        if (
+          !audioContext ||
+          !sourceNode ||
+          !inputCenterNode ||
+          !preDriveHighpassNode ||
+          !preDrivePresenceNode ||
+          !waveShaperNode ||
+          !postDriveMidNode ||
+          !postDriveLowpassNode ||
+          !delayNode ||
+          !delayFeedbackGain ||
+          !postEffectsNode ||
+          !cabMixNode ||
+          !cabConvolverNode ||
+          !masterGainNode ||
+          !analyserNode ||
+          !loopRecorderDestination ||
+          !outputRecorderDestination
+        ) {
+          return;
+        }
+
+        [
+          sourceNode,
+          inputCenterNode,
+          preDriveHighpassNode,
+          preDrivePresenceNode,
+          waveShaperNode,
+          postDriveMidNode,
+          postDriveLowpassNode,
+          delayNode,
+          delayFeedbackGain,
+          postEffectsNode,
+          cabMixNode,
+          cabConvolverNode,
+          masterGainNode,
+          analyserNode
+        ].forEach(safeDisconnect);
+
+        sourceNode.connect(inputCenterNode);
+
+        let currentNode = inputCenterNode;
+
+        if (!isOverdriveBypassed) {
+          currentNode.connect(preDriveHighpassNode);
+          preDriveHighpassNode.connect(preDrivePresenceNode);
+          preDrivePresenceNode.connect(waveShaperNode);
+          waveShaperNode.connect(postDriveMidNode);
+          postDriveMidNode.connect(postDriveLowpassNode);
+          currentNode = postDriveLowpassNode;
+        }
+
+        if (!isDelayBypassed) {
+          currentNode.connect(postEffectsNode);
+          currentNode.connect(delayNode);
+          delayNode.connect(postEffectsNode);
+          delayNode.connect(delayFeedbackGain);
+          delayFeedbackGain.connect(delayNode);
+        } else {
+          currentNode.connect(postEffectsNode);
+        }
+
+        postEffectsNode.connect(loopRecorderDestination);
+        postEffectsNode.connect(cabMixNode);
+
+        if (getCabEffectivelyBypassed()) {
+          cabMixNode.connect(masterGainNode);
+        } else {
+          cabMixNode.connect(cabConvolverNode);
+          cabConvolverNode.connect(masterGainNode);
+        }
+
+        masterGainNode.connect(audioContext.destination);
+        masterGainNode.connect(outputRecorderDestination);
+
+        if (!isLowLatencyMode) {
+          masterGainNode.connect(analyserNode);
+        }
+      }
+
+      function createLoopLayerSource(buffer, startTime) {
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+        source.connect(cabMixNode);
+        source.start(startTime);
+        loopLayerSources.push(source);
+        return source;
+      }
+
+      function stopLoopPlayback() {
+        loopLayerSources.forEach((source) => {
+          try {
+            source.stop();
+          } catch (error) {
+            console.debug("Loop source stop skipped:", error);
+          }
+
+          safeDisconnect(source);
+        });
+
+        loopLayerSources = [];
+        isLoopPlaying = false;
+        updateLooperUI();
+        updateScopeStatus();
+      }
+
+      function startLoopPlayback() {
+        if (!audioContext || !masterGainNode || !loopLayerBuffers.length) {
+          return;
+        }
+
+        stopLoopPlayback();
+
+        const startTime = audioContext.currentTime + 0.02;
+        loopPlaybackStartTime = startTime;
+        loopLayerBuffers.forEach((buffer) => {
+          createLoopLayerSource(buffer, startTime);
+        });
+
+        isLoopPlaying = true;
+        updateLooperUI();
+        updateScopeStatus();
+      }
+
+      function normalizeLoopBuffer(buffer, targetDuration) {
+        const targetFrames = Math.max(1, Math.round(targetDuration * buffer.sampleRate));
+        const targetBuffer = audioContext.createBuffer(
+          buffer.numberOfChannels,
+          targetFrames,
+          buffer.sampleRate
+        );
+
+        for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
+          const sourceData = buffer.getChannelData(channel);
+          const targetData = targetBuffer.getChannelData(channel);
+          targetData.set(sourceData.subarray(0, Math.min(sourceData.length, targetFrames)));
+        }
+
+        return targetBuffer;
+      }
+
+      function rotateLoopBuffer(buffer, startPhase, targetDuration) {
+        const normalizedBuffer = normalizeLoopBuffer(buffer, targetDuration);
+
+        if (!startPhase) {
+          return normalizedBuffer;
+        }
+
+        const rotationFrames =
+          Math.round((targetDuration - startPhase) * normalizedBuffer.sampleRate) %
+          normalizedBuffer.length;
+
+        if (!rotationFrames) {
+          return normalizedBuffer;
+        }
+
+        const rotatedBuffer = audioContext.createBuffer(
+          normalizedBuffer.numberOfChannels,
+          normalizedBuffer.length,
+          normalizedBuffer.sampleRate
+        );
+
+        for (let channel = 0; channel < normalizedBuffer.numberOfChannels; channel += 1) {
+          const sourceData = normalizedBuffer.getChannelData(channel);
+          const targetData = rotatedBuffer.getChannelData(channel);
+
+          targetData.set(sourceData.subarray(rotationFrames));
+          targetData.set(
+            sourceData.subarray(0, rotationFrames),
+            normalizedBuffer.length - rotationFrames
+          );
+        }
+
+        return rotatedBuffer;
+      }
+
+      async function decodeLoopBlob(blob) {
+        const arrayBuffer = await blob.arrayBuffer();
+        return audioContext.decodeAudioData(arrayBuffer.slice(0));
+      }
+
+      function clearRecordingTimer() {
+        if (recordingAutoStopId) {
+          window.clearTimeout(recordingAutoStopId);
+          recordingAutoStopId = 0;
+        }
+      }
+
+      function createRecorderOptions() {
+        if (!recorderSupported) {
+          return null;
+        }
+
+        const preferredTypes = [
+          "audio/webm;codecs=opus",
+          "audio/webm",
+          "audio/ogg;codecs=opus"
+        ];
+
+        const mimeType = preferredTypes.find((type) => MediaRecorder.isTypeSupported(type));
+        return mimeType ? { mimeType } : {};
+      }
+
+      function getRecordingTimestamp() {
+        const now = new Date();
+        const parts = [
+          now.getFullYear(),
+          String(now.getMonth() + 1).padStart(2, "0"),
+          String(now.getDate()).padStart(2, "0"),
+          String(now.getHours()).padStart(2, "0"),
+          String(now.getMinutes()).padStart(2, "0"),
+          String(now.getSeconds()).padStart(2, "0")
+        ];
+
+        return parts.join("-");
+      }
+
+      function getMimeExtension(mimeType) {
+        if (!mimeType) {
+          return "webm";
+        }
+
+        if (mimeType.includes("ogg")) {
+          return "ogg";
+        }
+
+        if (mimeType.includes("mp4")) {
+          return "m4a";
+        }
+
+        return "webm";
+      }
+
+      function audioBufferToWavBlob(buffer) {
+        const channelCount = buffer.numberOfChannels;
+        const sampleRate = buffer.sampleRate;
+        const frameCount = buffer.length;
+        const bytesPerSample = 2;
+        const blockAlign = channelCount * bytesPerSample;
+        const arrayBuffer = new ArrayBuffer(44 + frameCount * blockAlign);
+        const view = new DataView(arrayBuffer);
+        const channelData = Array.from(
+          { length: channelCount },
+          (_, channelIndex) => buffer.getChannelData(channelIndex)
+        );
+
+        function writeString(offset, string) {
+          for (let index = 0; index < string.length; index += 1) {
+            view.setUint8(offset + index, string.charCodeAt(index));
+          }
+        }
+
+        writeString(0, "RIFF");
+        view.setUint32(4, 36 + frameCount * blockAlign, true);
+        writeString(8, "WAVE");
+        writeString(12, "fmt ");
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, channelCount, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * blockAlign, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, 16, true);
+        writeString(36, "data");
+        view.setUint32(40, frameCount * blockAlign, true);
+
+        let offset = 44;
+        for (let sampleIndex = 0; sampleIndex < frameCount; sampleIndex += 1) {
+          for (let channelIndex = 0; channelIndex < channelCount; channelIndex += 1) {
+            const sample = Math.max(-1, Math.min(1, channelData[channelIndex][sampleIndex]));
+            view.setInt16(
+              offset,
+              sample < 0 ? sample * 0x8000 : sample * 0x7fff,
+              true
+            );
+            offset += bytesPerSample;
+          }
+        }
+
+        return new Blob([arrayBuffer], {
+          type: "audio/wav"
+        });
+      }
+
+      async function convertBlobToWav(blob) {
+        if (!audioContext) {
+          throw new Error("Audio engine is not ready for WAV conversion.");
+        }
+
+        const arrayBuffer = await blob.arrayBuffer();
+        const decoded = await audioContext.decodeAudioData(arrayBuffer.slice(0));
+        return audioBufferToWavBlob(decoded);
+      }
+
+      function startRecordingSession(mode) {
+        const options = createRecorderOptions();
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(loopRecorderDestination.stream, options || undefined);
+        recordingState = mode;
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.start();
+        updateLooperUI();
+      }
+
+      function startMixRecordingSession() {
+        const options = createRecorderOptions();
+
+        if (!outputRecorderDestination) {
+          throw new Error("Output recorder tap is unavailable.");
+        }
+
+        clearMixRecordingDownload();
+        mixRecordedChunks = [];
+        mixRecorder = new MediaRecorder(
+          outputRecorderDestination.stream,
+          options || undefined
+        );
+        isMixRecording = true;
+
+        mixRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            mixRecordedChunks.push(event.data);
+          }
+        };
+
+        mixRecorder.start();
+        updateOutputRecorderUI();
+      }
+
+      function stopRecordingSession() {
+        return new Promise((resolve, reject) => {
+          if (!mediaRecorder || mediaRecorder.state === "inactive") {
+            reject(new Error("No active recording session."));
+            return;
+          }
+
+          mediaRecorder.onerror = (event) => {
+            reject(event.error || new Error("MediaRecorder error."));
+          };
+
+          mediaRecorder.onstop = () => {
+            if (!recordedChunks.length) {
+              reject(new Error("No audio was captured."));
+              return;
+            }
+
+            resolve(
+              new Blob(recordedChunks, {
+                type: mediaRecorder.mimeType || "audio/webm"
+              })
+            );
+          };
+
+          mediaRecorder.stop();
+        });
+      }
+
+      function stopMixRecordingSession() {
+        return new Promise((resolve, reject) => {
+          if (!mixRecorder || mixRecorder.state === "inactive") {
+            reject(new Error("No mix recording is currently running."));
+            return;
+          }
+
+          mixRecorder.onerror = (event) => {
+            reject(event.error || new Error("Mix recorder error."));
+          };
+
+          mixRecorder.onstop = () => {
+            if (!mixRecordedChunks.length) {
+              reject(new Error("No mix audio was captured."));
+              return;
+            }
+
+            resolve(
+              new Blob(mixRecordedChunks, {
+                type: mixRecorder.mimeType || "audio/webm"
+              })
+            );
+          };
+
+          mixRecorder.stop();
+        });
+      }
+
+      async function ensureAudioRunning() {
+        if (audioContext && audioContext.state === "suspended") {
+          await audioContext.resume();
+        }
+      }
+
+      function handleLooperFailure(prefix, error) {
+        console.error(error);
+        clearRecordingTimer();
+        recordingState = "idle";
+        recordedChunks = [];
+        if (mediaRecorder && mediaRecorder.state !== "inactive") {
+          try {
+            mediaRecorder.stop();
+          } catch (stopError) {
+            console.debug("Recorder cleanup skipped:", stopError);
+          }
+        }
+
+        setStatus(`${prefix}: ${error.message}`);
+        updateLooperUI();
+      }
+
+      function handleMixRecorderFailure(prefix, error) {
+        console.error(error);
+        isMixRecording = false;
+        mixRecordedChunks = [];
+
+        if (mixRecorder && mixRecorder.state !== "inactive") {
+          try {
+            mixRecorder.stop();
+          } catch (stopError) {
+            console.debug("Mix recorder cleanup skipped:", stopError);
+          }
+        }
+
+        setStatus(`${prefix}: ${error.message}`);
+        updateOutputRecorderUI();
+      }
+
+      async function finalizeMixRecording() {
+        try {
+          const blob = await stopMixRecordingSession();
+          isMixRecording = false;
+
+          try {
+            mixRecordingBlob = await convertBlobToWav(blob);
+            mixRecordingFilename = `craaiigbored-take-${getRecordingTimestamp()}.wav`;
+            mixRecordingLabel = "WAV";
+          } catch (wavError) {
+            console.warn(
+              "WAV conversion failed, using native recording format instead.",
+              wavError
+            );
+            mixRecordingBlob = blob;
+            mixRecordingFilename = `craaiigbored-take-${getRecordingTimestamp()}.${getMimeExtension(
+              blob.type
+            )}`;
+            mixRecordingLabel = mixRecordingFilename.split(".").pop().toUpperCase();
+          }
+
+          mixRecordingUrl = URL.createObjectURL(mixRecordingBlob);
+          setStatus(`${mixRecordingLabel} take captured and ready to download.`);
+        } catch (error) {
+          handleMixRecorderFailure("Unable to finish output recording", error);
+          return;
+        }
+
+        updateOutputRecorderUI();
+      }
+
+      async function startMixRecording() {
+        try {
+          await ensureAudioRunning();
+          startMixRecordingSession();
+          setStatus("Recording the final rig output.");
+        } catch (error) {
+          handleMixRecorderFailure("Unable to start output recording", error);
+          return;
+        }
+
+        updateOutputRecorderUI();
+      }
+
+      function downloadMixRecording() {
+        if (!mixRecordingBlob || !mixRecordingUrl) {
+          return;
+        }
+
+        const anchor = document.createElement("a");
+        anchor.href = mixRecordingUrl;
+        anchor.download =
+          mixRecordingFilename || `craaiigbored-take-${getRecordingTimestamp()}.wav`;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        setStatus(`${mixRecordingLabel} file download started.`);
+      }
+
+      async function finalizeBaseRecording() {
+        try {
+          const blob = await stopRecordingSession();
+          const decoded = await decodeLoopBlob(blob);
+          loopLayerBuffers = [decoded];
+          baseLoopDuration = decoded.duration;
+          recordingState = "idle";
+          startLoopPlayback();
+          setStatus("Base loop captured and playback started.");
+        } catch (error) {
+          handleLooperFailure("Unable to finish base loop", error);
+          return;
+        }
+
+        updateLooperUI();
+      }
+
+      function scheduleOverdubLayer(buffer) {
+        if (!audioContext || !isLoopPlaying || !baseLoopDuration) {
+          return;
+        }
+
+        const now = audioContext.currentTime;
+        const elapsedSinceLoopStart = Math.max(0, now - loopPlaybackStartTime);
+        const completedCycles = Math.floor(elapsedSinceLoopStart / baseLoopDuration);
+        let startTime = loopPlaybackStartTime + (completedCycles + 1) * baseLoopDuration;
+
+        if (startTime < now + 0.02) {
+          startTime += baseLoopDuration;
+        }
+
+        createLoopLayerSource(buffer, startTime);
+      }
+
+      async function finalizeOverdubRecording() {
+        try {
+          const blob = await stopRecordingSession();
+          const decoded = await decodeLoopBlob(blob);
+          const alignedLayer = rotateLoopBuffer(
+            decoded,
+            recordingStartPhase,
+            baseLoopDuration
+          );
+          loopLayerBuffers.push(alignedLayer);
+          recordingState = "idle";
+          scheduleOverdubLayer(alignedLayer);
+          setStatus("Overdub captured and added to the loop.");
+        } catch (error) {
+          handleLooperFailure("Unable to capture overdub", error);
+          return;
+        } finally {
+          clearRecordingTimer();
+        }
+
+        updateLooperUI();
+      }
+
+      async function startBaseRecording() {
+        try {
+          await ensureAudioRunning();
+          startRecordingSession("base");
+          setStatus("Recording base loop. Press Record again to stop.");
+        } catch (error) {
+          handleLooperFailure("Unable to start base loop recording", error);
+        }
+      }
+
+      async function startOverdubRecording() {
+        try {
+          await ensureAudioRunning();
+
+          if (!isLoopPlaying) {
+            startLoopPlayback();
+          }
+
+          recordingStartPhase = getCurrentLoopPhase();
+          startRecordingSession("overdub");
+          clearRecordingTimer();
+          recordingAutoStopId = window.setTimeout(() => {
+            void finalizeOverdubRecording();
+          }, baseLoopDuration * 1000);
+          setStatus("Recording one-cycle overdub.");
+        } catch (error) {
+          handleLooperFailure("Unable to start overdub recording", error);
+        }
+      }
+
+      async function initializeAudio() {
+        if (audioContext) {
+          await ensureAudioRunning();
+          setStatus("Audio context resumed.");
+          return;
+        }
+
+        try {
+          setStatus("Requesting input device access...");
+
+          mediaStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: false,
+              noiseSuppression: false,
+              autoGainControl: false,
+              channelCount: {
+                ideal: 1
+              }
+            }
+          });
+
+          const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+
+          try {
+            audioContext = new AudioContextCtor({
+              latencyHint: "interactive"
+            });
+          } catch (error) {
+            audioContext = new AudioContextCtor();
+          }
+
+          sourceNode = audioContext.createMediaStreamSource(mediaStream);
+          inputCenterNode = audioContext.createGain();
+          preDriveHighpassNode = audioContext.createBiquadFilter();
+          preDrivePresenceNode = audioContext.createBiquadFilter();
+          waveShaperNode = audioContext.createWaveShaper();
+          postDriveMidNode = audioContext.createBiquadFilter();
+          postDriveLowpassNode = audioContext.createBiquadFilter();
+          delayNode = audioContext.createDelay(1.0);
+          delayFeedbackGain = audioContext.createGain();
+          postEffectsNode = audioContext.createGain();
+          cabMixNode = audioContext.createGain();
+          cabConvolverNode = audioContext.createConvolver();
+          masterGainNode = audioContext.createGain();
+          analyserNode = audioContext.createAnalyser();
+          loopRecorderDestination = audioContext.createMediaStreamDestination();
+          outputRecorderDestination = audioContext.createMediaStreamDestination();
+
+          inputCenterNode.gain.value = 1;
+          inputCenterNode.channelCount = 1;
+          inputCenterNode.channelCountMode = "explicit";
+          inputCenterNode.channelInterpretation = "speakers";
+          preDriveHighpassNode.type = "highpass";
+          preDriveHighpassNode.Q.value = 0.78;
+          preDrivePresenceNode.type = "peaking";
+          preDrivePresenceNode.frequency.value = 1800;
+          preDrivePresenceNode.Q.value = 0.9;
+          postDriveMidNode.type = "peaking";
+          postDriveMidNode.frequency.value = 980;
+          postDriveMidNode.Q.value = 1.1;
+          postDriveLowpassNode.type = "lowpass";
+          postDriveLowpassNode.Q.value = 0.65;
+          cabConvolverNode.normalize = false;
+          applyPerformanceMode();
+
+          updateDriveCurve();
+          updateDelayTime();
+          updateDelayFeedback();
+          await updateCabImpulseResponse();
+          updateOutputLevel();
+          rebuildAudioGraph();
+
+          if (audioContext.state === "suspended") {
+            await audioContext.resume();
+          }
+
+          initializeButton.disabled = true;
+          initializeButton.textContent = "Audio Ready";
+          cabBypassButton.disabled = false;
+
+          setStatus(
+            recorderSupported
+              ? "Audio initialized. Pedals, looper, recorder, and live output are ready."
+              : "Audio initialized. Live pedals are ready, but MediaRecorder is unavailable."
+          );
+          updatePedalUI();
+        } catch (error) {
+          console.error(error);
+          setStatus(`Unable to initialize audio: ${error.message}`);
+        }
+      }
+
+      driveControl.addEventListener("input", updateDriveCurve);
+      levelControl.addEventListener("input", updateOutputLevel);
+      delayTimeControl.addEventListener("input", updateDelayTime);
+      delayFeedbackControl.addEventListener("input", updateDelayFeedback);
+      cabResonanceControl.addEventListener("input", () => {
+        void updateCabImpulseResponse();
+      });
+      cabPresenceControl.addEventListener("input", () => {
+        void updateCabImpulseResponse();
+      });
+
+      initializeButton.addEventListener("click", () => {
+        void initializeAudio();
+      });
+
+      midiLearnButton.addEventListener("click", () => {
+        midiLearnEnabled = !midiLearnEnabled;
+
+        if (!midiLearnEnabled) {
+          clearMidiLearnTarget();
+          setStatus("MIDI Learn disabled.");
+        } else {
+          setStatus("MIDI Learn enabled. Click a supported stomp button to assign it.");
+        }
+
+        updateMidiUI();
+      });
+
+      savePresetButton.addEventListener("click", saveCurrentPreset);
+      loadPresetButton.addEventListener("click", () => {
+        void loadSelectedPreset();
+      });
+
+      lowLatencyButton.addEventListener("click", async () => {
+        if (audioContext) {
+          await ensureAudioRunning();
+        }
+
+        isLowLatencyMode = !isLowLatencyMode;
+        applyPerformanceMode();
+
+        if (audioContext) {
+          rebuildAudioGraph();
+          updatePedalUI();
+        } else {
+          updatePerformanceUI();
+        }
+
+        setStatus(
+          isLowLatencyMode
+            ? "Low Latency mode engaged. Cab sim is temporarily lifted and scope is paused."
+            : "Full rig mode restored. Cab sim and scope are back online."
+        );
+      });
+
+      safetyConfirm.addEventListener("change", () => {
+        initializeButton.disabled = !safetyConfirm.checked || Boolean(audioContext);
+      });
+
+      midiLearnTargets.forEach(({ button }, buttonId) => {
+        button.addEventListener(
+          "click",
+          (event) => {
+            handleMidiLearnSelection(buttonId, event);
+          },
+          true
+        );
+      });
+
+      bypassButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isOverdriveBypassed = !isOverdriveBypassed;
+        rebuildAudioGraph();
+        updatePedalUI();
+        setStatus(
+          isOverdriveBypassed
+            ? "Overdrive bypassed. Delay and looper tap remain active."
+            : "Overdrive re-engaged in the live signal chain."
+        );
+      });
+
+      delayBypassButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isDelayBypassed = !isDelayBypassed;
+        rebuildAudioGraph();
+        updatePedalUI();
+        setStatus(
+          isDelayBypassed
+            ? "Delay bypassed. Live signal now skips the repeat stage."
+            : "Delay re-engaged with the current time and feedback settings."
+        );
+      });
+
+      cabBypassButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isCabBypassed = !isCabBypassed;
+        rebuildAudioGraph();
+        updatePedalUI();
+        setStatus(
+          isCabBypassed
+            ? "Cabinet simulator bypassed. The live and loop mix now feeds master directly."
+            : "Cabinet simulator re-engaged with the current resonance and presence settings."
+        );
+      });
+
+      recordButton.addEventListener("click", async () => {
+        if (!audioContext || !recorderSupported) {
+          return;
+        }
+
+        if (recordingState === "base") {
+          await finalizeBaseRecording();
+          return;
+        }
+
+        if (recordingState === "overdub") {
+          return;
+        }
+
+        if (!loopLayerBuffers.length) {
+          await startBaseRecording();
+          return;
+        }
+
+        await startOverdubRecording();
+      });
+
+      recordMixButton.addEventListener("click", async () => {
+        if (!audioContext || !recorderSupported) {
+          return;
+        }
+
+        if (isMixRecording) {
+          await finalizeMixRecording();
+          return;
+        }
+
+        await startMixRecording();
+      });
+
+      downloadMixButton.addEventListener("click", downloadMixRecording);
+
+      playStopButton.addEventListener("click", async () => {
+        if (!audioContext || !loopLayerBuffers.length || recordingState !== "idle") {
+          return;
+        }
+
+        await ensureAudioRunning();
+
+        if (isLoopPlaying) {
+          stopLoopPlayback();
+          setStatus("Loop playback stopped.");
+        } else {
+          startLoopPlayback();
+          setStatus("Loop playback started.");
+        }
+
+        updateLooperUI();
+      });
+
+      window.addEventListener("resize", () => {
+        if (isLowLatencyMode) {
+          drawIdleOscilloscope("LOW LATENCY // SCOPE PAUSED");
+        } else if (!audioContext) {
+          drawIdleOscilloscope();
+        }
+      });
+
+      window.addEventListener("beforeunload", clearMixRecordingDownload);
+
+      drawIdleOscilloscope();
+      updatePerformanceUI();
+      updateDriveCurve();
+      updateDelayTime();
+      updateDelayFeedback();
+      void updateCabImpulseResponse();
+      updateOutputLevel();
+      updatePedalUI();
+      updateOutputRecorderUI();
+      updateMidiUI();
+      void initializeMidiSupport();
+    </script>
+  </body>
+</html>
