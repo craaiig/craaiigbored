@@ -196,7 +196,7 @@
       .pedalboard {
         display: grid;
         gap: 24px;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         margin-bottom: 28px;
         align-items: start;
       }
@@ -286,6 +286,76 @@
 
       .pedal--orange .stomp-button {
         border-color: rgba(0, 0, 0, 0.55);
+      }
+
+      .pedal--tuner {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 18%),
+          linear-gradient(165deg, #2b303b, #10141c 55%, #06080d 100%);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .pedal--tuner .pedal-subtitle {
+        color: #c8d0de;
+      }
+
+      .pedal--blue {
+        background:
+          linear-gradient(180deg, rgba(191, 224, 255, 0.12), transparent 18%),
+          linear-gradient(155deg, #27446f, #17325d 48%, #102444 100%);
+        border-color: rgba(146, 195, 255, 0.16);
+      }
+
+      .pedal--blue .pedal-subtitle {
+        color: #99d4ff;
+      }
+
+      .pedal--blue .value-pill {
+        background: rgba(86, 155, 255, 0.2);
+        color: #d8ebff;
+      }
+
+      .pedal--chrome {
+        border-color: rgba(255, 255, 255, 0.24);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 18%),
+          linear-gradient(155deg, #c4ccd6, #919aa7 42%, #596270 100%);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.5),
+          inset 0 -12px 18px rgba(0, 0, 0, 0.2),
+          0 20px 50px rgba(0, 0, 0, 0.42);
+      }
+
+      .pedal--chrome::before {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+
+      .pedal--chrome .pedal-brand,
+      .pedal--chrome .pedal-name,
+      .pedal--chrome .pedal-subtitle,
+      .pedal--chrome .stomp-caption,
+      .pedal--chrome .control-header label,
+      .pedal--chrome .stomp-label {
+        color: #10151d;
+      }
+
+      .pedal--chrome .pedal-subtitle {
+        color: #283548;
+      }
+
+      .pedal--chrome .control-panel {
+        background:
+          linear-gradient(180deg, rgba(247, 249, 252, 0.42), rgba(149, 158, 171, 0.18));
+        border-color: rgba(16, 21, 29, 0.12);
+      }
+
+      .pedal--chrome .value-pill {
+        background: rgba(16, 21, 29, 0.14);
+        color: #10151d;
+      }
+
+      .pedal--chrome .stomp-button {
+        border-color: rgba(16, 21, 29, 0.18);
       }
 
       .pedal-brand {
@@ -521,6 +591,49 @@
         color: var(--text-dim);
         text-transform: uppercase;
         text-align: center;
+      }
+
+      .tuner-panel {
+        padding: 18px;
+      }
+
+      .tuner-display {
+        display: grid;
+        gap: 10px;
+        min-height: 150px;
+        place-items: center;
+        padding: 18px 16px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 18%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(7, 10, 14, 0.96));
+        box-shadow:
+          inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+          inset 0 0 28px rgba(130, 236, 182, 0.08);
+        text-align: center;
+      }
+
+      .tuner-note {
+        font-size: clamp(2.8rem, 7vw, 4rem);
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        color: #f4f7ff;
+      }
+
+      .tuner-cents {
+        min-height: 1.3em;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #7ff0a6;
+      }
+
+      .tuner-pitch {
+        min-height: 1.3em;
+        font-size: 0.88rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text-dim);
       }
 
       .utility-grid {
@@ -898,6 +1011,28 @@
       </section>
 
       <section class="pedalboard">
+        <article class="pedal pedal--tuner" aria-label="Tuner pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Pitch Guard</h2>
+          <p class="pedal-subtitle">Live Input Tuner</p>
+
+          <div class="control-panel tuner-panel">
+            <div class="tuner-display" aria-live="polite">
+              <div id="tunerNoteDisplay" class="tuner-note">--</div>
+              <div id="tunerCentsDisplay" class="tuner-cents">Awaiting Audio</div>
+              <div id="tunerPitchDisplay" class="tuner-pitch">Standard Guitar Tuning</div>
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="tunerStatusLed" class="led" aria-hidden="true"></div>
+            <button id="tunerMuteButton" class="stomp-button" type="button">
+              Mute Off
+            </button>
+            <span id="tunerCaption" class="stomp-caption">Signal Passing</span>
+          </div>
+        </article>
+
         <article class="pedal" aria-label="Overdrive pedal">
           <p class="pedal-brand">CRAAIIGBORED</p>
           <h2 class="pedal-name">Rust Drive</h2>
@@ -946,6 +1081,54 @@
           </div>
         </article>
 
+        <article class="pedal pedal--blue" aria-label="Chorus pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Blue Haze</h2>
+          <p class="pedal-subtitle">Modulated Chorus</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="chorusRateControl">Rate</label>
+                <span id="chorusRateValue" class="value-pill">1.4 Hz</span>
+              </div>
+              <input
+                id="chorusRateControl"
+                type="range"
+                min="0.1"
+                max="8"
+                value="1.4"
+                step="0.1"
+                aria-label="Chorus rate"
+              />
+            </div>
+
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="chorusDepthControl">Depth</label>
+                <span id="chorusDepthValue" class="value-pill">45%</span>
+              </div>
+              <input
+                id="chorusDepthControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.45"
+                step="0.01"
+                aria-label="Chorus depth"
+              />
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="chorusStatusLed" class="led" aria-hidden="true"></div>
+            <button id="chorusBypassButton" class="stomp-button" type="button">
+              Bypass Off
+            </button>
+            <span id="chorusCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+
         <article class="pedal" aria-label="Delay pedal">
           <p class="pedal-brand">CRAAIIGBORED</p>
           <h2 class="pedal-name">Echo Field</h2>
@@ -991,6 +1174,54 @@
               Bypass Off
             </button>
             <span id="delayCaption" class="stomp-caption">Awaiting Audio</span>
+          </div>
+        </article>
+
+        <article class="pedal pedal--chrome" aria-label="Spring reverb pedal">
+          <p class="pedal-brand">CRAAIIGBORED</p>
+          <h2 class="pedal-name">Silver Tank</h2>
+          <p class="pedal-subtitle">Synthetic Spring Reverb</p>
+
+          <div class="control-panel">
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="reverbMixControl">Mix</label>
+                <span id="reverbMixValue" class="value-pill">32%</span>
+              </div>
+              <input
+                id="reverbMixControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.32"
+                step="0.01"
+                aria-label="Spring reverb mix"
+              />
+            </div>
+
+            <div class="drive-row">
+              <div class="control-header">
+                <label for="reverbDecayControl">Decay</label>
+                <span id="reverbDecayValue" class="value-pill">2.3 s</span>
+              </div>
+              <input
+                id="reverbDecayControl"
+                type="range"
+                min="0"
+                max="1"
+                value="0.55"
+                step="0.01"
+                aria-label="Spring reverb decay"
+              />
+            </div>
+          </div>
+
+          <div class="stomp-area">
+            <div id="reverbStatusLed" class="led" aria-hidden="true"></div>
+            <button id="reverbBypassButton" class="stomp-button" type="button">
+              Bypass Off
+            </button>
+            <span id="reverbCaption" class="stomp-caption">Awaiting Audio</span>
           </div>
         </article>
 
@@ -1126,13 +1357,13 @@
           <div class="midi-status-row">
             <div id="performanceStatusDot" class="midi-status-dot" aria-hidden="true"></div>
             <div id="performanceStatusText" class="midi-status-text">
-              Full rig mode. Cab sim and scope are active.
+              Full rig mode. Spring reverb, cab sim, and scope are active.
             </div>
           </div>
           <p class="hint">
             Trims the heaviest live-processing load for tighter monitoring by
-            pausing the oscilloscope, temporarily lifting the cab sim, and
-            reducing waveshaper oversampling.
+            pausing the oscilloscope, temporarily lifting the spring reverb and
+            cab sim, and reducing waveshaper oversampling.
           </p>
           <button
             id="lowLatencyButton"
@@ -1150,9 +1381,10 @@
             <div id="midiStatusText" class="midi-status-text">Checking Web MIDI support…</div>
           </div>
           <p id="midiHint" class="hint">
-            Enable MIDI Learn, then click Overdrive Bypass, Delay Bypass, Looper
-            Record, or Looper Play/Stop to arm that stomp for the next MIDI Note
-            On or high-value CC message.
+            Enable MIDI Learn, then click Tuner Mute, Overdrive Bypass, Chorus
+            Bypass, Delay Bypass, Spring Reverb Bypass, Looper Record, or
+            Looper Play/Stop to arm that stomp for the next MIDI Note On or
+            high-value CC message.
           </p>
           <button id="midiLearnButton" class="midi-learn-button" type="button">
             MIDI Learn Off
@@ -1212,9 +1444,15 @@
           <div class="signal-chain" aria-label="Current signal chain">
             <span class="chain-node">Input</span>
             <span class="chain-arrow">→</span>
+            <span class="chain-node">Tuner</span>
+            <span class="chain-arrow">→</span>
             <span class="chain-node">Overdrive</span>
             <span class="chain-arrow">→</span>
+            <span class="chain-node">Chorus</span>
+            <span class="chain-arrow">→</span>
             <span class="chain-node">Delay</span>
+            <span class="chain-arrow">→</span>
+            <span class="chain-node">Spring Reverb</span>
             <span class="chain-arrow">→</span>
             <span class="chain-node">Loop Tap</span>
             <span class="chain-arrow">→</span>
@@ -1231,13 +1469,14 @@
         <section class="control-card">
           <h2>How It Works</h2>
           <p class="hint">
-            Overdrive uses asymmetric clipping plus pre/post EQ to lean into a
-            raw 90s grunge voice. Delay adds repeats with a capped feedback
-            loop. The cabinet simulator builds a synthetic 4x12 impulse
-            response in JavaScript and sits after the looper tap, before master
-            level and the oscilloscope. Low Latency mode temporarily sheds the
-            cab sim and scope load for faster live monitoring, and the output
-            recorder captures the finished mix for WAV export.
+            The tuner autocorrelates the live input and can mute the whole rig
+            while you tune. Overdrive uses asymmetric clipping plus pre/post EQ
+            to lean into a raw 90s grunge voice. Chorus modulates a short delay
+            line with an LFO, delay adds repeats with a capped feedback loop,
+            and the spring reverb generates a metallic synthetic impulse
+            response before the looper tap. The cabinet simulator then shapes
+            the post-loop mix before master level, the oscilloscope, and WAV
+            output recording.
           </p>
         </section>
       </section>
@@ -1281,34 +1520,54 @@
       const scopeMode = document.getElementById("scopeMode");
 
       const driveControl = document.getElementById("driveControl");
+      const chorusRateControl = document.getElementById("chorusRateControl");
+      const chorusDepthControl = document.getElementById("chorusDepthControl");
       const levelControl = document.getElementById("levelControl");
       const delayTimeControl = document.getElementById("delayTimeControl");
       const delayFeedbackControl = document.getElementById("delayFeedbackControl");
+      const reverbMixControl = document.getElementById("reverbMixControl");
+      const reverbDecayControl = document.getElementById("reverbDecayControl");
       const cabResonanceControl = document.getElementById("cabResonanceControl");
       const cabPresenceControl = document.getElementById("cabPresenceControl");
 
+      const tunerNoteDisplay = document.getElementById("tunerNoteDisplay");
+      const tunerCentsDisplay = document.getElementById("tunerCentsDisplay");
+      const tunerPitchDisplay = document.getElementById("tunerPitchDisplay");
       const driveValue = document.getElementById("driveValue");
+      const chorusRateValue = document.getElementById("chorusRateValue");
+      const chorusDepthValue = document.getElementById("chorusDepthValue");
       const levelValue = document.getElementById("levelValue");
       const delayTimeValue = document.getElementById("delayTimeValue");
       const delayFeedbackValue = document.getElementById("delayFeedbackValue");
+      const reverbMixValue = document.getElementById("reverbMixValue");
+      const reverbDecayValue = document.getElementById("reverbDecayValue");
       const cabResonanceValue = document.getElementById("cabResonanceValue");
       const cabPresenceValue = document.getElementById("cabPresenceValue");
       const loopModeValue = document.getElementById("loopModeValue");
 
+      const tunerMuteButton = document.getElementById("tunerMuteButton");
       const bypassButton = document.getElementById("bypassButton");
+      const chorusBypassButton = document.getElementById("chorusBypassButton");
       const delayBypassButton = document.getElementById("delayBypassButton");
+      const reverbBypassButton = document.getElementById("reverbBypassButton");
       const cabBypassButton = document.getElementById("cabBypassButton");
       const recordButton = document.getElementById("recordButton");
       const playStopButton = document.getElementById("playStopButton");
 
+      const tunerStatusLed = document.getElementById("tunerStatusLed");
       const statusLed = document.getElementById("statusLed");
+      const chorusStatusLed = document.getElementById("chorusStatusLed");
       const delayStatusLed = document.getElementById("delayStatusLed");
+      const reverbStatusLed = document.getElementById("reverbStatusLed");
       const cabStatusLed = document.getElementById("cabStatusLed");
       const recordLed = document.getElementById("recordLed");
       const playLed = document.getElementById("playLed");
 
+      const tunerCaption = document.getElementById("tunerCaption");
       const overdriveCaption = document.getElementById("overdriveCaption");
+      const chorusCaption = document.getElementById("chorusCaption");
       const delayCaption = document.getElementById("delayCaption");
+      const reverbCaption = document.getElementById("reverbCaption");
       const cabCaption = document.getElementById("cabCaption");
       const looperCaption = document.getElementById("looperCaption");
 
@@ -1318,13 +1577,26 @@
       let mediaStream;
       let sourceNode;
       let inputCenterNode;
+      let tunerAnalyserNode;
+      let tunerMuteGainNode;
       let preDriveHighpassNode;
       let preDrivePresenceNode;
       let waveShaperNode;
       let postDriveMidNode;
       let postDriveLowpassNode;
+      let chorusDelayNode;
+      let chorusLfoNode;
+      let chorusLfoDepthNode;
+      let chorusDryGainNode;
+      let chorusWetGainNode;
+      let chorusMixNode;
       let delayNode;
+      let delayMixNode;
       let delayFeedbackGain;
+      let reverbConvolverNode;
+      let reverbDryGainNode;
+      let reverbWetGainNode;
+      let reverbMixNode;
       let postEffectsNode;
       let cabMixNode;
       let cabConvolverNode;
@@ -1334,6 +1606,8 @@
       let outputRecorderDestination;
       let scopeDataArray;
       let scopeAnimationFrameId = 0;
+      let tunerDataArray;
+      let tunerAnimationFrameId = 0;
 
       let mediaRecorder;
       let recordedChunks = [];
@@ -1342,6 +1616,7 @@
       let recordingStartPhase = 0;
       let recordingAutoStopId = 0;
       let cabIrUpdateToken = 0;
+      let springIrUpdateToken = 0;
       let presetSaveResetId = 0;
       let mixRecorder;
       let mixRecordedChunks = [];
@@ -1357,8 +1632,11 @@
       let isLoopPlaying = false;
       let loopPlaybackStartTime = 0;
 
+      let isTunerMuted = false;
       let isOverdriveBypassed = false;
+      let isChorusBypassed = false;
       let isDelayBypassed = false;
+      let isReverbBypassed = false;
       let isCabBypassed = false;
       let isLowLatencyMode = false;
 
@@ -1370,11 +1648,47 @@
       const midiMappings = new Map();
       const activeMidiMessages = new Set();
       const midiLearnTargets = new Map([
+        ["tunerMuteButton", { button: tunerMuteButton, label: "Tuner Mute" }],
         ["bypassButton", { button: bypassButton, label: "Overdrive Bypass" }],
+        ["chorusBypassButton", { button: chorusBypassButton, label: "Chorus Bypass" }],
         ["delayBypassButton", { button: delayBypassButton, label: "Delay Bypass" }],
+        ["reverbBypassButton", { button: reverbBypassButton, label: "Spring Reverb Bypass" }],
         ["recordButton", { button: recordButton, label: "Looper Record" }],
         ["playStopButton", { button: playStopButton, label: "Looper Play / Stop" }]
       ]);
+
+      const standardGuitarNotes = [
+        {
+          label: "E",
+          noteName: "E2",
+          frequency: 82.41
+        },
+        {
+          label: "A",
+          noteName: "A2",
+          frequency: 110
+        },
+        {
+          label: "D",
+          noteName: "D3",
+          frequency: 146.83
+        },
+        {
+          label: "G",
+          noteName: "G3",
+          frequency: 196
+        },
+        {
+          label: "B",
+          noteName: "B3",
+          frequency: 246.94
+        },
+        {
+          label: "E",
+          noteName: "E4",
+          frequency: 329.63
+        }
+      ];
 
       function setStatus(message) {
         statusText.textContent = message;
@@ -1382,6 +1696,10 @@
 
       function getCabEffectivelyBypassed() {
         return isCabBypassed || isLowLatencyMode;
+      }
+
+      function getReverbEffectivelyBypassed() {
+        return isReverbBypassed || isLowLatencyMode;
       }
 
       function stopOscilloscope(message = "STANDBY // INIT AUDIO") {
@@ -1399,15 +1717,22 @@
 
       function captureCurrentPreset() {
         return {
+          chorusRate: chorusRateControl.value,
+          chorusDepth: chorusDepthControl.value,
           drive: driveControl.value,
           level: levelControl.value,
           delayTime: delayTimeControl.value,
           delayFeedback: delayFeedbackControl.value,
+          reverbMix: reverbMixControl.value,
+          reverbDecay: reverbDecayControl.value,
           cabResonance: cabResonanceControl.value,
           cabPresence: cabPresenceControl.value,
+          tunerMuted: isTunerMuted,
           bypass: {
             overdrive: isOverdriveBypassed,
+            chorus: isChorusBypassed,
             delay: isDelayBypassed,
+            reverb: isReverbBypassed,
             cab: isCabBypassed
           }
         };
@@ -1466,22 +1791,34 @@
           return;
         }
 
+        chorusRateControl.value = presetData.chorusRate ?? chorusRateControl.value;
+        chorusDepthControl.value = presetData.chorusDepth ?? chorusDepthControl.value;
         driveControl.value = presetData.drive ?? driveControl.value;
         levelControl.value = presetData.level ?? levelControl.value;
         delayTimeControl.value = presetData.delayTime ?? delayTimeControl.value;
         delayFeedbackControl.value =
           presetData.delayFeedback ?? delayFeedbackControl.value;
+        reverbMixControl.value = presetData.reverbMix ?? reverbMixControl.value;
+        reverbDecayControl.value = presetData.reverbDecay ?? reverbDecayControl.value;
         cabResonanceControl.value =
           presetData.cabResonance ?? cabResonanceControl.value;
         cabPresenceControl.value = presetData.cabPresence ?? cabPresenceControl.value;
 
+        isTunerMuted = Boolean(presetData.tunerMuted);
         isOverdriveBypassed = Boolean(presetData.bypass?.overdrive);
+        isChorusBypassed = Boolean(presetData.bypass?.chorus);
         isDelayBypassed = Boolean(presetData.bypass?.delay);
+        isReverbBypassed = Boolean(presetData.bypass?.reverb);
         isCabBypassed = Boolean(presetData.bypass?.cab);
 
+        updateTunerMuteState();
+        updateChorusRate();
+        updateChorusDepth();
         updateDriveCurve();
         updateDelayTime();
         updateDelayFeedback();
+        updateReverbMix();
+        await updateSpringReverbImpulseResponse();
         await updateCabImpulseResponse();
         updateOutputLevel();
         rebuildAudioGraph();
@@ -1541,17 +1878,17 @@
         if (isLowLatencyMode) {
           performanceStatusDot.classList.add("is-learning");
           performanceStatusText.textContent = audioContext
-            ? "Fast monitoring is active. Cab sim is lifted and scope is paused."
-            : "Fast monitoring is armed and will apply when audio initializes.";
+            ? "Fast monitoring is active. Spring reverb and cab sim are lifted, and scope is paused."
+            : "Fast monitoring is armed and will lift spring reverb, cab sim, and the scope on initialization.";
           return;
         }
 
         if (audioContext) {
           performanceStatusDot.classList.add("is-connected");
-          performanceStatusText.textContent = "Full rig mode. Cab sim and scope are active.";
+          performanceStatusText.textContent = "Full rig mode. Spring reverb, cab sim, and scope are active.";
         } else {
           performanceStatusText.textContent =
-            "Full rig mode. Cab sim and scope will start on initialization.";
+            "Full rig mode. Spring reverb, cab sim, and scope will start on initialization.";
         }
       }
 
@@ -1656,6 +1993,9 @@
           midiHint.textContent = `${mappingCount} MIDI mapping${
             mappingCount === 1 ? "" : "s"
           } saved for this session.`;
+        } else {
+          midiHint.textContent =
+            "Enable MIDI Learn, then click Tuner Mute, Overdrive Bypass, Chorus Bypass, Delay Bypass, Spring Reverb Bypass, Looper Record, or Looper Play/Stop.";
         }
 
         midiLearnTargets.forEach(({ button }, targetId) => {
@@ -1839,6 +2179,159 @@
         }
 
         return `${seconds.toFixed(2)} s`;
+      }
+
+      function formatRate(value) {
+        return `${value.toFixed(1)} Hz`;
+      }
+
+      function formatDecayTime(value) {
+        return `${(1.5 + value * 1.5).toFixed(1)} s`;
+      }
+
+      function resetTunerDisplay(message = "Awaiting Audio", detail = "Standard Guitar Tuning") {
+        tunerNoteDisplay.textContent = "--";
+        tunerCentsDisplay.textContent = message;
+        tunerPitchDisplay.textContent = detail;
+      }
+
+      function getNearestGuitarNote(frequency) {
+        let nearest = standardGuitarNotes[0];
+        let nearestCents = Number.POSITIVE_INFINITY;
+
+        for (const candidate of standardGuitarNotes) {
+          const cents = 1200 * Math.log2(frequency / candidate.frequency);
+
+          if (Math.abs(cents) < Math.abs(nearestCents)) {
+            nearest = candidate;
+            nearestCents = cents;
+          }
+        }
+
+        return {
+          note: nearest,
+          cents: nearestCents
+        };
+      }
+
+      function autoCorrelatePitch(buffer, sampleRate) {
+        let rms = 0;
+
+        for (let i = 0; i < buffer.length; i += 1) {
+          const sample = buffer[i];
+          rms += sample * sample;
+        }
+
+        rms = Math.sqrt(rms / buffer.length);
+
+        if (rms < 0.015) {
+          return 0;
+        }
+
+        const minFrequency = 70;
+        const maxFrequency = 360;
+        const minLag = Math.floor(sampleRate / maxFrequency);
+        const maxLag = Math.floor(sampleRate / minFrequency);
+        let bestLag = -1;
+        let bestScore = 0;
+
+        for (let lag = minLag; lag <= maxLag; lag += 1) {
+          let difference = 0;
+
+          for (let i = 0; i < buffer.length - lag; i += 1) {
+            difference += Math.abs(buffer[i] - buffer[i + lag]);
+          }
+
+          const score = 1 - difference / (buffer.length - lag);
+
+          if (score > bestScore) {
+            bestScore = score;
+            bestLag = lag;
+          }
+        }
+
+        if (bestLag === -1 || bestScore < 0.82) {
+          return 0;
+        }
+
+        const previousLag = Math.max(minLag, bestLag - 1);
+        const nextLag = Math.min(maxLag, bestLag + 1);
+        let previousDifference = 0;
+        let bestDifference = 0;
+        let nextDifference = 0;
+
+        for (let i = 0; i < buffer.length - previousLag; i += 1) {
+          previousDifference += Math.abs(buffer[i] - buffer[i + previousLag]);
+        }
+
+        for (let i = 0; i < buffer.length - bestLag; i += 1) {
+          bestDifference += Math.abs(buffer[i] - buffer[i + bestLag]);
+        }
+
+        for (let i = 0; i < buffer.length - nextLag; i += 1) {
+          nextDifference += Math.abs(buffer[i] - buffer[i + nextLag]);
+        }
+
+        const denominator = previousDifference + nextDifference - 2 * bestDifference;
+        const refinement =
+          denominator !== 0
+            ? 0.5 * (previousDifference - nextDifference) / denominator
+            : 0;
+        const refinedLag = bestLag + refinement;
+
+        if (!Number.isFinite(refinedLag) || refinedLag <= 0) {
+          return 0;
+        }
+
+        return sampleRate / refinedLag;
+      }
+
+      function stopTuner() {
+        if (tunerAnimationFrameId) {
+          window.cancelAnimationFrame(tunerAnimationFrameId);
+          tunerAnimationFrameId = 0;
+        }
+
+        resetTunerDisplay();
+      }
+
+      function drawTunerFrame() {
+        tunerAnimationFrameId = window.requestAnimationFrame(drawTunerFrame);
+
+        if (!tunerAnalyserNode || !tunerDataArray || !audioContext) {
+          resetTunerDisplay();
+          return;
+        }
+
+        tunerAnalyserNode.getFloatTimeDomainData(tunerDataArray);
+        const detectedFrequency = autoCorrelatePitch(tunerDataArray, audioContext.sampleRate);
+
+        if (!detectedFrequency) {
+          resetTunerDisplay("Listening...", isTunerMuted ? "Mute is on" : "Signal Passing");
+          return;
+        }
+
+        const { note, cents } = getNearestGuitarNote(detectedFrequency);
+        const roundedCents = Math.round(cents);
+        tunerNoteDisplay.textContent = note.label;
+
+        if (Math.abs(roundedCents) <= 3) {
+          tunerCentsDisplay.textContent = `${note.noteName} • In Tune`;
+        } else if (roundedCents < 0) {
+          tunerCentsDisplay.textContent = `${Math.abs(roundedCents)} cents flat`;
+        } else {
+          tunerCentsDisplay.textContent = `${roundedCents} cents sharp`;
+        }
+
+        tunerPitchDisplay.textContent = `${note.noteName} • ${detectedFrequency.toFixed(2)} Hz`;
+      }
+
+      function startTuner() {
+        if (tunerAnimationFrameId) {
+          return;
+        }
+
+        drawTunerFrame();
       }
 
       function getOfflineAudioContextCtor() {
@@ -2067,6 +2560,181 @@
         }
       }
 
+      function updateTunerMuteState() {
+        if (tunerMuteGainNode && audioContext) {
+          tunerMuteGainNode.gain.setTargetAtTime(
+            isTunerMuted ? 0 : 1,
+            audioContext.currentTime,
+            0.01
+          );
+        }
+
+        updatePedalUI();
+      }
+
+      function updateChorusRate() {
+        const rate = Number(chorusRateControl.value);
+        chorusRateValue.textContent = formatRate(rate);
+
+        if (chorusLfoNode && audioContext) {
+          chorusLfoNode.frequency.setTargetAtTime(rate, audioContext.currentTime, 0.01);
+        }
+      }
+
+      function updateChorusDepth() {
+        const depth = Number(chorusDepthControl.value);
+        const baseDelay = 0.022 + depth * 0.004;
+        const modulationDepth = 0.0008 + depth * 0.006;
+        const dryLevel = 0.9 - depth * 0.08;
+        const wetLevel = 0.42 + depth * 0.18;
+
+        chorusDepthValue.textContent = formatPercent(depth);
+
+        if (
+          chorusDelayNode &&
+          chorusLfoDepthNode &&
+          chorusDryGainNode &&
+          chorusWetGainNode &&
+          audioContext
+        ) {
+          chorusDelayNode.delayTime.setTargetAtTime(baseDelay, audioContext.currentTime, 0.01);
+          chorusLfoDepthNode.gain.setTargetAtTime(
+            modulationDepth,
+            audioContext.currentTime,
+            0.01
+          );
+          chorusDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, 0.01);
+          chorusWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, 0.01);
+        }
+      }
+
+      function updateReverbMix() {
+        const mix = Number(reverbMixControl.value);
+        const dryLevel = Math.cos(mix * Math.PI * 0.5);
+        const wetLevel = Math.sin(mix * Math.PI * 0.5) * 0.92;
+
+        reverbMixValue.textContent = formatPercent(mix);
+
+        if (reverbDryGainNode && reverbWetGainNode && audioContext) {
+          reverbDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, 0.01);
+          reverbWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, 0.01);
+        }
+      }
+
+      async function generateSyntheticSpringReverbIR(decayAmount) {
+        const OfflineAudioContextCtor = getOfflineAudioContextCtor();
+
+        if (!OfflineAudioContextCtor || !audioContext) {
+          throw new Error("OfflineAudioContext is unavailable for spring IR generation.");
+        }
+
+        const sampleRate = audioContext.sampleRate;
+        const duration = 1.5 + decayAmount * 1.5;
+        const frameCount = Math.floor(sampleRate * duration);
+        const offlineContext = new OfflineAudioContextCtor(2, frameCount, sampleRate);
+        const impulseBuffer = offlineContext.createBuffer(2, frameCount, sampleRate);
+        const decayRate = 2.9 - decayAmount * 1.15;
+
+        for (let channel = 0; channel < impulseBuffer.numberOfChannels; channel += 1) {
+          const channelData = impulseBuffer.getChannelData(channel);
+
+          for (let i = 0; i < frameCount; i += 1) {
+            const time = i / sampleRate;
+            const envelope = Math.exp(-time * decayRate);
+            const flutter =
+              0.7 +
+              0.18 * Math.sin(2 * Math.PI * (13 + channel * 2) * time) +
+              0.12 * Math.sin(2 * Math.PI * (31 + channel * 4) * time);
+            const noise = Math.random() * 2 - 1;
+            channelData[i] = noise * envelope * flutter;
+          }
+        }
+
+        const source = offlineContext.createBufferSource();
+        source.buffer = impulseBuffer;
+
+        const inputHighpass = offlineContext.createBiquadFilter();
+        inputHighpass.type = "highpass";
+        inputHighpass.frequency.value = 180;
+        inputHighpass.Q.value = 0.9;
+
+        const inputLowpass = offlineContext.createBiquadFilter();
+        inputLowpass.type = "lowpass";
+        inputLowpass.frequency.value = 4700;
+        inputLowpass.Q.value = 0.8;
+
+        const bodyPathGain = offlineContext.createGain();
+        bodyPathGain.gain.value = 0.28;
+
+        const reverbBus = offlineContext.createGain();
+        reverbBus.gain.value = 0.95;
+
+        const resonanceBands = [
+          { frequency: 320, q: 6.8, gain: 0.42 },
+          { frequency: 610, q: 9.5, gain: 0.55 },
+          { frequency: 1010, q: 11.5, gain: 0.48 },
+          { frequency: 1620, q: 12.8, gain: 0.34 },
+          { frequency: 2480, q: 14.2, gain: 0.24 }
+        ];
+
+        source.connect(inputHighpass);
+        inputHighpass.connect(inputLowpass);
+        inputLowpass.connect(bodyPathGain);
+        bodyPathGain.connect(reverbBus);
+
+        resonanceBands.forEach((band) => {
+          const bandpass = offlineContext.createBiquadFilter();
+          bandpass.type = "bandpass";
+          bandpass.frequency.value = band.frequency;
+          bandpass.Q.value = band.q;
+
+          const bandGain = offlineContext.createGain();
+          bandGain.gain.value = band.gain + decayAmount * 0.08;
+
+          inputLowpass.connect(bandpass);
+          bandpass.connect(bandGain);
+          bandGain.connect(reverbBus);
+        });
+
+        const finalLowpass = offlineContext.createBiquadFilter();
+        finalLowpass.type = "lowpass";
+        finalLowpass.frequency.value = 4300 - decayAmount * 250;
+        finalLowpass.Q.value = 0.85;
+
+        reverbBus.connect(finalLowpass);
+        finalLowpass.connect(offlineContext.destination);
+        source.start();
+
+        return offlineContext.startRendering();
+      }
+
+      async function updateSpringReverbImpulseResponse() {
+        const decayAmount = Number(reverbDecayControl.value);
+        reverbDecayValue.textContent = formatDecayTime(decayAmount);
+
+        if (!reverbConvolverNode || !audioContext) {
+          updatePedalUI();
+          return;
+        }
+
+        const token = ++springIrUpdateToken;
+
+        try {
+          const impulseResponse = await generateSyntheticSpringReverbIR(decayAmount);
+
+          if (token !== springIrUpdateToken || !reverbConvolverNode) {
+            return;
+          }
+
+          reverbConvolverNode.buffer = impulseResponse;
+        } catch (error) {
+          console.error(error);
+          setStatus(`Unable to update spring reverb IR: ${error.message}`);
+        }
+
+        updatePedalUI();
+      }
+
       async function generateSyntheticCabIR(resonanceAmount, presenceAmount) {
         const OfflineAudioContextCtor = getOfflineAudioContextCtor();
 
@@ -2190,16 +2858,29 @@
 
       function updatePedalUI() {
         if (!audioContext) {
-          bypassButton.textContent = "Bypass Off";
-          delayBypassButton.textContent = "Bypass Off";
-          cabBypassButton.textContent = "Bypass Off";
+          tunerMuteButton.textContent = isTunerMuted ? "Mute On" : "Mute Off";
+          bypassButton.textContent = isOverdriveBypassed ? "Bypass On" : "Bypass Off";
+          chorusBypassButton.textContent = isChorusBypassed ? "Bypass On" : "Bypass Off";
+          delayBypassButton.textContent = isDelayBypassed ? "Bypass On" : "Bypass Off";
+          reverbBypassButton.textContent = isReverbBypassed ? "Bypass On" : "Bypass Off";
+          cabBypassButton.textContent = isCabBypassed ? "Bypass On" : "Bypass Off";
+          setVirtualButtonState(tunerMuteButton, true);
           setVirtualButtonState(bypassButton, true);
+          setVirtualButtonState(chorusBypassButton, true);
           setVirtualButtonState(delayBypassButton, true);
-          overdriveCaption.textContent = "Awaiting Audio";
-          delayCaption.textContent = "Awaiting Audio";
-          cabCaption.textContent = "Awaiting Audio";
+          setVirtualButtonState(reverbBypassButton, true);
+          setVirtualButtonState(cabBypassButton, true);
+          tunerCaption.textContent = isTunerMuted ? "Mute Armed" : "Awaiting Audio";
+          overdriveCaption.textContent = isOverdriveBypassed ? "Bypassed On Load" : "Awaiting Audio";
+          chorusCaption.textContent = isChorusBypassed ? "Bypassed On Load" : "Awaiting Audio";
+          delayCaption.textContent = isDelayBypassed ? "Bypassed On Load" : "Awaiting Audio";
+          reverbCaption.textContent = isReverbBypassed ? "Bypassed On Load" : "Awaiting Audio";
+          cabCaption.textContent = isCabBypassed ? "Bypassed On Load" : "Awaiting Audio";
+          tunerStatusLed.classList.remove("active");
           statusLed.classList.remove("active");
+          chorusStatusLed.classList.remove("active");
           delayStatusLed.classList.remove("active");
+          reverbStatusLed.classList.remove("active");
           cabStatusLed.classList.remove("active");
           updateLooperUI();
           updateScopeStatus();
@@ -2208,8 +2889,16 @@
           return;
         }
 
+        setVirtualButtonState(tunerMuteButton, false);
         setVirtualButtonState(bypassButton, false);
+        setVirtualButtonState(chorusBypassButton, false);
         setVirtualButtonState(delayBypassButton, false);
+        setVirtualButtonState(reverbBypassButton, false);
+        setVirtualButtonState(cabBypassButton, false);
+
+        tunerMuteButton.textContent = isTunerMuted ? "Mute On" : "Mute Off";
+        tunerCaption.textContent = isTunerMuted ? "Rig Muted For Tuning" : "Signal Passing";
+        tunerStatusLed.classList.toggle("active", isTunerMuted);
 
         if (isOverdriveBypassed) {
           bypassButton.textContent = "Bypass On";
@@ -2221,6 +2910,16 @@
           statusLed.classList.add("active");
         }
 
+        if (isChorusBypassed) {
+          chorusBypassButton.textContent = "Bypass On";
+          chorusCaption.textContent = "Modulation Offline";
+          chorusStatusLed.classList.remove("active");
+        } else {
+          chorusBypassButton.textContent = "Bypass Off";
+          chorusCaption.textContent = "Width Active";
+          chorusStatusLed.classList.add("active");
+        }
+
         if (isDelayBypassed) {
           delayBypassButton.textContent = "Bypass On";
           delayCaption.textContent = "Echo Offline";
@@ -2229,6 +2928,18 @@
           delayBypassButton.textContent = "Bypass Off";
           delayCaption.textContent = "Repeats Active";
           delayStatusLed.classList.add("active");
+        }
+
+        if (getReverbEffectivelyBypassed()) {
+          reverbBypassButton.textContent = isReverbBypassed ? "Bypass On" : "Bypass Off";
+          reverbCaption.textContent = isLowLatencyMode && !isReverbBypassed
+            ? "Temporarily Lifted For Speed"
+            : "Spring Offline";
+          reverbStatusLed.classList.remove("active");
+        } else {
+          reverbBypassButton.textContent = "Bypass Off";
+          reverbCaption.textContent = "Boing Chamber Active";
+          reverbStatusLed.classList.add("active");
         }
 
         if (getCabEffectivelyBypassed()) {
@@ -2312,13 +3023,24 @@
           !audioContext ||
           !sourceNode ||
           !inputCenterNode ||
+          !tunerAnalyserNode ||
+          !tunerMuteGainNode ||
           !preDriveHighpassNode ||
           !preDrivePresenceNode ||
           !waveShaperNode ||
           !postDriveMidNode ||
           !postDriveLowpassNode ||
+          !chorusDelayNode ||
+          !chorusDryGainNode ||
+          !chorusWetGainNode ||
+          !chorusMixNode ||
           !delayNode ||
+          !delayMixNode ||
           !delayFeedbackGain ||
+          !reverbConvolverNode ||
+          !reverbDryGainNode ||
+          !reverbWetGainNode ||
+          !reverbMixNode ||
           !postEffectsNode ||
           !cabMixNode ||
           !cabConvolverNode ||
@@ -2333,13 +3055,25 @@
         [
           sourceNode,
           inputCenterNode,
+          tunerAnalyserNode,
+          tunerMuteGainNode,
           preDriveHighpassNode,
           preDrivePresenceNode,
           waveShaperNode,
           postDriveMidNode,
           postDriveLowpassNode,
+          chorusDelayNode,
+          chorusDryGainNode,
+          chorusWetGainNode,
+          chorusMixNode,
+          chorusLfoDepthNode,
           delayNode,
+          delayMixNode,
           delayFeedbackGain,
+          reverbConvolverNode,
+          reverbDryGainNode,
+          reverbWetGainNode,
+          reverbMixNode,
           postEffectsNode,
           cabMixNode,
           cabConvolverNode,
@@ -2348,8 +3082,10 @@
         ].forEach(safeDisconnect);
 
         sourceNode.connect(inputCenterNode);
+        inputCenterNode.connect(tunerAnalyserNode);
+        inputCenterNode.connect(tunerMuteGainNode);
 
-        let currentNode = inputCenterNode;
+        let currentNode = tunerMuteGainNode;
 
         if (!isOverdriveBypassed) {
           currentNode.connect(preDriveHighpassNode);
@@ -2360,16 +3096,34 @@
           currentNode = postDriveLowpassNode;
         }
 
-        if (!isDelayBypassed) {
-          currentNode.connect(postEffectsNode);
-          currentNode.connect(delayNode);
-          delayNode.connect(postEffectsNode);
-          delayNode.connect(delayFeedbackGain);
-          delayFeedbackGain.connect(delayNode);
-        } else {
-          currentNode.connect(postEffectsNode);
+        if (!isChorusBypassed) {
+          currentNode.connect(chorusDryGainNode);
+          currentNode.connect(chorusDelayNode);
+          chorusDryGainNode.connect(chorusMixNode);
+          chorusDelayNode.connect(chorusWetGainNode);
+          chorusWetGainNode.connect(chorusMixNode);
+          currentNode = chorusMixNode;
         }
 
+        if (!isDelayBypassed) {
+          currentNode.connect(delayMixNode);
+          currentNode.connect(delayNode);
+          delayNode.connect(delayMixNode);
+          delayNode.connect(delayFeedbackGain);
+          delayFeedbackGain.connect(delayNode);
+          currentNode = delayMixNode;
+        }
+
+        if (!getReverbEffectivelyBypassed()) {
+          currentNode.connect(reverbDryGainNode);
+          currentNode.connect(reverbConvolverNode);
+          reverbDryGainNode.connect(reverbMixNode);
+          reverbConvolverNode.connect(reverbWetGainNode);
+          reverbWetGainNode.connect(reverbMixNode);
+          currentNode = reverbMixNode;
+        }
+
+        currentNode.connect(postEffectsNode);
         postEffectsNode.connect(loopRecorderDestination);
         postEffectsNode.connect(cabMixNode);
 
@@ -2382,10 +3136,7 @@
 
         masterGainNode.connect(audioContext.destination);
         masterGainNode.connect(outputRecorderDestination);
-
-        if (!isLowLatencyMode) {
-          masterGainNode.connect(analyserNode);
-        }
+        masterGainNode.connect(analyserNode);
       }
 
       function createLoopLayerSource(buffer, startTime) {
@@ -2416,7 +3167,7 @@
       }
 
       function startLoopPlayback() {
-        if (!audioContext || !masterGainNode || !loopLayerBuffers.length) {
+        if (!audioContext || !masterGainNode || !cabMixNode || !loopLayerBuffers.length) {
           return;
         }
 
@@ -2889,6 +3640,10 @@
       async function initializeAudio() {
         if (audioContext) {
           await ensureAudioRunning();
+          startTuner();
+          if (!isLowLatencyMode) {
+            startOscilloscope();
+          }
           setStatus("Audio context resumed.");
           return;
         }
@@ -2919,13 +3674,26 @@
 
           sourceNode = audioContext.createMediaStreamSource(mediaStream);
           inputCenterNode = audioContext.createGain();
+          tunerAnalyserNode = audioContext.createAnalyser();
+          tunerMuteGainNode = audioContext.createGain();
           preDriveHighpassNode = audioContext.createBiquadFilter();
           preDrivePresenceNode = audioContext.createBiquadFilter();
           waveShaperNode = audioContext.createWaveShaper();
           postDriveMidNode = audioContext.createBiquadFilter();
           postDriveLowpassNode = audioContext.createBiquadFilter();
+          chorusDelayNode = audioContext.createDelay(0.05);
+          chorusLfoNode = audioContext.createOscillator();
+          chorusLfoDepthNode = audioContext.createGain();
+          chorusDryGainNode = audioContext.createGain();
+          chorusWetGainNode = audioContext.createGain();
+          chorusMixNode = audioContext.createGain();
           delayNode = audioContext.createDelay(1.0);
+          delayMixNode = audioContext.createGain();
           delayFeedbackGain = audioContext.createGain();
+          reverbConvolverNode = audioContext.createConvolver();
+          reverbDryGainNode = audioContext.createGain();
+          reverbWetGainNode = audioContext.createGain();
+          reverbMixNode = audioContext.createGain();
           postEffectsNode = audioContext.createGain();
           cabMixNode = audioContext.createGain();
           cabConvolverNode = audioContext.createConvolver();
@@ -2938,6 +3706,10 @@
           inputCenterNode.channelCount = 1;
           inputCenterNode.channelCountMode = "explicit";
           inputCenterNode.channelInterpretation = "speakers";
+          tunerAnalyserNode.fftSize = 2048;
+          tunerAnalyserNode.smoothingTimeConstant = 0.2;
+          tunerDataArray = new Float32Array(tunerAnalyserNode.fftSize);
+          tunerMuteGainNode.gain.value = isTunerMuted ? 0 : 1;
           preDriveHighpassNode.type = "highpass";
           preDriveHighpassNode.Q.value = 0.78;
           preDrivePresenceNode.type = "peaking";
@@ -2948,27 +3720,42 @@
           postDriveMidNode.Q.value = 1.1;
           postDriveLowpassNode.type = "lowpass";
           postDriveLowpassNode.Q.value = 0.65;
+          chorusLfoNode.type = "sine";
+          chorusLfoNode.connect(chorusLfoDepthNode);
+          chorusLfoDepthNode.connect(chorusDelayNode.delayTime);
+          chorusMixNode.gain.value = 1;
+          delayMixNode.gain.value = 1;
+          reverbConvolverNode.normalize = false;
+          reverbMixNode.gain.value = 1;
+          postEffectsNode.gain.value = 1;
+          cabMixNode.gain.value = 1;
           cabConvolverNode.normalize = false;
           applyPerformanceMode();
 
+          updateTunerMuteState();
           updateDriveCurve();
+          updateChorusRate();
+          updateChorusDepth();
           updateDelayTime();
           updateDelayFeedback();
+          updateReverbMix();
+          await updateSpringReverbImpulseResponse();
           await updateCabImpulseResponse();
           updateOutputLevel();
           rebuildAudioGraph();
+          chorusLfoNode.start();
 
           if (audioContext.state === "suspended") {
             await audioContext.resume();
           }
 
+          startTuner();
           initializeButton.disabled = true;
           initializeButton.textContent = "Audio Ready";
-          cabBypassButton.disabled = false;
 
           setStatus(
             recorderSupported
-              ? "Audio initialized. Pedals, looper, recorder, and live output are ready."
+              ? "Audio initialized. Tuner, pedals, looper, recorder, and live output are ready."
               : "Audio initialized. Live pedals are ready, but MediaRecorder is unavailable."
           );
           updatePedalUI();
@@ -2979,9 +3766,15 @@
       }
 
       driveControl.addEventListener("input", updateDriveCurve);
+      chorusRateControl.addEventListener("input", updateChorusRate);
+      chorusDepthControl.addEventListener("input", updateChorusDepth);
       levelControl.addEventListener("input", updateOutputLevel);
       delayTimeControl.addEventListener("input", updateDelayTime);
       delayFeedbackControl.addEventListener("input", updateDelayFeedback);
+      reverbMixControl.addEventListener("input", updateReverbMix);
+      reverbDecayControl.addEventListener("input", () => {
+        void updateSpringReverbImpulseResponse();
+      });
       cabResonanceControl.addEventListener("input", () => {
         void updateCabImpulseResponse();
       });
@@ -3028,8 +3821,8 @@
 
         setStatus(
           isLowLatencyMode
-            ? "Low Latency mode engaged. Cab sim is temporarily lifted and scope is paused."
-            : "Full rig mode restored. Cab sim and scope are back online."
+            ? "Low Latency mode engaged. Spring reverb and cab sim are temporarily lifted, and scope is paused."
+            : "Full rig mode restored. Spring reverb, cab sim, and scope are back online."
         );
       });
 
@@ -3063,6 +3856,37 @@
         );
       });
 
+      tunerMuteButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isTunerMuted = !isTunerMuted;
+        updateTunerMuteState();
+        setStatus(
+          isTunerMuted
+            ? "Tuner mute engaged. The rig is silent so you can tune against the live display."
+            : "Tuner mute released. Live signal is flowing through the board again."
+        );
+      });
+
+      chorusBypassButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isChorusBypassed = !isChorusBypassed;
+        rebuildAudioGraph();
+        updatePedalUI();
+        setStatus(
+          isChorusBypassed
+            ? "Chorus bypassed. The live signal now skips the modulation stage."
+            : "Chorus re-engaged with the current rate and depth."
+        );
+      });
+
       delayBypassButton.addEventListener("click", async () => {
         if (!audioContext) {
           return;
@@ -3076,6 +3900,22 @@
           isDelayBypassed
             ? "Delay bypassed. Live signal now skips the repeat stage."
             : "Delay re-engaged with the current time and feedback settings."
+        );
+      });
+
+      reverbBypassButton.addEventListener("click", async () => {
+        if (!audioContext) {
+          return;
+        }
+
+        await ensureAudioRunning();
+        isReverbBypassed = !isReverbBypassed;
+        rebuildAudioGraph();
+        updatePedalUI();
+        setStatus(
+          isReverbBypassed
+            ? "Spring reverb bypassed. The loop tap now hears the dry delay output."
+            : "Spring reverb re-engaged with the current mix and decay."
         );
       });
 
@@ -3158,13 +3998,21 @@
         }
       });
 
-      window.addEventListener("beforeunload", clearMixRecordingDownload);
+      window.addEventListener("beforeunload", () => {
+        clearMixRecordingDownload();
+        stopTuner();
+      });
 
       drawIdleOscilloscope();
       updatePerformanceUI();
+      updateTunerMuteState();
       updateDriveCurve();
+      updateChorusRate();
+      updateChorusDepth();
       updateDelayTime();
       updateDelayFeedback();
+      updateReverbMix();
+      void updateSpringReverbImpulseResponse();
       void updateCabImpulseResponse();
       updateOutputLevel();
       updatePedalUI();
