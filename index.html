@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>CRAAIIGBORED</title>
     <meta name="application-name" content="CRAAIIGBORED" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="CRAAIIGBORED" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23161a22'/%3E%3Cpath d='M18 34c0-10 7-16 18-16 8 0 13 2 18 7l-7 7c-3-3-6-4-11-4-6 0-10 2-10 7 0 4 3 6 8 7l5 1c10 2 15 7 15 15 0 10-8 16-21 16-10 0-17-3-22-9l7-7c4 4 8 6 15 6 7 0 11-3 11-7 0-4-3-6-8-7l-5-1c-9-2-13-7-13-15Z' fill='%23ff8c42'/%3E%3C/svg%3E"
@@ -29,6 +31,10 @@
         --shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
       }
 
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+
       * {
         box-sizing: border-box;
       }
@@ -41,6 +47,7 @@
         padding: 24px;
         color: var(--text-main);
         font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        -webkit-tap-highlight-color: transparent;
         background:
           radial-gradient(circle at top, rgba(255, 140, 66, 0.12), transparent 28%),
           radial-gradient(circle at bottom right, rgba(67, 98, 255, 0.08), transparent 24%),
@@ -429,6 +436,12 @@
         background: transparent;
       }
 
+      button,
+      input[type="range"],
+      select {
+        touch-action: manipulation;
+      }
+
       input[type="range"]::-webkit-slider-runnable-track {
         height: 12px;
         border-radius: 999px;
@@ -546,7 +559,8 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
-        transition: transform 100ms ease, box-shadow 100ms ease, opacity 160ms ease;
+        will-change: transform;
+        transition: transform 80ms ease, box-shadow 80ms ease, opacity 140ms ease;
       }
 
       .stomp-button.is-disabled {
@@ -713,6 +727,8 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
+        will-change: transform;
+        transition: transform 80ms ease, box-shadow 80ms ease, opacity 140ms ease;
         box-shadow: 0 16px 26px rgba(255, 140, 66, 0.28);
       }
 
@@ -784,6 +800,8 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
         cursor: pointer;
+        will-change: transform;
+        transition: transform 80ms ease, box-shadow 80ms ease, opacity 140ms ease;
         box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);
       }
 
@@ -828,6 +846,8 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         cursor: pointer;
+        will-change: transform;
+        transition: transform 80ms ease, box-shadow 80ms ease, opacity 140ms ease;
         box-shadow: 0 14px 22px rgba(255, 140, 66, 0.22);
       }
 
@@ -861,6 +881,31 @@
           rgba(0, 0, 0, 0.22);
       }
 
+      .turbo-card {
+        border-color: rgba(255, 179, 71, 0.2);
+        background:
+          linear-gradient(180deg, rgba(255, 196, 94, 0.08), transparent 72%),
+          rgba(0, 0, 0, 0.22);
+      }
+
+      .app.is-turbo .stomp-button,
+      .app.is-turbo .utility-action-button,
+      .app.is-turbo .midi-learn-button,
+      .app.is-turbo .init-button {
+        transition-duration: 55ms;
+      }
+
+      .app.is-turbo .stomp-button {
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+          inset 0 -5px 10px rgba(0, 0, 0, 0.34),
+          0 10px 16px rgba(0, 0, 0, 0.28);
+      }
+
+      .app.is-turbo .value-pill {
+        box-shadow: 0 0 0 1px rgba(255, 140, 66, 0.12);
+      }
+
       .recorder-card {
         border-color: rgba(85, 213, 141, 0.16);
         background:
@@ -874,6 +919,12 @@
       .utility-action-button:disabled {
         opacity: 0.55;
         cursor: not-allowed;
+      }
+
+      .init-button:active,
+      .midi-learn-button:active,
+      .utility-action-button:active {
+        transform: translateY(2px);
       }
 
       .signal-chain {
@@ -975,6 +1026,38 @@
 
         .stomp-button {
           width: min(220px, 100%);
+        }
+      }
+
+      @media (pointer: coarse), (max-width: 900px) {
+        body {
+          padding: 14px;
+        }
+
+        .app {
+          padding: 18px;
+          border-radius: 22px;
+          backdrop-filter: none;
+        }
+
+        .scope-rack,
+        .pedal,
+        .control-card {
+          box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.06),
+            0 12px 28px rgba(0, 0, 0, 0.32);
+        }
+
+        .scope-screen {
+          min-height: 180px;
+        }
+
+        #scopeCanvas {
+          height: 180px;
+        }
+
+        .pedal {
+          padding: 24px 20px 18px;
         }
       }
     </style>
@@ -1374,6 +1457,27 @@
           </button>
         </section>
 
+        <section class="control-card turbo-card">
+          <h2>iPad Turbo</h2>
+          <div class="midi-status-row">
+            <div id="turboStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+            <div id="turboStatusText" class="midi-status-text">
+              Turbo is standing by for a faster touch-first feel.
+            </div>
+          </div>
+          <p class="hint">
+            Sharpens stomp and slider response, nudges the mobile defaults a bit
+            hotter, and trims just enough DSP overhead to keep the board feeling quick.
+          </p>
+          <button
+            id="turboButton"
+            class="utility-action-button utility-action-button--secondary"
+            type="button"
+          >
+            Turbo Off
+          </button>
+        </section>
+
         <section class="control-card midi-card">
           <h2>MIDI Control</h2>
           <div class="midi-status-row">
@@ -1506,9 +1610,13 @@
       const midiStatusDot = document.getElementById("midiStatusDot");
       const midiStatusText = document.getElementById("midiStatusText");
       const midiHint = document.getElementById("midiHint");
+      const appShell = document.querySelector(".app");
       const lowLatencyButton = document.getElementById("lowLatencyButton");
       const performanceStatusDot = document.getElementById("performanceStatusDot");
       const performanceStatusText = document.getElementById("performanceStatusText");
+      const turboButton = document.getElementById("turboButton");
+      const turboStatusDot = document.getElementById("turboStatusDot");
+      const turboStatusText = document.getElementById("turboStatusText");
       const presetSelect = document.getElementById("presetSelect");
       const savePresetButton = document.getElementById("savePresetButton");
       const loadPresetButton = document.getElementById("loadPresetButton");
@@ -1571,7 +1679,26 @@
       const cabCaption = document.getElementById("cabCaption");
       const looperCaption = document.getElementById("looperCaption");
 
-      const scopeContext = scopeCanvas.getContext("2d");
+      const scopeContext = scopeCanvas.getContext("2d", {
+        alpha: false,
+        desynchronized: true
+      });
+      const userAgent = navigator.userAgent || "";
+      const isIOSDevice =
+        /iPad|iPhone|iPod/.test(userAgent) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isTouchDevice =
+        Boolean(window.matchMedia?.("(pointer: coarse)").matches) ||
+        navigator.maxTouchPoints > 0;
+      const isPerformanceConstrainedDevice =
+        isIOSDevice ||
+        (typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4) ||
+        (isTouchDevice &&
+          typeof navigator.hardwareConcurrency === "number" &&
+          navigator.hardwareConcurrency <= 6);
+      const maxScopeFrameRate = isPerformanceConstrainedDevice ? 30 : 60;
+      const maxTunerFrameRate = isPerformanceConstrainedDevice ? 20 : 30;
+      const maxRenderDevicePixelRatio = isPerformanceConstrainedDevice ? 1.5 : 2;
 
       let audioContext;
       let mediaStream;
@@ -1606,8 +1733,10 @@
       let outputRecorderDestination;
       let scopeDataArray;
       let scopeAnimationFrameId = 0;
+      let lastScopeFrameTime = 0;
       let tunerDataArray;
       let tunerAnimationFrameId = 0;
+      let lastTunerFrameTime = 0;
 
       let mediaRecorder;
       let recordedChunks = [];
@@ -1639,6 +1768,7 @@
       let isReverbBypassed = false;
       let isCabBypassed = false;
       let isLowLatencyMode = false;
+      let isTurboMode = isPerformanceConstrainedDevice;
 
       const midiSupported = typeof navigator.requestMIDIAccess === "function";
       let midiAccess;
@@ -1694,6 +1824,102 @@
         statusText.textContent = message;
       }
 
+      function getEffectiveScopeFrameRate() {
+        if (isLowLatencyMode) {
+          return 0;
+        }
+
+        if (isTurboMode) {
+          return isPerformanceConstrainedDevice ? 18 : 28;
+        }
+
+        return maxScopeFrameRate;
+      }
+
+      function getEffectiveTunerFrameRate() {
+        if (isTurboMode) {
+          return isPerformanceConstrainedDevice ? 12 : 18;
+        }
+
+        return maxTunerFrameRate;
+      }
+
+      function getEffectiveRenderDevicePixelRatio() {
+        if (isTurboMode) {
+          return Math.min(
+            maxRenderDevicePixelRatio,
+            isPerformanceConstrainedDevice ? 1.1 : 1.35
+          );
+        }
+
+        return maxRenderDevicePixelRatio;
+      }
+
+      function getEffectiveAnalyserFftSize() {
+        if (isLowLatencyMode) {
+          return 512;
+        }
+
+        if (isTurboMode) {
+          return isPerformanceConstrainedDevice ? 512 : 1024;
+        }
+
+        return isPerformanceConstrainedDevice ? 1024 : 2048;
+      }
+
+      function getEffectiveTunerFftSize() {
+        if (isTurboMode) {
+          return 1024;
+        }
+
+        return isPerformanceConstrainedDevice ? 1024 : 2048;
+      }
+
+      function getEffectiveOversampleMode() {
+        if (isLowLatencyMode) {
+          return "none";
+        }
+
+        if (isTurboMode) {
+          return isPerformanceConstrainedDevice ? "none" : "2x";
+        }
+
+        return isPerformanceConstrainedDevice ? "2x" : "4x";
+      }
+
+      function getParameterGlideTime() {
+        if (isLowLatencyMode) {
+          return 0.0035;
+        }
+
+        if (isTurboMode) {
+          return 0.005;
+        }
+
+        return 0.01;
+      }
+
+      function shouldUseCompactIRs() {
+        return isPerformanceConstrainedDevice || isTurboMode;
+      }
+
+      function applyTouchReadyDefaults() {
+        if (!isPerformanceConstrainedDevice) {
+          return;
+        }
+
+        driveControl.value = "74";
+        levelControl.value = "36";
+        chorusRateControl.value = "1.8";
+        chorusDepthControl.value = "0.52";
+        delayTimeControl.value = "0.26";
+        delayFeedbackControl.value = "0.29";
+        reverbMixControl.value = "0.24";
+        reverbDecayControl.value = "0.46";
+        cabResonanceControl.value = "0.64";
+        cabPresenceControl.value = "0.54";
+      }
+
       function getCabEffectivelyBypassed() {
         return isCabBypassed || isLowLatencyMode;
       }
@@ -1702,12 +1928,21 @@
         return isReverbBypassed || isLowLatencyMode;
       }
 
+      function shouldAttachLoopRecorderTap() {
+        return recorderSupported && recordingState !== "idle";
+      }
+
+      function shouldAttachOutputRecorderTap() {
+        return recorderSupported && isMixRecording;
+      }
+
       function stopOscilloscope(message = "STANDBY // INIT AUDIO") {
         if (scopeAnimationFrameId) {
           window.cancelAnimationFrame(scopeAnimationFrameId);
           scopeAnimationFrameId = 0;
         }
 
+        lastScopeFrameTime = 0;
         drawIdleOscilloscope(message);
       }
 
@@ -1885,10 +2120,39 @@
 
         if (audioContext) {
           performanceStatusDot.classList.add("is-connected");
-          performanceStatusText.textContent = "Full rig mode. Spring reverb, cab sim, and scope are active.";
+          performanceStatusText.textContent = isPerformanceConstrainedDevice
+            ? isTurboMode
+              ? "Adaptive full rig mode with Turbo. Mobile-tuned scope, IRs, and control response are active."
+              : "Adaptive full rig mode. Mobile-tuned scope, IRs, and oversampling are active."
+            : "Full rig mode. Spring reverb, cab sim, and scope are active.";
         } else {
-          performanceStatusText.textContent =
-            "Full rig mode. Spring reverb, cab sim, and scope will start on initialization.";
+          performanceStatusText.textContent = isPerformanceConstrainedDevice
+            ? isTurboMode
+              ? "Adaptive full rig mode with Turbo is armed for this mobile device."
+              : "Adaptive full rig mode is armed for this mobile device."
+            : "Full rig mode. Spring reverb, cab sim, and scope will start on initialization.";
+        }
+      }
+
+      function updateTurboUI() {
+        if (appShell) {
+          appShell.classList.toggle("is-turbo", isTurboMode);
+        }
+
+        turboButton.classList.toggle("is-active", isTurboMode);
+        turboButton.textContent = isTurboMode ? "Turbo On" : "Turbo Off";
+        turboStatusDot.classList.remove("is-connected", "is-learning");
+
+        if (isTurboMode) {
+          turboStatusDot.classList.add("is-learning");
+          turboStatusText.textContent = isPerformanceConstrainedDevice
+            ? "Turbo is active. Touch response is tighter and the mobile rig is running hot."
+            : "Turbo is active. Control response is tighter and visuals are running leaner.";
+        } else {
+          turboStatusDot.classList.add("is-connected");
+          turboStatusText.textContent = isPerformanceConstrainedDevice
+            ? "Turbo is off. The adaptive mobile rig stays smooth, but less aggressive."
+            : "Turbo is off. The board is running at its normal feel.";
         }
       }
 
@@ -1932,13 +2196,18 @@
 
       function applyPerformanceMode() {
         if (waveShaperNode) {
-          waveShaperNode.oversample = isLowLatencyMode ? "none" : "4x";
+          waveShaperNode.oversample = getEffectiveOversampleMode();
         }
 
         if (analyserNode) {
-          analyserNode.fftSize = isLowLatencyMode ? 512 : 2048;
+          analyserNode.fftSize = getEffectiveAnalyserFftSize();
           analyserNode.smoothingTimeConstant = isLowLatencyMode ? 0.66 : 0.82;
           scopeDataArray = new Uint8Array(analyserNode.fftSize);
+        }
+
+        if (tunerAnalyserNode) {
+          tunerAnalyserNode.fftSize = getEffectiveTunerFftSize();
+          tunerDataArray = new Float32Array(tunerAnalyserNode.fftSize);
         }
 
         if (isLowLatencyMode) {
@@ -1951,6 +2220,7 @@
 
         updateScopeStatus();
         updatePerformanceUI();
+        updateTurboUI();
       }
 
       function updateMidiUI() {
@@ -2292,11 +2562,20 @@
           tunerAnimationFrameId = 0;
         }
 
+        lastTunerFrameTime = 0;
         resetTunerDisplay();
       }
 
-      function drawTunerFrame() {
+      function drawTunerFrame(timestamp = 0) {
         tunerAnimationFrameId = window.requestAnimationFrame(drawTunerFrame);
+
+        const tunerFrameRate = getEffectiveTunerFrameRate();
+
+        if (timestamp - lastTunerFrameTime < 1000 / tunerFrameRate) {
+          return;
+        }
+
+        lastTunerFrameTime = timestamp;
 
         if (!tunerAnalyserNode || !tunerDataArray || !audioContext) {
           resetTunerDisplay();
@@ -2349,7 +2628,7 @@
 
       function syncScopeCanvasSize() {
         const rect = scopeCanvas.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, getEffectiveRenderDevicePixelRatio());
         const width = Math.max(1, Math.floor(rect.width * dpr));
         const height = Math.max(1, Math.floor(rect.height * dpr));
 
@@ -2360,8 +2639,6 @@
       }
 
       function drawScopeBase() {
-        syncScopeCanvasSize();
-
         const width = scopeCanvas.width;
         const height = scopeCanvas.height;
 
@@ -2398,6 +2675,7 @@
       }
 
       function drawIdleOscilloscope(message = "STANDBY // INIT AUDIO") {
+        syncScopeCanvasSize();
         drawScopeBase();
 
         scopeContext.fillStyle = "rgba(207, 255, 228, 0.78)";
@@ -2423,6 +2701,17 @@
           stopOscilloscope("LOW LATENCY // SCOPE PAUSED");
           return;
         }
+
+        const timestamp =
+          typeof performance !== "undefined" ? performance.now() : Date.now();
+
+        const scopeFrameRate = getEffectiveScopeFrameRate();
+
+        if (!scopeFrameRate || timestamp - lastScopeFrameTime < 1000 / scopeFrameRate) {
+          return;
+        }
+
+        lastScopeFrameTime = timestamp;
 
         if (!analyserNode || !scopeDataArray) {
           drawIdleOscilloscope();
@@ -2467,6 +2756,7 @@
           return;
         }
 
+        syncScopeCanvasSize();
         drawOscilloscope();
       }
 
@@ -2485,7 +2775,7 @@
       }
 
       function createGrungeClippingCurve(driveAmount) {
-        const samples = 44100;
+        const samples = isPerformanceConstrainedDevice || isTurboMode ? 22050 : 44100;
         const curve = new Float32Array(samples);
         const inputGain = 3.5 + driveAmount * 32;
         const blend = 0.22 + driveAmount * 0.28;
@@ -2506,6 +2796,7 @@
 
       function updateDriveCurve() {
         const normalizedDrive = Number(driveControl.value) / 100;
+        const glideTime = getParameterGlideTime();
         driveValue.textContent = `${Math.round(normalizedDrive * 100)}%`;
 
         if (
@@ -2520,22 +2811,22 @@
           preDriveHighpassNode.frequency.setTargetAtTime(
             145 + normalizedDrive * 45,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
           preDrivePresenceNode.gain.setTargetAtTime(
             4.5 + normalizedDrive * 3.5,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
           postDriveMidNode.gain.setTargetAtTime(
             3 + normalizedDrive * 4,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
           postDriveLowpassNode.frequency.setTargetAtTime(
             4800 - normalizedDrive * 900,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
         }
 
@@ -2544,19 +2835,21 @@
 
       function updateDelayTime() {
         const delayTime = Number(delayTimeControl.value);
+        const glideTime = getParameterGlideTime();
         delayTimeValue.textContent = formatDelayTime(delayTime);
 
         if (delayNode && audioContext) {
-          delayNode.delayTime.setTargetAtTime(delayTime, audioContext.currentTime, 0.01);
+          delayNode.delayTime.setTargetAtTime(delayTime, audioContext.currentTime, glideTime);
         }
       }
 
       function updateDelayFeedback() {
         const feedback = Number(delayFeedbackControl.value);
+        const glideTime = getParameterGlideTime();
         delayFeedbackValue.textContent = formatPercent(feedback);
 
         if (delayFeedbackGain && audioContext) {
-          delayFeedbackGain.gain.setTargetAtTime(feedback, audioContext.currentTime, 0.01);
+          delayFeedbackGain.gain.setTargetAtTime(feedback, audioContext.currentTime, glideTime);
         }
       }
 
@@ -2565,7 +2858,7 @@
           tunerMuteGainNode.gain.setTargetAtTime(
             isTunerMuted ? 0 : 1,
             audioContext.currentTime,
-            0.01
+            getParameterGlideTime()
           );
         }
 
@@ -2574,15 +2867,17 @@
 
       function updateChorusRate() {
         const rate = Number(chorusRateControl.value);
+        const glideTime = getParameterGlideTime();
         chorusRateValue.textContent = formatRate(rate);
 
         if (chorusLfoNode && audioContext) {
-          chorusLfoNode.frequency.setTargetAtTime(rate, audioContext.currentTime, 0.01);
+          chorusLfoNode.frequency.setTargetAtTime(rate, audioContext.currentTime, glideTime);
         }
       }
 
       function updateChorusDepth() {
         const depth = Number(chorusDepthControl.value);
+        const glideTime = getParameterGlideTime();
         const baseDelay = 0.022 + depth * 0.004;
         const modulationDepth = 0.0008 + depth * 0.006;
         const dryLevel = 0.9 - depth * 0.08;
@@ -2597,27 +2892,28 @@
           chorusWetGainNode &&
           audioContext
         ) {
-          chorusDelayNode.delayTime.setTargetAtTime(baseDelay, audioContext.currentTime, 0.01);
+          chorusDelayNode.delayTime.setTargetAtTime(baseDelay, audioContext.currentTime, glideTime);
           chorusLfoDepthNode.gain.setTargetAtTime(
             modulationDepth,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
-          chorusDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, 0.01);
-          chorusWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, 0.01);
+          chorusDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, glideTime);
+          chorusWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, glideTime);
         }
       }
 
       function updateReverbMix() {
         const mix = Number(reverbMixControl.value);
+        const glideTime = getParameterGlideTime();
         const dryLevel = Math.cos(mix * Math.PI * 0.5);
         const wetLevel = Math.sin(mix * Math.PI * 0.5) * 0.92;
 
         reverbMixValue.textContent = formatPercent(mix);
 
         if (reverbDryGainNode && reverbWetGainNode && audioContext) {
-          reverbDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, 0.01);
-          reverbWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, 0.01);
+          reverbDryGainNode.gain.setTargetAtTime(dryLevel, audioContext.currentTime, glideTime);
+          reverbWetGainNode.gain.setTargetAtTime(wetLevel, audioContext.currentTime, glideTime);
         }
       }
 
@@ -2629,10 +2925,21 @@
         }
 
         const sampleRate = audioContext.sampleRate;
-        const duration = 1.5 + decayAmount * 1.5;
+        const duration = shouldUseCompactIRs()
+          ? 1.2 + decayAmount * 1.0
+          : 1.5 + decayAmount * 1.5;
         const frameCount = Math.floor(sampleRate * duration);
-        const offlineContext = new OfflineAudioContextCtor(2, frameCount, sampleRate);
-        const impulseBuffer = offlineContext.createBuffer(2, frameCount, sampleRate);
+        const channelCount = shouldUseCompactIRs() ? 1 : 2;
+        const offlineContext = new OfflineAudioContextCtor(
+          channelCount,
+          frameCount,
+          sampleRate
+        );
+        const impulseBuffer = offlineContext.createBuffer(
+          channelCount,
+          frameCount,
+          sampleRate
+        );
         const decayRate = 2.9 - decayAmount * 1.15;
 
         for (let channel = 0; channel < impulseBuffer.numberOfChannels; channel += 1) {
@@ -2669,13 +2976,20 @@
         const reverbBus = offlineContext.createGain();
         reverbBus.gain.value = 0.95;
 
-        const resonanceBands = [
-          { frequency: 320, q: 6.8, gain: 0.42 },
-          { frequency: 610, q: 9.5, gain: 0.55 },
-          { frequency: 1010, q: 11.5, gain: 0.48 },
-          { frequency: 1620, q: 12.8, gain: 0.34 },
-          { frequency: 2480, q: 14.2, gain: 0.24 }
-        ];
+        const resonanceBands = shouldUseCompactIRs()
+          ? [
+              { frequency: 320, q: 6.8, gain: 0.4 },
+              { frequency: 690, q: 9.5, gain: 0.5 },
+              { frequency: 1250, q: 11.2, gain: 0.36 },
+              { frequency: 2280, q: 13.6, gain: 0.22 }
+            ]
+          : [
+              { frequency: 320, q: 6.8, gain: 0.42 },
+              { frequency: 610, q: 9.5, gain: 0.55 },
+              { frequency: 1010, q: 11.5, gain: 0.48 },
+              { frequency: 1620, q: 12.8, gain: 0.34 },
+              { frequency: 2480, q: 14.2, gain: 0.24 }
+            ];
 
         source.connect(inputHighpass);
         inputHighpass.connect(inputLowpass);
@@ -2743,10 +3057,19 @@
         }
 
         const sampleRate = audioContext.sampleRate;
-        const duration = 0.22;
+        const duration = shouldUseCompactIRs() ? 0.18 : 0.22;
         const frameCount = Math.floor(sampleRate * duration);
-        const offlineContext = new OfflineAudioContextCtor(2, frameCount, sampleRate);
-        const impulseBuffer = offlineContext.createBuffer(2, frameCount, sampleRate);
+        const channelCount = shouldUseCompactIRs() ? 1 : 2;
+        const offlineContext = new OfflineAudioContextCtor(
+          channelCount,
+          frameCount,
+          sampleRate
+        );
+        const impulseBuffer = offlineContext.createBuffer(
+          channelCount,
+          frameCount,
+          sampleRate
+        );
         const burstSamples = Math.max(1, Math.floor(sampleRate * 0.012));
         const resonanceGain = 2.5 + resonanceAmount * 6.5;
         const lowMidGain = 1.8 + resonanceAmount * 2.2;
@@ -2843,13 +3166,14 @@
 
       function updateOutputLevel() {
         const normalizedLevel = Number(levelControl.value) / 100;
+        const glideTime = getParameterGlideTime();
         levelValue.textContent = `${Math.round(normalizedLevel * 100)}%`;
 
         if (masterGainNode && audioContext) {
           masterGainNode.gain.setTargetAtTime(
             normalizedLevel,
             audioContext.currentTime,
-            0.01
+            glideTime
           );
         }
 
@@ -3124,7 +3448,11 @@
         }
 
         currentNode.connect(postEffectsNode);
-        postEffectsNode.connect(loopRecorderDestination);
+
+        if (shouldAttachLoopRecorderTap()) {
+          postEffectsNode.connect(loopRecorderDestination);
+        }
+
         postEffectsNode.connect(cabMixNode);
 
         if (getCabEffectivelyBypassed()) {
@@ -3135,8 +3463,14 @@
         }
 
         masterGainNode.connect(audioContext.destination);
-        masterGainNode.connect(outputRecorderDestination);
-        masterGainNode.connect(analyserNode);
+
+        if (shouldAttachOutputRecorderTap()) {
+          masterGainNode.connect(outputRecorderDestination);
+        }
+
+        if (!isLowLatencyMode) {
+          masterGainNode.connect(analyserNode);
+        }
       }
 
       function createLoopLayerSource(buffer, startTime) {
@@ -3357,8 +3691,9 @@
       function startRecordingSession(mode) {
         const options = createRecorderOptions();
         recordedChunks = [];
-        mediaRecorder = new MediaRecorder(loopRecorderDestination.stream, options || undefined);
         recordingState = mode;
+        rebuildAudioGraph();
+        mediaRecorder = new MediaRecorder(loopRecorderDestination.stream, options || undefined);
 
         mediaRecorder.ondataavailable = (event) => {
           if (event.data && event.data.size > 0) {
@@ -3379,11 +3714,12 @@
 
         clearMixRecordingDownload();
         mixRecordedChunks = [];
+        isMixRecording = true;
+        rebuildAudioGraph();
         mixRecorder = new MediaRecorder(
           outputRecorderDestination.stream,
           options || undefined
         );
-        isMixRecording = true;
 
         mixRecorder.ondataavailable = (event) => {
           if (event.data && event.data.size > 0) {
@@ -3470,6 +3806,7 @@
           }
         }
 
+        rebuildAudioGraph();
         setStatus(`${prefix}: ${error.message}`);
         updateLooperUI();
       }
@@ -3487,6 +3824,7 @@
           }
         }
 
+        rebuildAudioGraph();
         setStatus(`${prefix}: ${error.message}`);
         updateOutputRecorderUI();
       }
@@ -3495,6 +3833,7 @@
         try {
           const blob = await stopMixRecordingSession();
           isMixRecording = false;
+          rebuildAudioGraph();
 
           try {
             mixRecordingBlob = await convertBlobToWav(blob);
@@ -3557,6 +3896,7 @@
           loopLayerBuffers = [decoded];
           baseLoopDuration = decoded.duration;
           recordingState = "idle";
+          rebuildAudioGraph();
           startLoopPlayback();
           setStatus("Base loop captured and playback started.");
         } catch (error) {
@@ -3595,6 +3935,7 @@
           );
           loopLayerBuffers.push(alignedLayer);
           recordingState = "idle";
+          rebuildAudioGraph();
           scheduleOverdubLayer(alignedLayer);
           setStatus("Overdub captured and added to the loop.");
         } catch (error) {
@@ -3656,6 +3997,13 @@
               echoCancellation: false,
               noiseSuppression: false,
               autoGainControl: false,
+              sampleRate: {
+                ideal: 48000
+              },
+              latency: {
+                ideal: 0.005,
+                max: 0.015
+              },
               channelCount: {
                 ideal: 1
               }
@@ -3666,10 +4014,17 @@
 
           try {
             audioContext = new AudioContextCtor({
-              latencyHint: "interactive"
+              latencyHint: 0.005,
+              sampleRate: 48000
             });
-          } catch (error) {
-            audioContext = new AudioContextCtor();
+          } catch (lowLatencyError) {
+            try {
+              audioContext = new AudioContextCtor({
+                latencyHint: "interactive"
+              });
+            } catch (interactiveError) {
+              audioContext = new AudioContextCtor();
+            }
           }
 
           sourceNode = audioContext.createMediaStreamSource(mediaStream);
@@ -3706,7 +4061,7 @@
           inputCenterNode.channelCount = 1;
           inputCenterNode.channelCountMode = "explicit";
           inputCenterNode.channelInterpretation = "speakers";
-          tunerAnalyserNode.fftSize = 2048;
+          tunerAnalyserNode.fftSize = getEffectiveTunerFftSize();
           tunerAnalyserNode.smoothingTimeConstant = 0.2;
           tunerDataArray = new Float32Array(tunerAnalyserNode.fftSize);
           tunerMuteGainNode.gain.value = isTunerMuted ? 0 : 1;
@@ -3755,7 +4110,11 @@
 
           setStatus(
             recorderSupported
-              ? "Audio initialized. Tuner, pedals, looper, recorder, and live output are ready."
+              ? isPerformanceConstrainedDevice
+                ? isTurboMode
+                  ? "Audio initialized. Turbo mobile tuning is active for a lighter, faster, punchier rig."
+                  : "Audio initialized. Adaptive mobile tuning is active for a lighter, faster rig."
+                : "Audio initialized. Tuner, pedals, looper, recorder, and live output are ready."
               : "Audio initialized. Live pedals are ready, but MediaRecorder is unavailable."
           );
           updatePedalUI();
@@ -3823,6 +4182,37 @@
           isLowLatencyMode
             ? "Low Latency mode engaged. Spring reverb and cab sim are temporarily lifted, and scope is paused."
             : "Full rig mode restored. Spring reverb, cab sim, and scope are back online."
+        );
+      });
+
+      turboButton.addEventListener("click", async () => {
+        if (audioContext) {
+          await ensureAudioRunning();
+        }
+
+        isTurboMode = !isTurboMode;
+        applyPerformanceMode();
+
+        if (audioContext) {
+          updateDriveCurve();
+          updateChorusRate();
+          updateChorusDepth();
+          updateDelayTime();
+          updateDelayFeedback();
+          updateReverbMix();
+          await updateSpringReverbImpulseResponse();
+          await updateCabImpulseResponse();
+          updateOutputLevel();
+          rebuildAudioGraph();
+          updatePedalUI();
+        } else {
+          updateTurboUI();
+        }
+
+        setStatus(
+          isTurboMode
+            ? "iPad Turbo engaged. Control response is tighter and the rig is trimmed for extra snap."
+            : "iPad Turbo disengaged. The board is back to its standard feel."
         );
       });
 
@@ -3991,10 +4381,33 @@
       });
 
       window.addEventListener("resize", () => {
+        syncScopeCanvasSize();
+
         if (isLowLatencyMode) {
           drawIdleOscilloscope("LOW LATENCY // SCOPE PAUSED");
         } else if (!audioContext) {
           drawIdleOscilloscope();
+        }
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          stopOscilloscope("BACKGROUND // PAUSED");
+          stopTuner();
+          return;
+        }
+
+        if (!audioContext) {
+          drawIdleOscilloscope();
+          return;
+        }
+
+        startTuner();
+
+        if (isLowLatencyMode) {
+          drawIdleOscilloscope("LOW LATENCY // SCOPE PAUSED");
+        } else {
+          startOscilloscope();
         }
       });
 
@@ -4003,8 +4416,10 @@
         stopTuner();
       });
 
+      applyTouchReadyDefaults();
       drawIdleOscilloscope();
       updatePerformanceUI();
+      updateTurboUI();
       updateTunerMuteState();
       updateDriveCurve();
       updateChorusRate();

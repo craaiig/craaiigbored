@@ -1,4 +1,4 @@
-const CACHE_NAME = "pedalboard-cache-v6";
+const CACHE_NAME = "pedalboard-cache-v8";
 const ASSETS_TO_CACHE = ["./", "./index.html", "./manifest.json"];
 
 self.addEventListener("install", (event) => {
