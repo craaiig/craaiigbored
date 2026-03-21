@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>CRAAIIGBORED</title>
     <meta name="application-name" content="CRAAIIGBORED" />
+    <meta name="theme-color" content="#ff8c42" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="CRAAIIGBORED" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -29,6 +30,123 @@
         --danger: #f35b5b;
         --success: #55d58d;
         --shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+        --page-glow-a: rgba(255, 140, 66, 0.12);
+        --page-glow-b: rgba(67, 98, 255, 0.08);
+        --glass-sheen: rgba(255, 255, 255, 0.05);
+        --hero-surface: rgba(0, 0, 0, 0.18);
+        --hero-border: rgba(255, 255, 255, 0.08);
+        --card-bg: rgba(0, 0, 0, 0.2);
+        --card-border: rgba(255, 255, 255, 0.06);
+        --status-bg: rgba(0, 0, 0, 0.22);
+        --status-border: rgba(255, 255, 255, 0.08);
+        --summary-bg: rgba(255, 255, 255, 0.05);
+        --summary-border: rgba(255, 255, 255, 0.08);
+        --theme-chip-bg: rgba(255, 255, 255, 0.04);
+        --theme-chip-border: rgba(255, 255, 255, 0.08);
+        --accent-contrast: #ffd5b8;
+        --warning-title: #ffd5b8;
+        --warning-text: #ffd9c1;
+        --warning-card-bg: rgba(0, 0, 0, 0.24);
+        --scope-rack-bg: rgba(4, 8, 12, 0.55);
+        --scope-rack-border: rgba(255, 255, 255, 0.08);
+        --scope-screen-top: rgba(85, 213, 141, 0.03);
+        --scope-screen-mid: rgba(0, 0, 0, 0.75);
+        --scope-screen-bottom: rgba(3, 7, 4, 0.98);
+        --scope-screen-border: rgba(85, 213, 141, 0.18);
+        --scope-grid-line: rgba(85, 213, 141, 0.08);
+        --scope-center-line: rgba(85, 213, 141, 0.18);
+        --scope-badge-bg: rgba(0, 0, 0, 0.28);
+        --scope-badge-border: rgba(255, 255, 255, 0.08);
+        --scope-badge-live-bg: rgba(85, 213, 141, 0.12);
+        --scope-badge-live-border: rgba(85, 213, 141, 0.28);
+        --scope-badge-live-text: #d1fbe4;
+      }
+
+      body[data-theme="light"] {
+        --bg-1: #f3efe6;
+        --bg-2: #dfd8ca;
+        --panel: rgba(255, 255, 255, 0.86);
+        --panel-border: rgba(28, 37, 52, 0.12);
+        --pedal-top: #ccd4e0;
+        --pedal-face: #aeb8ca;
+        --pedal-edge: #7f8da2;
+        --accent: #c75f25;
+        --accent-soft: rgba(199, 95, 37, 0.14);
+        --text-main: #18202d;
+        --text-dim: #5c6677;
+        --shadow: 0 24px 52px rgba(46, 53, 68, 0.16);
+        --page-glow-a: rgba(199, 95, 37, 0.12);
+        --page-glow-b: rgba(58, 114, 211, 0.08);
+        --glass-sheen: rgba(255, 255, 255, 0.45);
+        --hero-surface: rgba(255, 255, 255, 0.76);
+        --hero-border: rgba(28, 37, 52, 0.08);
+        --card-bg: rgba(255, 255, 255, 0.7);
+        --card-border: rgba(28, 37, 52, 0.08);
+        --status-bg: rgba(255, 255, 255, 0.82);
+        --status-border: rgba(28, 37, 52, 0.1);
+        --summary-bg: rgba(24, 32, 45, 0.05);
+        --summary-border: rgba(24, 32, 45, 0.08);
+        --theme-chip-bg: rgba(24, 32, 45, 0.05);
+        --theme-chip-border: rgba(24, 32, 45, 0.1);
+        --accent-contrast: #5c260e;
+        --warning-title: #9a4f25;
+        --warning-text: #6a4b37;
+        --warning-card-bg: rgba(187, 170, 154, 0.38);
+        --scope-rack-bg: rgba(226, 233, 222, 0.72);
+        --scope-rack-border: rgba(28, 37, 52, 0.1);
+        --scope-badge-bg: rgba(24, 32, 45, 0.06);
+        --scope-badge-border: rgba(24, 32, 45, 0.08);
+        --scope-badge-live-text: #22533d;
+      }
+
+      body[data-theme="ember"] {
+        --bg-1: #140c0b;
+        --bg-2: #2a1410;
+        --panel: rgba(30, 15, 14, 0.84);
+        --panel-border: rgba(255, 220, 188, 0.1);
+        --accent: #ff7e47;
+        --accent-soft: rgba(255, 126, 71, 0.2);
+        --text-main: #fff0e9;
+        --text-dim: #d1ab9b;
+        --shadow: 0 26px 60px rgba(0, 0, 0, 0.46);
+        --page-glow-a: rgba(255, 126, 71, 0.16);
+        --page-glow-b: rgba(196, 72, 47, 0.12);
+        --hero-surface: rgba(53, 24, 20, 0.62);
+        --hero-border: rgba(255, 220, 188, 0.1);
+        --card-bg: rgba(41, 18, 16, 0.62);
+        --card-border: rgba(255, 220, 188, 0.08);
+        --status-bg: rgba(46, 18, 16, 0.68);
+        --status-border: rgba(255, 220, 188, 0.12);
+        --summary-bg: rgba(255, 225, 204, 0.06);
+        --summary-border: rgba(255, 225, 204, 0.1);
+        --theme-chip-bg: rgba(255, 225, 204, 0.05);
+        --theme-chip-border: rgba(255, 225, 204, 0.1);
+        --scope-badge-live-text: #fff0e9;
+      }
+
+      body[data-theme="seafoam"] {
+        --bg-1: #07110f;
+        --bg-2: #0e2322;
+        --panel: rgba(10, 26, 24, 0.86);
+        --panel-border: rgba(170, 242, 226, 0.1);
+        --accent: #57d8b9;
+        --accent-soft: rgba(87, 216, 185, 0.16);
+        --text-main: #ebfff9;
+        --text-dim: #9cc9bf;
+        --shadow: 0 24px 58px rgba(0, 0, 0, 0.46);
+        --page-glow-a: rgba(87, 216, 185, 0.13);
+        --page-glow-b: rgba(84, 135, 255, 0.08);
+        --hero-surface: rgba(9, 34, 31, 0.6);
+        --hero-border: rgba(170, 242, 226, 0.1);
+        --card-bg: rgba(9, 29, 27, 0.62);
+        --card-border: rgba(170, 242, 226, 0.08);
+        --status-bg: rgba(9, 34, 31, 0.7);
+        --status-border: rgba(170, 242, 226, 0.1);
+        --summary-bg: rgba(235, 255, 249, 0.04);
+        --summary-border: rgba(170, 242, 226, 0.09);
+        --theme-chip-bg: rgba(235, 255, 249, 0.04);
+        --theme-chip-border: rgba(170, 242, 226, 0.09);
+        --scope-badge-live-text: #dcfff3;
       }
 
       html {
@@ -49,8 +167,8 @@
         font-family: "Trebuchet MS", "Segoe UI", sans-serif;
         -webkit-tap-highlight-color: transparent;
         background:
-          radial-gradient(circle at top, rgba(255, 140, 66, 0.12), transparent 28%),
-          radial-gradient(circle at bottom right, rgba(67, 98, 255, 0.08), transparent 24%),
+          radial-gradient(circle at top, var(--page-glow-a), transparent 28%),
+          radial-gradient(circle at bottom right, var(--page-glow-b), transparent 24%),
           linear-gradient(160deg, var(--bg-1), var(--bg-2));
       }
 
@@ -60,19 +178,60 @@
         border: 1px solid var(--panel-border);
         border-radius: 28px;
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 36%),
+          linear-gradient(180deg, var(--glass-sheen), transparent 36%),
           var(--panel);
         box-shadow: var(--shadow);
         backdrop-filter: blur(14px);
       }
 
       .header {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
         gap: 20px;
-        align-items: center;
+        align-items: stretch;
         margin-bottom: 28px;
+      }
+
+      .hero-panel,
+      .header-side {
+        display: grid;
+        gap: 16px;
+      }
+
+      .hero-panel {
+        padding: 24px 26px;
+        border-radius: 24px;
+        background: var(--hero-surface);
+        border: 1px solid var(--hero-border);
+      }
+
+      .hero-kicker,
+      .group-heading {
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+      }
+
+      .summary-strip {
+        display: flex;
         flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .summary-pill {
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: var(--summary-bg);
+        border: 1px solid var(--summary-border);
+        color: var(--text-main);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
       }
 
       .title-group h1 {
@@ -90,11 +249,19 @@
       }
 
       .status {
-        min-width: 240px;
+        min-width: 0;
         padding: 12px 16px;
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid var(--status-border);
+        background: var(--status-bg);
+      }
+
+      .status--spotlight {
+        padding: 18px 18px 16px;
+      }
+
+      .status--secondary {
+        padding: 16px 18px;
       }
 
       .status-label {
@@ -113,13 +280,12 @@
 
       .scope-rack {
         position: relative;
-        margin-bottom: 28px;
         padding: 18px;
         border-radius: 26px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--scope-rack-border);
         background:
-          linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 24%),
-          rgba(4, 8, 12, 0.55);
+          linear-gradient(180deg, var(--glass-sheen), transparent 24%),
+          var(--scope-rack-bg);
         box-shadow:
           inset 0 1px 0 rgba(255, 255, 255, 0.06),
           inset 0 -18px 30px rgba(0, 0, 0, 0.35),
@@ -153,8 +319,8 @@
       .scope-badge {
         padding: 7px 11px;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(0, 0, 0, 0.28);
+        border: 1px solid var(--scope-badge-border);
+        background: var(--scope-badge-bg);
         color: var(--text-dim);
         font-size: 0.76rem;
         font-weight: 700;
@@ -163,9 +329,9 @@
       }
 
       .scope-badge--live {
-        color: #d1fbe4;
-        background: rgba(85, 213, 141, 0.12);
-        border-color: rgba(85, 213, 141, 0.28);
+        color: var(--scope-badge-live-text);
+        background: var(--scope-badge-live-bg);
+        border-color: var(--scope-badge-live-border);
       }
 
       .scope-screen {
@@ -174,10 +340,10 @@
         min-height: 210px;
         padding: 12px;
         border-radius: 20px;
-        border: 1px solid rgba(85, 213, 141, 0.18);
+        border: 1px solid var(--scope-screen-border);
         background:
-          linear-gradient(180deg, rgba(85, 213, 141, 0.03), transparent 26%),
-          linear-gradient(180deg, rgba(0, 0, 0, 0.75), rgba(3, 7, 4, 0.98));
+          linear-gradient(180deg, var(--scope-screen-top), transparent 26%),
+          linear-gradient(180deg, var(--scope-screen-mid), var(--scope-screen-bottom));
         box-shadow:
           inset 0 0 0 1px rgba(255, 255, 255, 0.03),
           inset 0 0 30px rgba(85, 213, 141, 0.08),
@@ -204,8 +370,38 @@
         display: grid;
         gap: 24px;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        margin-bottom: 28px;
         align-items: start;
+      }
+
+      .app-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .control-rail,
+      .stage-column {
+        display: grid;
+        gap: 24px;
+        min-width: 0;
+      }
+
+      .control-rail {
+        align-content: start;
+        position: sticky;
+        top: 24px;
+      }
+
+      .control-group {
+        display: grid;
+        gap: 14px;
+      }
+
+      .info-grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .pedal {
@@ -427,7 +623,7 @@
         border-radius: 999px;
         font-weight: 700;
         background: var(--accent-soft);
-        color: #ffd5b8;
+        color: var(--accent-contrast);
       }
 
       input[type="range"] {
@@ -650,17 +846,11 @@
         color: var(--text-dim);
       }
 
-      .utility-grid {
-        display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
       .control-card {
         padding: 20px;
         border-radius: 22px;
-        background: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
       }
 
       .control-card h2 {
@@ -680,16 +870,16 @@
         border-color: rgba(255, 140, 66, 0.28);
         background:
           linear-gradient(180deg, rgba(255, 140, 66, 0.1), transparent 70%),
-          rgba(0, 0, 0, 0.24);
+          var(--warning-card-bg);
       }
 
       .safety-card h2 {
-        color: #ffd5b8;
+        color: var(--warning-title);
       }
 
       .safety-note {
         margin: 0 0 16px;
-        color: #ffd9c1;
+        color: var(--warning-text);
       }
 
       .safety-check {
@@ -698,8 +888,8 @@
         align-items: flex-start;
         padding: 14px 16px;
         border-radius: 16px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--summary-bg);
+        border: 1px solid var(--summary-border);
       }
 
       .safety-check input {
@@ -746,8 +936,8 @@
         margin-bottom: 14px;
         padding: 12px 14px;
         border-radius: 16px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: var(--summary-bg);
+        border: 1px solid var(--summary-border);
       }
 
       .midi-status-dot {
@@ -819,10 +1009,10 @@
         margin-bottom: 14px;
         padding: 13px 14px;
         border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--summary-border);
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)),
-          rgba(0, 0, 0, 0.24);
+          var(--summary-bg);
         color: var(--text-main);
         font: inherit;
       }
@@ -866,10 +1056,10 @@
       }
 
       .utility-action-button--secondary {
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--summary-border);
         background:
           linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
-          rgba(12, 16, 23, 0.94);
+          var(--summary-bg);
         color: var(--text-main);
         box-shadow: 0 14px 22px rgba(0, 0, 0, 0.28);
       }
@@ -910,7 +1100,42 @@
         border-color: rgba(85, 213, 141, 0.16);
         background:
           linear-gradient(180deg, rgba(85, 213, 141, 0.05), transparent 72%),
-          rgba(0, 0, 0, 0.22);
+          var(--card-bg);
+      }
+
+      .theme-card {
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .theme-grid {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .theme-button {
+        padding: 12px 14px;
+        border-radius: 16px;
+        border: 1px solid var(--theme-chip-border);
+        background: var(--theme-chip-bg);
+        color: var(--text-main);
+        font: inherit;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        cursor: pointer;
+        transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+      }
+
+      .theme-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .theme-button.is-active {
+        border-color: rgba(255, 140, 66, 0.55);
+        box-shadow:
+          0 0 0 1px rgba(255, 140, 66, 0.18),
+          0 12px 22px rgba(0, 0, 0, 0.14);
+        color: var(--accent);
       }
 
       .init-button:disabled,
@@ -937,8 +1162,8 @@
       .chain-node {
         padding: 10px 12px;
         border-radius: 14px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: var(--summary-bg);
+        border: 1px solid var(--summary-border);
         font-size: 0.92rem;
       }
 
@@ -966,8 +1191,8 @@
         gap: 12px;
         padding: 10px 12px;
         border-radius: 14px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: var(--summary-bg);
+        border: 1px solid var(--summary-border);
       }
 
       .shortcut-item span {
@@ -983,7 +1208,7 @@
         font-family: "SFMono-Regular", Consolas, monospace;
         font-size: 0.82rem;
         font-weight: 700;
-        color: #ffd5b8;
+        color: var(--accent-contrast);
         background: rgba(255, 140, 66, 0.14);
         border: 1px solid rgba(255, 140, 66, 0.2);
       }
@@ -1026,13 +1251,25 @@
           padding: 22px;
         }
 
-        .pedalboard {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
+        .header,
+        .app-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stage-column {
+          order: -1;
+        }
+
+        .control-rail {
+          order: 1;
+          position: static;
         }
       }
 
       @media (max-width: 980px) {
-        .utility-grid {
+        .info-grid,
+        .theme-grid,
+        .shortcut-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -1063,8 +1300,8 @@
           width: min(220px, 100%);
         }
 
-        .shortcut-grid {
-          grid-template-columns: 1fr;
+        .summary-strip {
+          gap: 8px;
         }
       }
 
@@ -1087,6 +1324,10 @@
             0 12px 28px rgba(0, 0, 0, 0.32);
         }
 
+        .control-rail {
+          position: static;
+        }
+
         .scope-screen {
           min-height: 180px;
         }
@@ -1101,38 +1342,252 @@
       }
     </style>
   </head>
-  <body>
+  <body data-theme="midnight">
     <main class="app">
       <section class="header">
-        <div class="title-group">
-          <h1>CRAAIIGBORED</h1>
-          <p>
-            A chaotic-good browser guitar rig: initialize your interface or mic
-            input, push it through overdrive and delay, feed it into a cabinet
-            simulator, watch the waveform in real time, and capture loops or
-            finished takes from one installable page.
-          </p>
-        </div>
-        <div class="status" aria-live="polite">
-          <span class="status-label">Audio Status</span>
-          <div id="statusText" class="status-text">Waiting for initialization.</div>
-        </div>
-      </section>
-
-      <section class="scope-rack" aria-label="Oscilloscope display">
-        <div class="scope-header">
-          <h2 class="scope-title">Output Oscilloscope</h2>
-          <div class="scope-badges">
-            <span id="scopeMode" class="scope-badge">Standby</span>
-            <span class="scope-badge scope-badge--live">Time Domain</span>
+        <section class="hero-panel">
+          <div class="title-group">
+            <p class="hero-kicker">Installable Web Audio Rig</p>
+            <h1>CRAAIIGBORED</h1>
+            <p>
+              A one-page pedalboard for bass or guitar: tune, shape the live
+              chain, loop it, record it, and keep the whole thing close at hand
+              without hunting through a wall of controls.
+            </p>
           </div>
-        </div>
-        <div class="scope-screen">
-          <canvas id="scopeCanvas" aria-label="Real-time waveform visualizer"></canvas>
-        </div>
+          <div class="summary-strip" aria-label="Core features">
+            <span class="summary-pill">Live Input</span>
+            <span class="summary-pill">Looper</span>
+            <span class="summary-pill">Recorder</span>
+            <span class="summary-pill">MIDI</span>
+            <span class="summary-pill">PWA</span>
+            <span class="summary-pill">Offline Ready</span>
+          </div>
+        </section>
+
+        <section class="header-side">
+          <div class="status status--spotlight" aria-live="polite">
+            <span class="status-label">Audio Status</span>
+            <div id="statusText" class="status-text">Waiting for initialization.</div>
+          </div>
+          <div class="status status--secondary">
+            <span class="status-label">Workflow</span>
+            <div class="status-text">
+              Setup lives in the left rail. Play on the stage. Save, record, and
+              trigger shortcuts from the session cards.
+            </div>
+          </div>
+        </section>
       </section>
 
-      <section class="pedalboard">
+      <section class="app-grid">
+        <aside class="control-rail" aria-label="Session controls">
+          <section class="control-group">
+            <p class="group-heading">Setup</p>
+
+            <section class="control-card safety-card">
+              <h2>Safety Check</h2>
+              <p class="safety-note">
+                Monitoring a live mic through speakers can create an immediate
+                feedback loop. Use headphones or a dedicated audio interface before
+                enabling the audio engine.
+              </p>
+              <div class="safety-check">
+                <input id="safetyConfirm" type="checkbox" />
+                <label for="safetyConfirm">
+                  I am using headphones or a proper audio interface, and I am ready
+                  to monitor live input safely.
+                </label>
+              </div>
+            </section>
+
+            <section class="control-card">
+              <h2>Audio Engine</h2>
+              <p>
+                Create the <code>AudioContext</code>, request live input with
+                <code>getUserMedia</code>, and arm the stage for playback.
+              </p>
+              <button id="initializeButton" class="init-button" type="button" disabled>
+                Initialize Audio
+              </button>
+            </section>
+
+            <section class="control-card theme-card">
+              <h2>Themes</h2>
+              <p class="hint">
+                Swap the app between darker stage looks, a light studio view, and
+                a few alternate vibes without touching the audio graph.
+              </p>
+              <div class="theme-grid" role="group" aria-label="Theme selection">
+                <button class="theme-button" type="button" data-theme-choice="midnight">
+                  Midnight
+                </button>
+                <button class="theme-button" type="button" data-theme-choice="light">
+                  Studio Light
+                </button>
+                <button class="theme-button" type="button" data-theme-choice="ember">
+                  Ember
+                </button>
+                <button class="theme-button" type="button" data-theme-choice="seafoam">
+                  Seafoam
+                </button>
+              </div>
+            </section>
+          </section>
+
+          <section class="control-group">
+            <p class="group-heading">Control</p>
+
+            <section class="control-card performance-card">
+              <h2>Low Latency</h2>
+              <div class="midi-status-row">
+                <div id="performanceStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+                <div id="performanceStatusText" class="midi-status-text">
+                  Full rig mode. Spring reverb, cab sim, and scope are active.
+                </div>
+              </div>
+              <p class="hint">
+                Trim the heaviest live-processing load for tighter monitoring by
+                pausing the oscilloscope, temporarily lifting the spring reverb and
+                cab sim, and reducing waveshaper oversampling.
+              </p>
+              <button
+                id="lowLatencyButton"
+                class="utility-action-button utility-action-button--secondary"
+                type="button"
+              >
+                Low Latency Off
+              </button>
+            </section>
+
+            <section class="control-card turbo-card">
+              <h2>iPad Turbo</h2>
+              <div class="midi-status-row">
+                <div id="turboStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+                <div id="turboStatusText" class="midi-status-text">
+                  Turbo is standing by for a faster touch-first feel.
+                </div>
+              </div>
+              <p class="hint">
+                Sharpens stomp and slider response, nudges the mobile defaults a bit
+                hotter, and trims just enough DSP overhead to keep the board feeling quick.
+              </p>
+              <button
+                id="turboButton"
+                class="utility-action-button utility-action-button--secondary"
+                type="button"
+              >
+                Turbo Off
+              </button>
+            </section>
+
+            <section class="control-card">
+              <h2>Keyboard Control</h2>
+              <p class="hint">
+                Shortcuts work when the page itself is focused. They stay out of the
+                way while you are typing or using a focused control.
+              </p>
+              <div class="shortcut-grid" aria-label="Keyboard shortcuts">
+                <div class="shortcut-item"><span>Initialize Audio</span><span class="shortcut-key">I</span></div>
+                <div class="shortcut-item"><span>Tuner Mute</span><span class="shortcut-key">T</span></div>
+                <div class="shortcut-item"><span>Overdrive</span><span class="shortcut-key">1</span></div>
+                <div class="shortcut-item"><span>Chorus</span><span class="shortcut-key">2</span></div>
+                <div class="shortcut-item"><span>Delay</span><span class="shortcut-key">3</span></div>
+                <div class="shortcut-item"><span>Spring Reverb</span><span class="shortcut-key">4</span></div>
+                <div class="shortcut-item"><span>Cab Sim</span><span class="shortcut-key">5</span></div>
+                <div class="shortcut-item"><span>Looper Record</span><span class="shortcut-key">R</span></div>
+                <div class="shortcut-item"><span>Looper Play / Stop</span><span class="shortcut-key">Space</span></div>
+                <div class="shortcut-item"><span>Low Latency</span><span class="shortcut-key">L</span></div>
+                <div class="shortcut-item"><span>Turbo</span><span class="shortcut-key">U</span></div>
+                <div class="shortcut-item"><span>Mix Recorder</span><span class="shortcut-key">M</span></div>
+              </div>
+            </section>
+
+            <section class="control-card midi-card">
+              <h2>MIDI Control</h2>
+              <div class="midi-status-row">
+                <div id="midiStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+                <div id="midiStatusText" class="midi-status-text">Checking Web MIDI support…</div>
+              </div>
+              <p id="midiHint" class="hint">
+                Enable MIDI Learn, then click Tuner Mute, Overdrive Bypass, Chorus
+                Bypass, Delay Bypass, Spring Reverb Bypass, Looper Record, or
+                Looper Play/Stop to arm that stomp for the next MIDI Note On or
+                high-value CC message.
+              </p>
+              <button id="midiLearnButton" class="midi-learn-button" type="button">
+                MIDI Learn Off
+              </button>
+            </section>
+          </section>
+
+          <section class="control-group">
+            <p class="group-heading">Session</p>
+
+            <section class="control-card">
+              <h2>Preset Manager</h2>
+              <p class="hint">
+                Save the current slider positions and pedal bypass states into your
+                browser, then load them back into the live graph whenever you want.
+              </p>
+              <select id="presetSelect" class="preset-select" aria-label="Preset slot">
+                <option value="A">Preset A</option>
+                <option value="B">Preset B</option>
+                <option value="C">Preset C</option>
+              </select>
+              <div class="preset-button-row">
+                <button id="savePresetButton" class="utility-action-button" type="button">
+                  Save Preset
+                </button>
+                <button id="loadPresetButton" class="utility-action-button" type="button">
+                  Load Preset
+                </button>
+              </div>
+            </section>
+
+            <section class="control-card recorder-card">
+              <h2>Output Recorder</h2>
+              <div class="midi-status-row">
+                <div id="recordingStatusDot" class="midi-status-dot" aria-hidden="true"></div>
+                <div id="recordingStatusText" class="midi-status-text">
+                  Waiting for audio engine.
+                </div>
+              </div>
+              <p class="hint">
+                Capture the final rig output after pedals, cab sim, loops, and
+                master level. Download as WAV for broad compatibility.
+              </p>
+              <div class="recording-actions">
+                <button
+                  id="recordMixButton"
+                  class="utility-action-button utility-action-button--secondary"
+                  type="button"
+                >
+                  Start Capture
+                </button>
+                <button id="downloadMixButton" class="utility-action-button" type="button" disabled>
+                  Download WAV
+                </button>
+              </div>
+            </section>
+          </section>
+        </aside>
+
+        <section class="stage-column">
+          <section class="scope-rack" aria-label="Oscilloscope display">
+            <div class="scope-header">
+              <h2 class="scope-title">Output Oscilloscope</h2>
+              <div class="scope-badges">
+                <span id="scopeMode" class="scope-badge">Standby</span>
+                <span class="scope-badge scope-badge--live">Time Domain</span>
+              </div>
+            </div>
+            <div class="scope-screen">
+              <canvas id="scopeCanvas" aria-label="Real-time waveform visualizer"></canvas>
+            </div>
+          </section>
+
+          <section class="pedalboard">
         <article class="pedal pedal--tuner" aria-label="Tuner pedal">
           <p class="pedal-brand">CRAAIIGBORED</p>
           <h2 class="pedal-name">Pitch Guard</h2>
@@ -1443,206 +1898,50 @@
             <span id="cabCaption" class="stomp-caption">Awaiting Audio</span>
           </div>
         </article>
-      </section>
+          </section>
 
-      <section class="utility-grid">
-        <section class="control-card safety-card">
-          <h2>Safety Check</h2>
-          <p class="safety-note">
-            Monitoring a live mic through speakers can create an immediate
-            feedback loop. Use headphones or a dedicated audio interface before
-            enabling the audio engine.
-          </p>
-          <div class="safety-check">
-            <input id="safetyConfirm" type="checkbox" />
-            <label for="safetyConfirm">
-              I am using headphones or a proper audio interface, and I am ready
-              to monitor live input safely.
-            </label>
-          </div>
-        </section>
+          <section class="info-grid">
+            <section class="control-card">
+              <h2>Signal Chain</h2>
+              <div class="signal-chain" aria-label="Current signal chain">
+                <span class="chain-node">Input</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Tuner</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Overdrive</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Chorus</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Delay</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Spring Reverb</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Loop Tap</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Cab Sim</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Level</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Scope / Recorder Tap</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-node">Speakers</span>
+              </div>
+            </section>
 
-        <section class="control-card">
-          <h2>Audio Engine</h2>
-          <p>
-            Click once to create the <code>AudioContext</code>, request live
-            input with <code>getUserMedia</code>, start the visualizer, and arm
-            the pedalboard.
-          </p>
-          <button id="initializeButton" class="init-button" type="button" disabled>
-            Initialize Audio
-          </button>
-        </section>
-
-        <section class="control-card performance-card">
-          <h2>Low Latency</h2>
-          <div class="midi-status-row">
-            <div id="performanceStatusDot" class="midi-status-dot" aria-hidden="true"></div>
-            <div id="performanceStatusText" class="midi-status-text">
-              Full rig mode. Spring reverb, cab sim, and scope are active.
-            </div>
-          </div>
-          <p class="hint">
-            Trims the heaviest live-processing load for tighter monitoring by
-            pausing the oscilloscope, temporarily lifting the spring reverb and
-            cab sim, and reducing waveshaper oversampling.
-          </p>
-          <button
-            id="lowLatencyButton"
-            class="utility-action-button utility-action-button--secondary"
-            type="button"
-          >
-            Low Latency Off
-          </button>
-        </section>
-
-        <section class="control-card turbo-card">
-          <h2>iPad Turbo</h2>
-          <div class="midi-status-row">
-            <div id="turboStatusDot" class="midi-status-dot" aria-hidden="true"></div>
-            <div id="turboStatusText" class="midi-status-text">
-              Turbo is standing by for a faster touch-first feel.
-            </div>
-          </div>
-          <p class="hint">
-            Sharpens stomp and slider response, nudges the mobile defaults a bit
-            hotter, and trims just enough DSP overhead to keep the board feeling quick.
-          </p>
-          <button
-            id="turboButton"
-            class="utility-action-button utility-action-button--secondary"
-            type="button"
-          >
-            Turbo Off
-          </button>
-        </section>
-
-        <section class="control-card">
-          <h2>Keyboard Control</h2>
-          <p class="hint">
-            Shortcuts work when the page itself is focused. They stay out of the
-            way while you are typing or using a focused control.
-          </p>
-          <div class="shortcut-grid" aria-label="Keyboard shortcuts">
-            <div class="shortcut-item"><span>Initialize Audio</span><span class="shortcut-key">I</span></div>
-            <div class="shortcut-item"><span>Tuner Mute</span><span class="shortcut-key">T</span></div>
-            <div class="shortcut-item"><span>Overdrive</span><span class="shortcut-key">1</span></div>
-            <div class="shortcut-item"><span>Chorus</span><span class="shortcut-key">2</span></div>
-            <div class="shortcut-item"><span>Delay</span><span class="shortcut-key">3</span></div>
-            <div class="shortcut-item"><span>Spring Reverb</span><span class="shortcut-key">4</span></div>
-            <div class="shortcut-item"><span>Cab Sim</span><span class="shortcut-key">5</span></div>
-            <div class="shortcut-item"><span>Looper Record</span><span class="shortcut-key">R</span></div>
-            <div class="shortcut-item"><span>Looper Play / Stop</span><span class="shortcut-key">Space</span></div>
-            <div class="shortcut-item"><span>Low Latency</span><span class="shortcut-key">L</span></div>
-            <div class="shortcut-item"><span>Turbo</span><span class="shortcut-key">U</span></div>
-            <div class="shortcut-item"><span>Mix Recorder</span><span class="shortcut-key">M</span></div>
-          </div>
-        </section>
-
-        <section class="control-card midi-card">
-          <h2>MIDI Control</h2>
-          <div class="midi-status-row">
-            <div id="midiStatusDot" class="midi-status-dot" aria-hidden="true"></div>
-            <div id="midiStatusText" class="midi-status-text">Checking Web MIDI support…</div>
-          </div>
-          <p id="midiHint" class="hint">
-            Enable MIDI Learn, then click Tuner Mute, Overdrive Bypass, Chorus
-            Bypass, Delay Bypass, Spring Reverb Bypass, Looper Record, or
-            Looper Play/Stop to arm that stomp for the next MIDI Note On or
-            high-value CC message.
-          </p>
-          <button id="midiLearnButton" class="midi-learn-button" type="button">
-            MIDI Learn Off
-          </button>
-        </section>
-
-        <section class="control-card">
-          <h2>Preset Manager</h2>
-          <p class="hint">
-            Save the current slider positions and pedal bypass states into your
-            browser, then load them back into the live graph whenever you want.
-          </p>
-          <select id="presetSelect" class="preset-select" aria-label="Preset slot">
-            <option value="A">Preset A</option>
-            <option value="B">Preset B</option>
-            <option value="C">Preset C</option>
-          </select>
-          <div class="preset-button-row">
-            <button id="savePresetButton" class="utility-action-button" type="button">
-              Save Preset
-            </button>
-            <button id="loadPresetButton" class="utility-action-button" type="button">
-              Load Preset
-            </button>
-          </div>
-        </section>
-
-        <section class="control-card recorder-card">
-          <h2>Output Recorder</h2>
-          <div class="midi-status-row">
-            <div id="recordingStatusDot" class="midi-status-dot" aria-hidden="true"></div>
-            <div id="recordingStatusText" class="midi-status-text">
-              Waiting for audio engine.
-            </div>
-          </div>
-          <p class="hint">
-            Captures the final rig output after pedals, cab sim, loops, and
-            master level. Downloads as WAV for broad compatibility and easy
-            archiving.
-          </p>
-          <div class="recording-actions">
-            <button
-              id="recordMixButton"
-              class="utility-action-button utility-action-button--secondary"
-              type="button"
-            >
-              Start Capture
-            </button>
-            <button id="downloadMixButton" class="utility-action-button" type="button" disabled>
-              Download WAV
-            </button>
-          </div>
-        </section>
-
-        <section class="control-card">
-          <h2>Signal Chain</h2>
-          <div class="signal-chain" aria-label="Current signal chain">
-            <span class="chain-node">Input</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Tuner</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Overdrive</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Chorus</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Delay</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Spring Reverb</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Loop Tap</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Cab Sim</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Level</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Scope / Recorder Tap</span>
-            <span class="chain-arrow">→</span>
-            <span class="chain-node">Speakers</span>
-          </div>
-        </section>
-
-        <section class="control-card">
-          <h2>How It Works</h2>
-          <p class="hint">
-            The tuner autocorrelates the live input and can mute the whole rig
-            while you tune. Overdrive uses asymmetric clipping plus pre/post EQ
-            to lean into a raw 90s grunge voice. Chorus modulates a short delay
-            line with an LFO, delay adds repeats with a capped feedback loop,
-            and the spring reverb generates a metallic synthetic impulse
-            response before the looper tap. The cabinet simulator then shapes
-            the post-loop mix before master level, the oscilloscope, and WAV
-            output recording.
-          </p>
+            <section class="control-card">
+              <h2>How It Works</h2>
+              <p class="hint">
+                The tuner autocorrelates the live input and can mute the whole rig
+                while you tune. Overdrive uses asymmetric clipping plus pre/post EQ
+                to lean into a raw 90s grunge voice. Chorus modulates a short delay
+                line with an LFO, delay adds repeats with a capped feedback loop,
+                and the spring reverb generates a metallic synthetic impulse
+                response before the looper tap. The cabinet simulator then shapes
+                the post-loop mix before master level, the oscilloscope, and WAV
+                output recording.
+              </p>
+            </section>
+          </section>
         </section>
       </section>
     </main>
@@ -1685,6 +1984,8 @@
       const downloadMixButton = document.getElementById("downloadMixButton");
       const recordingStatusDot = document.getElementById("recordingStatusDot");
       const recordingStatusText = document.getElementById("recordingStatusText");
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      const themeButtons = Array.from(document.querySelectorAll("[data-theme-choice]"));
       const scopeCanvas = document.getElementById("scopeCanvas");
       const scopeMode = document.getElementById("scopeMode");
 
@@ -1861,6 +2162,21 @@
         ["KeyU", { button: turboButton, label: "Turbo" }],
         ["KeyM", { button: recordMixButton, label: "Mix Recorder" }]
       ]);
+      const themeStorageKey = "craaiigbored_theme";
+      const themeConfig = {
+        midnight: {
+          themeColor: "#ff8c42"
+        },
+        light: {
+          themeColor: "#f3efe6"
+        },
+        ember: {
+          themeColor: "#ff7e47"
+        },
+        seafoam: {
+          themeColor: "#57d8b9"
+        }
+      };
 
       const standardGuitarNotes = [
         {
@@ -1897,6 +2213,45 @@
 
       function setStatus(message) {
         statusText.textContent = message;
+      }
+
+      function updateThemeButtons(activeTheme) {
+        themeButtons.forEach((button) => {
+          button.classList.toggle(
+            "is-active",
+            button.dataset.themeChoice === activeTheme
+          );
+        });
+      }
+
+      function applyTheme(themeName, persist = true) {
+        const nextTheme = themeConfig[themeName] ? themeName : "midnight";
+        document.body.dataset.theme = nextTheme;
+        updateThemeButtons(nextTheme);
+
+        if (themeColorMeta && themeConfig[nextTheme]?.themeColor) {
+          themeColorMeta.setAttribute("content", themeConfig[nextTheme].themeColor);
+        }
+
+        if (!persist) {
+          return;
+        }
+
+        try {
+          localStorage.setItem(themeStorageKey, nextTheme);
+        } catch (error) {
+          console.debug("Theme preference save skipped:", error);
+        }
+      }
+
+      function loadSavedTheme() {
+        try {
+          const savedTheme = localStorage.getItem(themeStorageKey);
+          return savedTheme && themeConfig[savedTheme] ? savedTheme : "midnight";
+        } catch (error) {
+          console.debug("Theme preference load skipped:", error);
+          return "midnight";
+        }
       }
 
       function getEffectiveScopeFrameRate() {
@@ -4286,6 +4641,12 @@
         void loadSelectedPreset();
       });
 
+      themeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          applyTheme(button.dataset.themeChoice || "midnight");
+        });
+      });
+
       lowLatencyButton.addEventListener("click", async () => {
         if (audioContext) {
           await ensureAudioRunning();
@@ -4541,6 +4902,7 @@
         stopTuner();
       });
 
+      applyTheme(loadSavedTheme(), false);
       applyTouchReadyDefaults();
       drawIdleOscilloscope();
       updatePerformanceUI();
