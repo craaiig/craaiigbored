@@ -953,6 +953,41 @@
         line-height: 1.5;
       }
 
+      .shortcut-grid {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .shortcut-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .shortcut-item span {
+        color: var(--text-main);
+        font-size: 0.9rem;
+      }
+
+      .shortcut-key {
+        min-width: 48px;
+        padding: 7px 10px;
+        border-radius: 12px;
+        text-align: center;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #ffd5b8;
+        background: rgba(255, 140, 66, 0.14);
+        border: 1px solid rgba(255, 140, 66, 0.2);
+      }
+
       .recording-actions {
         display: grid;
         gap: 12px;
@@ -1026,6 +1061,10 @@
 
         .stomp-button {
           width: min(220px, 100%);
+        }
+
+        .shortcut-grid {
+          grid-template-columns: 1fr;
         }
       }
 
@@ -1478,6 +1517,28 @@
           </button>
         </section>
 
+        <section class="control-card">
+          <h2>Keyboard Control</h2>
+          <p class="hint">
+            Shortcuts work when the page itself is focused. They stay out of the
+            way while you are typing or using a focused control.
+          </p>
+          <div class="shortcut-grid" aria-label="Keyboard shortcuts">
+            <div class="shortcut-item"><span>Initialize Audio</span><span class="shortcut-key">I</span></div>
+            <div class="shortcut-item"><span>Tuner Mute</span><span class="shortcut-key">T</span></div>
+            <div class="shortcut-item"><span>Overdrive</span><span class="shortcut-key">1</span></div>
+            <div class="shortcut-item"><span>Chorus</span><span class="shortcut-key">2</span></div>
+            <div class="shortcut-item"><span>Delay</span><span class="shortcut-key">3</span></div>
+            <div class="shortcut-item"><span>Spring Reverb</span><span class="shortcut-key">4</span></div>
+            <div class="shortcut-item"><span>Cab Sim</span><span class="shortcut-key">5</span></div>
+            <div class="shortcut-item"><span>Looper Record</span><span class="shortcut-key">R</span></div>
+            <div class="shortcut-item"><span>Looper Play / Stop</span><span class="shortcut-key">Space</span></div>
+            <div class="shortcut-item"><span>Low Latency</span><span class="shortcut-key">L</span></div>
+            <div class="shortcut-item"><span>Turbo</span><span class="shortcut-key">U</span></div>
+            <div class="shortcut-item"><span>Mix Recorder</span><span class="shortcut-key">M</span></div>
+          </div>
+        </section>
+
         <section class="control-card midi-card">
           <h2>MIDI Control</h2>
           <div class="midi-status-row">
@@ -1786,6 +1847,20 @@
         ["recordButton", { button: recordButton, label: "Looper Record" }],
         ["playStopButton", { button: playStopButton, label: "Looper Play / Stop" }]
       ]);
+      const keyboardShortcuts = new Map([
+        ["KeyI", { button: initializeButton, label: "Initialize Audio" }],
+        ["KeyT", { button: tunerMuteButton, label: "Tuner Mute" }],
+        ["Digit1", { button: bypassButton, label: "Overdrive Bypass" }],
+        ["Digit2", { button: chorusBypassButton, label: "Chorus Bypass" }],
+        ["Digit3", { button: delayBypassButton, label: "Delay Bypass" }],
+        ["Digit4", { button: reverbBypassButton, label: "Spring Reverb Bypass" }],
+        ["Digit5", { button: cabBypassButton, label: "Cab Sim Bypass" }],
+        ["KeyR", { button: recordButton, label: "Looper Record" }],
+        ["Space", { button: playStopButton, label: "Looper Play / Stop" }],
+        ["KeyL", { button: lowLatencyButton, label: "Low Latency" }],
+        ["KeyU", { button: turboButton, label: "Turbo" }],
+        ["KeyM", { button: recordMixButton, label: "Mix Recorder" }]
+      ]);
 
       const standardGuitarNotes = [
         {
@@ -2065,6 +2140,54 @@
       function setVirtualButtonState(button, disabled) {
         button.classList.toggle("is-disabled", disabled);
         button.setAttribute("aria-disabled", disabled ? "true" : "false");
+      }
+
+      function isTypingIntoControl() {
+        const activeElement = document.activeElement;
+
+        if (!activeElement) {
+          return false;
+        }
+
+        const tagName = activeElement.tagName;
+        return (
+          activeElement.isContentEditable ||
+          tagName === "INPUT" ||
+          tagName === "TEXTAREA" ||
+          tagName === "SELECT"
+        );
+      }
+
+      function triggerShortcutButton(button) {
+        if (
+          !button ||
+          button.disabled ||
+          button.getAttribute("aria-disabled") === "true"
+        ) {
+          return false;
+        }
+
+        button.click();
+        return true;
+      }
+
+      function handleKeyboardShortcuts(event) {
+        if (event.repeat || event.altKey || event.ctrlKey || event.metaKey) {
+          return;
+        }
+
+        if (isTypingIntoControl()) {
+          return;
+        }
+
+        const binding = keyboardShortcuts.get(event.code);
+
+        if (!binding) {
+          return;
+        }
+
+        event.preventDefault();
+        triggerShortcutButton(binding.button);
       }
 
       function getConnectedMidiInputs() {
@@ -4379,6 +4502,8 @@
 
         updateLooperUI();
       });
+
+      window.addEventListener("keydown", handleKeyboardShortcuts);
 
       window.addEventListener("resize", () => {
         syncScopeCanvasSize();
