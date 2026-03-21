@@ -1461,7 +1461,7 @@
             </section>
 
             <section class="control-card turbo-card">
-              <h2>iPad Turbo</h2>
+              <h2>Turbo Mode</h2>
               <div class="midi-status-row">
                 <div id="turboStatusDot" class="midi-status-dot" aria-hidden="true"></div>
                 <div id="turboStatusText" class="midi-status-text">
@@ -2049,6 +2049,8 @@
       const isIOSDevice =
         /iPad|iPhone|iPod/.test(userAgent) ||
         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isAndroidDevice = /Android/i.test(userAgent);
+      const isPixelDevice = /\bPixel\b/i.test(userAgent);
       const isTouchDevice =
         Boolean(window.matchMedia?.("(pointer: coarse)").matches) ||
         navigator.maxTouchPoints > 0;
@@ -2058,9 +2060,24 @@
         (isTouchDevice &&
           typeof navigator.hardwareConcurrency === "number" &&
           navigator.hardwareConcurrency <= 6);
-      const maxScopeFrameRate = isPerformanceConstrainedDevice ? 30 : 60;
-      const maxTunerFrameRate = isPerformanceConstrainedDevice ? 20 : 30;
-      const maxRenderDevicePixelRatio = isPerformanceConstrainedDevice ? 1.5 : 2;
+      const isAndroidFastPathDevice = isAndroidDevice && isTouchDevice;
+      const shouldDefaultTurboMode =
+        isPerformanceConstrainedDevice || isAndroidFastPathDevice;
+      const maxScopeFrameRate = isPerformanceConstrainedDevice
+        ? 30
+        : isAndroidFastPathDevice
+          ? 42
+          : 60;
+      const maxTunerFrameRate = isPerformanceConstrainedDevice
+        ? 20
+        : isAndroidFastPathDevice
+          ? 24
+          : 30;
+      const maxRenderDevicePixelRatio = isPerformanceConstrainedDevice
+        ? 1.5
+        : isAndroidFastPathDevice
+          ? 1.7
+          : 2;
 
       let audioContext;
       let mediaStream;
@@ -2108,6 +2125,8 @@
       let recordingAutoStopId = 0;
       let cabIrUpdateToken = 0;
       let springIrUpdateToken = 0;
+      let pendingCabIrUpdateId = 0;
+      let pendingSpringIrUpdateId = 0;
       let presetSaveResetId = 0;
       let mixRecorder;
       let mixRecordedChunks = [];
@@ -2130,7 +2149,7 @@
       let isReverbBypassed = false;
       let isCabBypassed = false;
       let isLowLatencyMode = false;
-      let isTurboMode = isPerformanceConstrainedDevice;
+      let isTurboMode = shouldDefaultTurboMode;
 
       const midiSupported = typeof navigator.requestMIDIAccess === "function";
       let midiAccess;
@@ -2333,6 +2352,113 @@
         return isPerformanceConstrainedDevice || isTurboMode;
       }
 
+      function getHeavyIrUpdateDelay() {
+        if (isAndroidFastPathDevice) {
+          return 140;
+        }
+
+        if (isTurboMode) {
+          return 110;
+        }
+
+        return 0;
+      }
+
+      function updateReverbDecayDisplay() {
+        reverbDecayValue.textContent = formatDecayTime(Number(reverbDecayControl.value));
+      }
+
+      function updateCabControlDisplays() {
+        cabResonanceValue.textContent = formatPercent(Number(cabResonanceControl.value));
+        cabPresenceValue.textContent = formatPercent(Number(cabPresenceControl.value));
+      }
+
+      function clearPendingIrRefreshes() {
+        if (pendingSpringIrUpdateId) {
+          window.clearTimeout(pendingSpringIrUpdateId);
+          pendingSpringIrUpdateId = 0;
+        }
+
+        if (pendingCabIrUpdateId) {
+          window.clearTimeout(pendingCabIrUpdateId);
+          pendingCabIrUpdateId = 0;
+        }
+      }
+
+      function scheduleSpringReverbImpulseResponseUpdate(immediate = false) {
+        updateReverbDecayDisplay();
+
+        if (!audioContext) {
+          updatePedalUI();
+          return;
+        }
+
+        if (pendingSpringIrUpdateId) {
+          window.clearTimeout(pendingSpringIrUpdateId);
+          pendingSpringIrUpdateId = 0;
+        }
+
+        const delay = immediate ? 0 : getHeavyIrUpdateDelay();
+        const runUpdate = () => {
+          pendingSpringIrUpdateId = 0;
+          void updateSpringReverbImpulseResponse();
+        };
+
+        if (delay > 0) {
+          pendingSpringIrUpdateId = window.setTimeout(runUpdate, delay);
+        } else {
+          runUpdate();
+        }
+      }
+
+      function scheduleCabImpulseResponseUpdate(immediate = false) {
+        updateCabControlDisplays();
+
+        if (!audioContext) {
+          updatePedalUI();
+          return;
+        }
+
+        if (pendingCabIrUpdateId) {
+          window.clearTimeout(pendingCabIrUpdateId);
+          pendingCabIrUpdateId = 0;
+        }
+
+        const delay = immediate ? 0 : getHeavyIrUpdateDelay();
+        const runUpdate = () => {
+          pendingCabIrUpdateId = 0;
+          void updateCabImpulseResponse();
+        };
+
+        if (delay > 0) {
+          pendingCabIrUpdateId = window.setTimeout(runUpdate, delay);
+        } else {
+          runUpdate();
+        }
+      }
+
+      function createIdentityImpulseResponse(context) {
+        const channelCount = Math.max(1, context.destination.channelCount || 2);
+        const impulse = context.createBuffer(channelCount, 1, context.sampleRate);
+
+        for (let channel = 0; channel < channelCount; channel += 1) {
+          impulse.getChannelData(channel)[0] = 1;
+        }
+
+        return impulse;
+      }
+
+      function warmHeavyEffectsInBackground() {
+        if (!audioContext) {
+          return;
+        }
+
+        window.setTimeout(() => {
+          scheduleSpringReverbImpulseResponseUpdate(true);
+          scheduleCabImpulseResponseUpdate(true);
+        }, isAndroidFastPathDevice ? 80 : 24);
+      }
+
       function applyTouchReadyDefaults() {
         if (!isPerformanceConstrainedDevice) {
           return;
@@ -2483,8 +2609,8 @@
         updateDelayTime();
         updateDelayFeedback();
         updateReverbMix();
-        await updateSpringReverbImpulseResponse();
-        await updateCabImpulseResponse();
+        scheduleSpringReverbImpulseResponseUpdate(true);
+        scheduleCabImpulseResponseUpdate(true);
         updateOutputLevel();
         rebuildAudioGraph();
         updatePedalUI();
@@ -2598,17 +2724,25 @@
 
         if (audioContext) {
           performanceStatusDot.classList.add("is-connected");
-          performanceStatusText.textContent = isPerformanceConstrainedDevice
-            ? isTurboMode
-              ? "Adaptive full rig mode with Turbo. Mobile-tuned scope, IRs, and control response are active."
-              : "Adaptive full rig mode. Mobile-tuned scope, IRs, and oversampling are active."
-            : "Full rig mode. Spring reverb, cab sim, and scope are active.";
+          performanceStatusText.textContent = isAndroidFastPathDevice
+            ? isPixelDevice
+              ? "Pixel full rig mode. Scope, IRs, and control response are tuned for Android headroom."
+              : "Android full rig mode. Scope, IRs, and control response are tuned for mobile headroom."
+            : isPerformanceConstrainedDevice
+              ? isTurboMode
+                ? "Adaptive full rig mode with Turbo. Mobile-tuned scope, IRs, and control response are active."
+                : "Adaptive full rig mode. Mobile-tuned scope, IRs, and oversampling are active."
+              : "Full rig mode. Spring reverb, cab sim, and scope are active.";
         } else {
-          performanceStatusText.textContent = isPerformanceConstrainedDevice
-            ? isTurboMode
-              ? "Adaptive full rig mode with Turbo is armed for this mobile device."
-              : "Adaptive full rig mode is armed for this mobile device."
-            : "Full rig mode. Spring reverb, cab sim, and scope will start on initialization.";
+          performanceStatusText.textContent = isAndroidFastPathDevice
+            ? isPixelDevice
+              ? "Pixel fast path is armed. Full rig mode will start with leaner scope and IR behavior."
+              : "Android fast path is armed. Full rig mode will start with leaner scope and IR behavior."
+            : isPerformanceConstrainedDevice
+              ? isTurboMode
+                ? "Adaptive full rig mode with Turbo is armed for this mobile device."
+                : "Adaptive full rig mode is armed for this mobile device."
+              : "Full rig mode. Spring reverb, cab sim, and scope will start on initialization.";
         }
       }
 
@@ -2623,14 +2757,20 @@
 
         if (isTurboMode) {
           turboStatusDot.classList.add("is-learning");
-          turboStatusText.textContent = isPerformanceConstrainedDevice
-            ? "Turbo is active. Touch response is tighter and the mobile rig is running hot."
-            : "Turbo is active. Control response is tighter and visuals are running leaner.";
+          turboStatusText.textContent = isAndroidFastPathDevice
+            ? isPixelDevice
+              ? "Pixel fast path is active. Touch response is tighter and the rig is running lean."
+              : "Android fast path is active. Touch response is tighter and the rig is running lean."
+            : isPerformanceConstrainedDevice
+              ? "Turbo is active. Touch response is tighter and the mobile rig is running hot."
+              : "Turbo is active. Control response is tighter and visuals are running leaner.";
         } else {
           turboStatusDot.classList.add("is-connected");
-          turboStatusText.textContent = isPerformanceConstrainedDevice
-            ? "Turbo is off. The adaptive mobile rig stays smooth, but less aggressive."
-            : "Turbo is off. The board is running at its normal feel.";
+          turboStatusText.textContent = isAndroidFastPathDevice
+            ? "Turbo is off. The board keeps its Android fast path, but with a softer touch."
+            : isPerformanceConstrainedDevice
+              ? "Turbo is off. The adaptive mobile rig stays smooth, but less aggressive."
+              : "Turbo is off. The board is running at its normal feel.";
         }
       }
 
@@ -3502,7 +3642,7 @@
 
       async function updateSpringReverbImpulseResponse() {
         const decayAmount = Number(reverbDecayControl.value);
-        reverbDecayValue.textContent = formatDecayTime(decayAmount);
+        updateReverbDecayDisplay();
 
         if (!reverbConvolverNode || !audioContext) {
           updatePedalUI();
@@ -3616,8 +3756,7 @@
       async function updateCabImpulseResponse() {
         const resonance = Number(cabResonanceControl.value);
         const presence = Number(cabPresenceControl.value);
-        cabResonanceValue.textContent = formatPercent(resonance);
-        cabPresenceValue.textContent = formatPercent(presence);
+        updateCabControlDisplays();
 
         if (!cabConvolverNode || !audioContext) {
           updatePedalUI();
@@ -4563,6 +4702,7 @@
           postEffectsNode.gain.value = 1;
           cabMixNode.gain.value = 1;
           cabConvolverNode.normalize = false;
+          cabConvolverNode.buffer = createIdentityImpulseResponse(audioContext);
           applyPerformanceMode();
 
           updateTunerMuteState();
@@ -4572,8 +4712,8 @@
           updateDelayTime();
           updateDelayFeedback();
           updateReverbMix();
-          await updateSpringReverbImpulseResponse();
-          await updateCabImpulseResponse();
+          updateReverbDecayDisplay();
+          updateCabControlDisplays();
           updateOutputLevel();
           rebuildAudioGraph();
           chorusLfoNode.start();
@@ -4583,12 +4723,17 @@
           }
 
           startTuner();
+          warmHeavyEffectsInBackground();
           initializeButton.disabled = true;
           initializeButton.textContent = "Audio Ready";
 
           setStatus(
             recorderSupported
-              ? isPerformanceConstrainedDevice
+              ? isAndroidFastPathDevice
+                ? isPixelDevice
+                  ? "Audio initialized. Pixel fast path is active, and the cab/reverb voicing is warming up in the background."
+                  : "Audio initialized. Android fast path is active, and the cab/reverb voicing is warming up in the background."
+                : isPerformanceConstrainedDevice
                 ? isTurboMode
                   ? "Audio initialized. Turbo mobile tuning is active for a lighter, faster, punchier rig."
                   : "Audio initialized. Adaptive mobile tuning is active for a lighter, faster rig."
@@ -4610,13 +4755,13 @@
       delayFeedbackControl.addEventListener("input", updateDelayFeedback);
       reverbMixControl.addEventListener("input", updateReverbMix);
       reverbDecayControl.addEventListener("input", () => {
-        void updateSpringReverbImpulseResponse();
+        scheduleSpringReverbImpulseResponseUpdate();
       });
       cabResonanceControl.addEventListener("input", () => {
-        void updateCabImpulseResponse();
+        scheduleCabImpulseResponseUpdate();
       });
       cabPresenceControl.addEventListener("input", () => {
-        void updateCabImpulseResponse();
+        scheduleCabImpulseResponseUpdate();
       });
 
       initializeButton.addEventListener("click", () => {
@@ -4684,8 +4829,8 @@
           updateDelayTime();
           updateDelayFeedback();
           updateReverbMix();
-          await updateSpringReverbImpulseResponse();
-          await updateCabImpulseResponse();
+          scheduleSpringReverbImpulseResponseUpdate(true);
+          scheduleCabImpulseResponseUpdate(true);
           updateOutputLevel();
           rebuildAudioGraph();
           updatePedalUI();
@@ -4695,8 +4840,8 @@
 
         setStatus(
           isTurboMode
-            ? "iPad Turbo engaged. Control response is tighter and the rig is trimmed for extra snap."
-            : "iPad Turbo disengaged. The board is back to its standard feel."
+            ? "Turbo mode engaged. Control response is tighter and the rig is trimmed for extra snap."
+            : "Turbo mode disengaged. The board is back to its standard feel."
         );
       });
 
@@ -4878,6 +5023,7 @@
 
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
+          clearPendingIrRefreshes();
           stopOscilloscope("BACKGROUND // PAUSED");
           stopTuner();
           return;
@@ -4899,6 +5045,7 @@
 
       window.addEventListener("beforeunload", () => {
         clearMixRecordingDownload();
+        clearPendingIrRefreshes();
         stopTuner();
       });
 
@@ -4914,8 +5061,8 @@
       updateDelayTime();
       updateDelayFeedback();
       updateReverbMix();
-      void updateSpringReverbImpulseResponse();
-      void updateCabImpulseResponse();
+      updateReverbDecayDisplay();
+      updateCabControlDisplays();
       updateOutputLevel();
       updatePedalUI();
       updateOutputRecorderUI();
